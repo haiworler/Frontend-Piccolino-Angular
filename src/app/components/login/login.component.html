@@ -1,0 +1,23 @@
+<form (submit)="handleLogin()" [formGroup]="reactiveForm" novalidate>
+    <div class="wrapper-login">
+        <section class="section-image"></section>
+        <section class="section-form">
+            <div class="wrapper-form">
+                <div class="container column-form box-login">
+                    <div class="container-image">
+                        <img src="assets/images/logo.ico" width="300">
+                    </div>
+                    <mat-form-field>
+                        <input matInput placeholder="Usuario" formControlName="username">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input type="password" matInput placeholder="Contraseña" formControlName="password">
+                    </mat-form-field>
+                    <button [disabled]="reactiveForm.invalid" [ngStyle]="{'disabled': reactiveForm.invalid}" mat-flat-button type="submit" color="primary">
+                        Iniciar Sesión
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+</form>

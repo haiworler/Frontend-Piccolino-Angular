@@ -1,0 +1,33 @@
+<div class="logo">
+    <a href="http://fundacionpiccolino.org/" class="simple-text">
+        <div class="logo-img">
+            <img src="/assets/img/logoP.png" />
+        </div>
+        Piccolino
+    </a>
+</div>
+<div class="sidebar-wrapper">
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+            <a class="nav-link" [routerLink]="[menuItem.path]">
+                <i class="material-icons">{{menuItem.icon}}</i>
+                <p>{{menuItem.title}}</p>
+            </a>
+        </li>
+    </ul>
+    <div *ngIf="isMobileMenu()">
+        <ul class="nav navbar-nav nav-mobile-menu">
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="material-icons">notifications</i>
+                    <p>
+                        <span class="d-lg-none d-md-block">Session</span>
+                    </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" (click)="logout()">Cerrar Session</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

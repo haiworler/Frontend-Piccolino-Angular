@@ -1,25 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import {LayoutModule} from '../layouts/components/layout.module';
+import { PersonComponent } from './person/person.component';
 
-import { FooterComponent } from './footer/footer.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+
 
 @NgModule({
+  declarations: [LoginComponent,PersonComponent],
   imports: [
     CommonModule,
-    RouterModule,
+    LayoutModule
   ],
-  declarations: [
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent
-  ],
-  exports: [
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent
-  ]
+ 
 })
 export class ComponentsModule { }

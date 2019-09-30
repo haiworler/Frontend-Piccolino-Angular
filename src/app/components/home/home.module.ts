@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../components/dashboard/dashboard.component';
-import {LayoutModule } from '../components/layout.module';
+import { HomeRoutes } from './home.routing';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { PersonComponent } from '../person/person.component';
+import {LayoutModule } from '../../layouts/components/layout.module';
 import {
   MatButtonModule,
   MatInputModule,
@@ -16,7 +17,7 @@ import {
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
+    RouterModule.forChild(HomeRoutes),
     FormsModule,
     MatButtonModule,
     MatRippleModule,
@@ -27,8 +28,9 @@ import {
     LayoutModule
   ],
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    PersonComponent,
   ]
 })
 
-export class AdminLayoutModule {}
+export class HomeModule {}

@@ -1,10 +1,7 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../components/dashboard/dashboard.component';
-import {LayoutModule } from '../components/layout.module';
 import {
   MatButtonModule,
   MatInputModule,
@@ -13,10 +10,18 @@ import {
   MatTooltipModule,
   MatSelectModule
 } from '@angular/material';
+
+
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardComponent } from './dashboard.component';
+
+
 @NgModule({
+  declarations: [DashboardComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(AdminLayoutRoutes),
+    DashboardRoutingModule,
+    RouterModule,
     FormsModule,
     MatButtonModule,
     MatRippleModule,
@@ -24,11 +29,6 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    LayoutModule
-  ],
-  declarations: [
-    DashboardComponent
   ]
 })
-
-export class AdminLayoutModule {}
+export class DashboardModule { }

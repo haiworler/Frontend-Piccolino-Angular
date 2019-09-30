@@ -19,7 +19,8 @@ const routes: Routes = [
         data: {
           extraParameter: 'dashboard'
         }
-      }, 
+      }
+      , 
       {
         path: 'person',
         loadChildren: () => import('./components/person/person.module').then(m => m.PersonModule),

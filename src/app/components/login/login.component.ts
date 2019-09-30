@@ -46,9 +46,9 @@ export class LoginComponent implements OnInit {
     const password = this.reactiveForm.get('password').value;
     this._authService.login(username, password).pipe(first()).subscribe((response: any) => {
       console.log('Respuesta', response);
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['deshboard']);
+      console.log('No hace nada');
     }, error => console.log("Error Lucho: ", error));
-    //this._authService.login(username, password).pipe(first()).subscribe(() => null);
   }
 
 }

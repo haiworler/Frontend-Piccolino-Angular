@@ -20,14 +20,22 @@ const routes: Routes = [
           extraParameter: 'dashboard'
         }
       }
-      , 
+      ,
       {
         path: 'person',
         loadChildren: () => import('./components/person/person.module').then(m => m.PersonModule),
         data: {
           extraParameter: 'person'
         }
+      },
+      {
+        path: 'headquarter',
+        loadChildren: () => import('./components/headquarters/headquarters.module').then(m => m.HeadquartersModule),
+        data: {
+          extraParameter: 'headquarter'
+        }
       }
+
     ]
   },
   {

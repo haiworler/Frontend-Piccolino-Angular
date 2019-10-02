@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -11,7 +11,7 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import {LoadingBarRouterModule} from '@ngx-loading-bar/router';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 
 
@@ -21,11 +21,12 @@ import { HomeComponent } from './components/home/home.component';
 // Interceptores
 import { JwtService } from './services/interceptors/jwt.service';
 import { ErrorsService } from './services/interceptors/errors.service';
-import { SidebarComponent} from '../app/layouts/components/sidebar/sidebar.component';
-import { NavbarComponent} from '../app/layouts/components/navbar/navbar.component';
-import { FooterComponent} from '../app/layouts/components/footer/footer.component';
+import { SidebarComponent } from '../app/layouts/components/sidebar/sidebar.component';
+import { NavbarComponent } from '../app/layouts/components/navbar/navbar.component';
+import { FooterComponent } from '../app/layouts/components/footer/footer.component';
 import { PagesLayoutComponent } from './layouts/pages-layout/pages-layout.component';
-import {LayoutModule} from '../app/layouts/components/layout.module';
+import { ModalComponent } from './components/shared/modal/modal.component';
+
 
 
 
@@ -39,27 +40,31 @@ import {LayoutModule} from '../app/layouts/components/layout.module';
     AppRoutingModule,
     HttpClientModule,
     LoadingBarRouterModule,
-    
+
   ],
+  entryComponents: [ModalComponent],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     HomeComponent,
-     SidebarComponent,
+    SidebarComponent,
     NavbarComponent,
     FooterComponent,
-    PagesLayoutComponent
-    
+    PagesLayoutComponent,
+    ModalComponent
 
   ],
   providers: [
-      {
-        provide: HTTP_INTERCEPTORS, useClass: JwtService, multi: true,
-      },
-      {
-        provide: HTTP_INTERCEPTORS, useClass: ErrorsService, multi: true,
-      }
+    {
+      provide: HTTP_INTERCEPTORS, useClass: JwtService, multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: ErrorsService, multi: true,
+    }
   ],
+  exports: [
+		ModalComponent
+	],
   bootstrap: [AppComponent],
 
 })

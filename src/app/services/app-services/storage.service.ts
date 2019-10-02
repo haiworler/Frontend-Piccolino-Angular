@@ -11,6 +11,7 @@ export class StorageService {
   watchStorage(): Observable<any> {
     return this.storage.asObservable();
   }
+  
 
   setItem(key: string, token: string) {
     localStorage.setItem(key, token);

@@ -6,6 +6,5 @@
 
 export const environment = {
   production: false,
-    scaURL: 'https://localhost/api/auth',
     UrlApi: 'http://localhost:3000/api'
 };

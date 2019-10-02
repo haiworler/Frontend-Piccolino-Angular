@@ -6,6 +6,7 @@ import { HomeRoutes } from './home.routing';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { PersonComponent } from '../person/person.component';
 import {LayoutModule } from '../../layouts/components/layout.module';
+
 import {
   MatButtonModule,
   MatInputModule,
@@ -14,6 +15,7 @@ import {
   MatTooltipModule,
   MatSelectModule
 } from '@angular/material';
+import { ComponentsModule } from '../components.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,11 +27,12 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    LayoutModule
+    LayoutModule,
+    ComponentsModule
   ],
   declarations: [
     DashboardComponent,
-    PersonComponent,
+    PersonComponent
   ]
 })
 

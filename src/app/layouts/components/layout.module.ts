@@ -16,7 +16,7 @@ import { ComponentsModule } from '../../components/components.module';
   declarations: [
     SidebarComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
   ],
   exports: [
     FooterComponent,

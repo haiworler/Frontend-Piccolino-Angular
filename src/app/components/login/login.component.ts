@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       console.log('Respuesta', response);
       this.router.navigate(['deshboard']);
       console.log('No hace nada');
-    }, error => console.log("Error Lucho: ", error));
+    }, error => console.log("Error Perro: ", error));
   }
 
 }

@@ -23,7 +23,9 @@ export class HeadquarterService {
 	
 
 	async search(data: any): Promise<any> {
-		return await this.http.get(`${environment.UrlApi}/headquarters/datatable`, { params: data }).toPromise();
+		//return await this.http.get(`${environment.UrlApi}/headquarters/datatable`, { params: data }).toPromise();
+		return await this.http.get(`${environment.UrlApi}/headquarter`, { params: data }).toPromise();
+
 	}
 
 	async create(data: any): Promise<any> {

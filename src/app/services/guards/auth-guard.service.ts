@@ -30,6 +30,8 @@ export class AuthGuardService implements CanActivate {
       return new Promise(resolve => {
         console.log('Soy EL Guardian Ingreso a la provemesa');
         if (this._authService.isAuthenticated()) {
+          this._storageService.setItem('token', localStorage.getItem('token'));
+
           console.log('Soy el Guardian Ingreso al If porque si tengo datos en el isauten retorno true');
           /**
            * Aqui se validaran los permisos para saber si puede ingresar a las rutas o no
@@ -46,7 +48,7 @@ export class AuthGuardService implements CanActivate {
   }
 
   resolve(route: ActivatedRouteSnapshot) {
-   console.log('No ingreso a ninguna ruta state: ');
+    console.log('No ingreso a ninguna ruta state: ');
     return this._mainService.getUserData();
   }
 

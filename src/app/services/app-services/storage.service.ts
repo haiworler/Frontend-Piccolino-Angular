@@ -8,7 +8,7 @@ export class StorageService {
 
   private storage = new BehaviorSubject<string>(null);
 
-  watchStorage(): Observable<any> {
+  watch(): Observable<any> {
     return this.storage.asObservable();
   }
   

@@ -52,10 +52,10 @@
             <div class="card mb-5">
                <div class="card-header">Resultados de búsqueda</div>
                <div class="card-body">
-                     <div *ngIf="headquarter?.data?.length && loadControl" class="row">
+                     <div *ngIf="headquarters?.length && loadControl" class="row">
                         <div class="col-12 col-md-7 order-2 order-md-1 d-flex justify-content-center justify-content-md-start">
-                           <ngb-pagination *ngIf="headquarter?.last_page > 1" (pageChange)="pageChange($event)"
-                              [collectionSize]="headquarter?.total" [page]="headquarter?.current_page" [pageSize]="limit.value"
+                           <ngb-pagination *ngIf="headquarters?.last_page > 1" (pageChange)="pageChange($event)"
+                              [collectionSize]="headquarters?.total" [page]="headquarters?.current_page" [pageSize]="limit.value"
                               [maxSize]="7" [rotate]="true" [ellipses]="false">
                            </ngb-pagination>
                         </div>
@@ -71,22 +71,20 @@
                                  <thead>
                                     <tr>
                                        <th>Nombre</th>
-                                       <th>Clasificación</th>
-                                       <th>Tipo de tercero</th>
+                                       <th>Observaciones</th>
                                        <th>Opciones</th>
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <!-- <tr *ngFor="let activity of headquarter?.data">
-                                       <td>{{ activity.name }}</td>
-                                       <td>{{ activity.classification.name }}</td>
-                                       <td>{{ activity.mediator_type.name }}</td>
+                                     <tr *ngFor="let headquarter of headquarters">
+                                       <td>{{ headquarter.name }}</td>
+                                       <td>{{ headquarter.observation }}</td>
                                        <td>
-                                          <app-selection-options [buttonsOp]="buttonsOp" (select)="selectionOptions($event)"
+                                          <!-- <app-selection-options [buttonsOp]="buttonsOp" (select)="selectionOptions($event)"
                                              [object]="activity" [condition]="activity.is_enabled">
-                                          </app-selection-options>
+                                          </app-selection-options> -->
                                        </td>
-                                    </tr> -->
+                                    </tr> 
                                  </tbody>
                               </table>
                            </div>

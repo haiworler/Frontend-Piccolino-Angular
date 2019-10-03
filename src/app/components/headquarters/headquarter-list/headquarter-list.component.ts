@@ -23,7 +23,7 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
   title = 'Sedes';
   description = 'Listado de SEDES';
   icon = 'fa fa-cogs icon-gradient bg-night-sky';
-  headquarter: any;
+  headquarters: any;
 
   headquarterListForm: FormGroup;
   storageSub: any = null;
@@ -56,7 +56,7 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
       limit: this.limit.value
     };
 
-    this.storageSub = this._storageService.watchStorage().pipe(debounceTime(500)).subscribe((token: any) => {
+    this.storageSub = this._storageService.watch().pipe(debounceTime(500)).subscribe((token: any) => {
       if (token) {
         this.searchHeadquarter();
       }
@@ -99,15 +99,16 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
     this.term.setValue('');
     this.page.setValue(1);
     this.limit.setValue(10);
-    this.headquarter = [];
+    this.headquarters = [];
   }
 
   async searchHeadquarter() {
-    this.headquarter = [];
+    this.headquarters = [];
     this.loadControl = 0;
     return await this._headquarterService.search(this.searchData).then((response: any) => {
       this.loadControl = 1;
-      this.headquarter = response;
+      console.log('Respuesta del listar sedes', response);
+      this.headquarters = response;
     });
   }
 
@@ -117,12 +118,12 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   createHeadquarterModal = () => {
-		this._modalService.open({
-			component: HeadquarterCreateComponent,
-			title: 'Registro de una actividad',
-			size: 'modal-xl'
-		});
-	}
+    this._modalService.open({
+      component: HeadquarterCreateComponent,
+      title: 'Registro de una actividad',
+      size: 'modal-xl'
+    });
+  }
 
 
   ngOnDestroy() {

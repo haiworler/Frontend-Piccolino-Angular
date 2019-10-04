@@ -121,7 +121,7 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
     this._modalService.open({
       component: HeadquarterCreateComponent,
       title: 'Registro de una actividad',
-      size: 'modal-xl'
+       size: 'modal-xl'
     });
   }
 

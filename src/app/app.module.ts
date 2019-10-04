@@ -26,8 +26,18 @@ import { NavbarComponent } from '../app/layouts/components/navbar/navbar.compone
 import { FooterComponent } from '../app/layouts/components/footer/footer.component';
 import { PagesLayoutComponent } from './layouts/pages-layout/pages-layout.component';
 import { ModalComponent } from './components/shared/modal/modal.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
 
 
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
+registerLocaleData(localeEs, 'es');
 
 
 @NgModule({
@@ -60,11 +70,19 @@ import { ModalComponent } from './components/shared/modal/modal.component';
     },
     {
       provide: HTTP_INTERCEPTORS, useClass: ErrorsService, multi: true,
+    },
+    {
+      provide:
+        PERFECT_SCROLLBAR_CONFIG,
+      // DROPZONE_CONFIG,
+      useValue:
+        DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+      // DEFAULT_DROPZONE_CONFIG,
     }
   ],
   exports: [
-		ModalComponent
-	],
+    ModalComponent
+  ],
   bootstrap: [AppComponent],
 
 })

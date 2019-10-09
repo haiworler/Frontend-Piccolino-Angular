@@ -1,17 +1,17 @@
-<div class="main-content">
-<div class="modal-header">
-	<h5 class="modal-title">{{ data.title }}</h5>
-	<button (click)="actions.close()" type="button" class="close" aria-label="Cerrar">
-		<span aria-hidden="true">&times;</span>
+<div class="modal-header-popup">
+	<h4 class="modal-title text-left">
+		{{ title }}
+	</h4>
+	<button type="button" mat-icon-button (click)="handleTapCloseButton()">
+		<fa name="times"></fa>
 	</button>
 </div>
-<div class="modal-body">
-	<ng-template #target></ng-template>
+<div divider></div>
+<div class="modal-body-popup body-max-expanded">
+	<ng-template #templateWrapper></ng-template>
 </div>
-<div class="modal-footer">
-	<button (click)="actions.close()" type="button" class="btn btn-secondary btn-pill">
-		<i class="fa fa-times-circle mr-2"></i>Cerrar
-	</button>
+<div class="modal-footer align-space-between">
+	<button *ngIf="hasButtonCancel" mat-raised-button color="warn" (click)="handleTapCloseButton()">Cancelar</button>
+	<button *ngIf="hasButtonConfirm" mat-raised-button color="primary"
+		(click)="handleTapCloseButton()">Confirmar</button>
 </div>
-</div> 
-

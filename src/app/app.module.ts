@@ -4,15 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { ComponentsModule } from './components/components.module';
-
 import { AppComponent } from './app.component';
-
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
-
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
@@ -21,22 +21,22 @@ import { HomeComponent } from './components/home/home.component';
 // Interceptores
 import { JwtService } from './services/interceptors/jwt.service';
 import { ErrorsService } from './services/interceptors/errors.service';
+// General
 import { SidebarComponent } from '../app/layouts/components/sidebar/sidebar.component';
 import { NavbarComponent } from '../app/layouts/components/navbar/navbar.component';
 import { FooterComponent } from '../app/layouts/components/footer/footer.component';
+// Login
 import { PagesLayoutComponent } from './layouts/pages-layout/pages-layout.component';
-import { ModalComponent } from './components/shared/modal/modal.component';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+//Responsi
 import { PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-
-import { registerLocaleData } from '@angular/common';
-import localeEs from '@angular/common/locales/es';
+//Modal
+import { ComponentsModalModule } from '../app/components/shared/modal/components-modal.module';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
-
+// Idioma Local
 registerLocaleData(localeEs, 'es');
 
 
@@ -50,9 +50,10 @@ registerLocaleData(localeEs, 'es');
     AppRoutingModule,
     HttpClientModule,
     LoadingBarRouterModule,
+    MatDialogModule,
+    ComponentsModalModule
 
   ],
-  entryComponents: [ModalComponent],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
@@ -60,9 +61,7 @@ registerLocaleData(localeEs, 'es');
     SidebarComponent,
     NavbarComponent,
     FooterComponent,
-    PagesLayoutComponent,
-    ModalComponent
-
+    PagesLayoutComponent
   ],
   providers: [
     {
@@ -74,14 +73,11 @@ registerLocaleData(localeEs, 'es');
     {
       provide:
         PERFECT_SCROLLBAR_CONFIG,
-      // DROPZONE_CONFIG,
       useValue:
         DEFAULT_PERFECT_SCROLLBAR_CONFIG,
-      // DEFAULT_DROPZONE_CONFIG,
     }
   ],
   exports: [
-    ModalComponent
   ],
   bootstrap: [AppComponent],
 

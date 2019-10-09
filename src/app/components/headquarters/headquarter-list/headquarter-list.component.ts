@@ -10,6 +10,8 @@ import { Headquarter } from '../../../interfaces/app/headquarter';
 import { MainService } from '../../../services/app-services/main.service';
 import swal from 'sweetalert2';
 import { HeadquarterCreateComponent } from '../headquarter-create/headquarter-create.component';
+import { GeneralPopupService } from 'src/app/services/utils/general-popup.service';
+import { MatTableDataSource, MatPaginator, MatDialog, MatDialogRef } from '@angular/material';
 
 
 
@@ -38,6 +40,7 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
     private _storageService: StorageService,
     //private _notificationService: NotificationsService,
     private _headquarterService: HeadquarterService,
+    private _generalPopupService: GeneralPopupService,
     private _mainService: MainService,
     private router: Router
   ) { }
@@ -121,9 +124,45 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
     this._modalService.open({
       component: HeadquarterCreateComponent,
       title: 'Registro de una actividad',
-       size: 'modal-xl'
+       size: 'full'
     });
   }
+
+    /**
+    * Tiene como objetivo hacer el llamado del modal con un indicador que me 
+    * permita identificar que dicho llamado al formulario es para editar una oferta
+    * @author Luis Eduardo Garizabalo Acosta
+    * @param void
+    * @returns void
+    */
+   private defineBehaviorForEditRow(): void {
+    this._generalPopupService.setData(null);
+    const dialogRef = this._generalPopupService.launchModal({
+      'title': 'Registro de sedes',
+      'hasButtonCancel': true,
+      'hasButtonConfirm': false,
+      'hasFooter': false,
+      'component': HeadquarterCreateComponent,
+      'size': 'full'
+    });
+    this.reloadDataTable(dialogRef);
+  }
+
+
+   /**
+ * 
+ * @param dialogRef 
+ */
+private reloadDataTable(dialogRef: MatDialogRef<any, any>) {
+  dialogRef.afterClosed().subscribe(() => {
+    let shouldReload = this._generalPopupService.getShouldReload();
+    if (shouldReload) {
+      shouldReload = false;
+     // this.getOfferForDataTable();
+    }
+    this._generalPopupService.setShouldReload(shouldReload);
+  });
+}
 
 
   ngOnDestroy() {

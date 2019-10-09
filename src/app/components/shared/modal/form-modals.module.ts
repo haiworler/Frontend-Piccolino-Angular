@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { HeadquarterCreateComponent } from '../../headquarters/headquarter-create/headquarter-create.component';
+import { AngularMaterialModule } from '../vendor/angular-material.module';
+
 
 
 @NgModule({
@@ -24,12 +26,14 @@ import { HeadquarterCreateComponent } from '../../headquarters/headquarter-creat
     NgbModule,
     PerfectScrollbarModule,
     SlickCarouselModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    AngularMaterialModule
+
   ],
   exports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
+
   ]
 })
 export class FormModalsModule { }

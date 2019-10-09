@@ -7,15 +7,11 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularMaterialModule } from '../vendor/angular-material.module';
 
-import {
-    MatButtonModule,
-    MatInputModule,
-    MatRippleModule,
-    MatFormFieldModule,
-    MatTooltipModule,
-    MatSelectModule
-} from '@angular/material';
+
+
+
 
 @NgModule({
     entryComponents: [
@@ -31,19 +27,15 @@ import {
         PerfectScrollbarModule,
         SlickCarouselModule,
         NgbModule,
-        MatButtonModule,
-        MatInputModule,
-        MatRippleModule,
-        MatFormFieldModule,
-        MatTooltipModule,
-        MatSelectModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        AngularMaterialModule
     ],
     exports: [
         CommonModule,
         FormModalsModule,
-        AngularFontAwesomeModule
+        AngularFontAwesomeModule,
+        AngularMaterialModule
     ]
 })
 export class ComponentsModalModule { }

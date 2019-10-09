@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-headquarter-create',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class HeadquarterCreateComponent implements OnInit {
+  public reactiveForm: FormGroup;
+  public isLinear: boolean = true;
 
   constructor() { }
 
@@ -13,3 +16,6 @@ export class HeadquarterCreateComponent implements OnInit {
   }
 
 }
+
+
+

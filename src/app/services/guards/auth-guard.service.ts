@@ -18,33 +18,33 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {
 
-    // return true;
+    return true;
 
     // Las URLs a continuación están sujetas a cambios
-    if (state.url !== '/auth/login') {
-      if (state.url === '/') {
-        setTimeout(() => this.router.navigate(['/dashboard']), 100);
-        return true;
-      }
-      return new Promise(resolve => {
-        if (this._authService.isAuthenticated()) {
-          this._storageService.setItem('token', localStorage.getItem('token'));
+  //   if (state.url !== '/auth/login') {
+  //     if (state.url === '/') {
+  //       setTimeout(() => this.router.navigate(['/dashboard']), 100);
+  //       return true;
+  //     }
+  //     return new Promise(resolve => {
+  //       if (this._authService.isAuthenticated()) {
+  //         this._storageService.setItem('token', localStorage.getItem('token'));
 
-          /**
-           * Aqui se validaran los permisos para saber si puede ingresar a las rutas o no
-           */
-          resolve(true);
-        } else {
-          this._mainService.setUserData(null);
-          this._authService.logout();
-          resolve(false);
-        }
-      });
-    }
-  }
+  //         /**
+  //          * Aqui se validaran los permisos para saber si puede ingresar a las rutas o no
+  //          */
+  //         resolve(true);
+  //       } else {
+  //         this._mainService.setUserData(null);
+  //         this._authService.logout();
+  //         resolve(false);
+  //       }
+  //     });
+  //   }
+   }
 
-  resolve(route: ActivatedRouteSnapshot) {
-    return this._mainService.getUserData();
-  }
+  // resolve(route: ActivatedRouteSnapshot) {
+  //   return this._mainService.getUserData();
+  // }
 
 }

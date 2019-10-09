@@ -15,37 +15,18 @@ import { FormModalsModule } from '../shared/modal/form-modals.module';
 import { HeadquartersRoutingModule } from './headquarters-routing.module';
 import { HeadquarterListComponent } from './headquarter-list/headquarter-list.component';
 import { SharedModule } from '../shared/shared.module';
-
-import {
-  MatButtonModule,
-  MatInputModule,
-  MatRippleModule,
-  MatFormFieldModule,
-  MatTooltipModule,
-  MatSelectModule
-} from '@angular/material';
-import { ModalService } from '../../services/shared/modal.service';
-import { HeadquarterCreateComponent } from './headquarter-create/headquarter-create.component';
+import { AngularMaterialModule } from '../shared/vendor/angular-material.module';
 
 
 
 
 @NgModule({
   declarations: [HeadquarterListComponent],
-  entryComponents: [HeadquarterCreateComponent],
   imports: [
     CommonModule,
     HeadquartersRoutingModule,
     FormsModule,
-    MatButtonModule,
-    MatRippleModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatTooltipModule,
     SharedModule,
-    CommonModule,
-    FormsModule,
     ReactiveFormsModule,
     NgbModule,
     NgSelectModule,
@@ -55,9 +36,11 @@ import { HeadquarterCreateComponent } from './headquarter-create/headquarter-cre
     LaddaModule,
     TextMaskModule,
     ComponentsModalModule,
-    FormModalsModule
-  ]
-  ,
+    FormModalsModule,
+    AngularMaterialModule
+  ],
+  exports: [
+  ],
   providers: [
     {
       provide:

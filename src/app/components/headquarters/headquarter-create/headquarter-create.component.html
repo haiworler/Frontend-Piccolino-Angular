@@ -1,158 +1,43 @@
-
 <div [formGroup]="reactiveForm">
-  <!-- Espacio para la placa -->
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card main-card mb-3 mt-3">
-        <div class="card-header">
-          Seleccione La Transportadora
-        </div>
-        <div class="card-body margin-bottom">
-          <mat-form-field class="form-field-100-width">
-            <!-- <mat-label>Transportadoras</mat-label>
-                <mat-select multiple formControlName="transportCompanies">
-                  <mat-option *ngFor="let transportCompany of transportCompanies"
-                    [value]="transportCompany.transport_company.id">
-                    {{ transportCompany.name }}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="hasErrorControl('transportCompanies')">{{ getErrorMessage('transportCompanies') }}</mat-error> -->
-            <input matInput placeholder="Input">
-          </mat-form-field>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card main-card mb-3 mt-3">
-        <div class="card-header">
-          Placa
-        </div>
-        <div class="card-body margin-bottom">
-          <mat-form-field class="form-field-dynamic-width">
-            <!-- <input matInput placeholder="Placa Remolque" required formControlName="trailerNumber">
-                <mat-error *ngIf="hasErrorControl('trailerNumber')">{{ getErrorMessage('trailerNumber') }}
-                </mat-error> -->
-            <input matInput placeholder="Input">
-          </mat-form-field>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="row">
     <div class="col-12">
       <div class="card main-card mb-12">
         <div class="card-header">
-          Datos Del Remolque
+          Datos De la sede
         </div>
         <div class="card-body">
           <mat-vertical-stepper [linear]="isLinear" #stepper>
-            <!-- Sección de los datos basicos -->
             <mat-step>
               <ng-template matStepLabel>Datos Básicos</ng-template>
               <div class="row">
                 <div class="col-sm-6 col-md-4">
                   <mat-form-field class="form-field-dynamic-width">
-                    <!-- <input matInput placeholder="Marca" aria-label="Number" formControlName="brand"
-                          [matAutocomplete]="brandAutoComplete">
-                        <mat-autocomplete #brandAutoComplete="matAutocomplete"
-                          [displayWith]="behaviorPlaceholderForDisplayInfo">
-                          <mat-option *ngFor="let brand of filteredBrands | async" [value]="brand">
-                            {{ brand.name }}
-                          </mat-option>
-                        </mat-autocomplete>
-                        <mat-error *ngIf="hasErrorControl('brand')">{{ getErrorMessage('brand') }}</mat-error> -->
-                    <input matInput placeholder="Input">
+                    <mat-label>Barrio</mat-label>
+                    <mat-select required formControlName="arrayNeighborhood">
+                      <mat-option *ngFor="let array of arrayNeighborhood" [value]="array.id">
+                        {{ array.name }}
+                      </mat-option>
+                    </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="col-sm-6 col-md-4">
                   <mat-form-field class="form-field-dynamic-width">
-                    <!-- <input matInput placeholder="Modelo" required formControlName="model">
-                        <mat-error *ngIf="hasErrorControl('model')">{{ getErrorMessage('model') }}</mat-error> -->
-                    <input matInput placeholder="Input">
+                    <input matInput placeholder="Nombre Sede" required formControlName="name">
+                    <mat-error *ngIf="hasErrorControl('name')">{{ getErrorMessage('name') }}</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-sm-6 col-md-4">
                   <mat-form-field class="form-field-dynamic-width">
-                    <!-- <mat-label>Configuración</mat-label>
-                        <mat-select required formControlName="trailerConfiguration">
-                          <mat-option *ngFor="let trailerConfiguration of trailersConfiguration"
-                            [value]="trailerConfiguration.id">
-                            {{ trailerConfiguration.name }}
-                          </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="hasErrorControl('brand')">{{ getErrorMessage('trailerConfiguration') }}
-                        </mat-error> -->
-                    <input matInput placeholder="Input">
+                    <textarea matInput placeholder="Observaciones" required formControlName="observation"></textarea>
+                    <mat-error *ngIf="hasErrorControl('observation')">{{ getErrorMessage('observation') }}
+                    </mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-sm-6 col-md-4">
                   <mat-form-field class="form-field-dynamic-width">
-                    <!-- <input matInput placeholder="Peso Vacío" required formControlName="weightVoid">
-                        <mat-error *ngIf="hasErrorControl('weightVoid')">{{ getErrorMessage('weightVoid') }}</mat-error> -->
-                    <input matInput placeholder="Input">
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                  <mat-form-field class="form-field-dynamic-width">
-                    <!-- <input matInput placeholder="Capacidad (Tn)" required formControlName="loadCapacity">
-                        <mat-error *ngIf="hasErrorControl('loadCapacity')">{{ getErrorMessage('loadCapacity') }}</mat-error> -->
-                    <input matInput placeholder="Input">
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                  <mat-form-field class="form-field-dynamic-width">
-                    <!-- <input matInput placeholder="Ancho" required formControlName="widthTrailer">
-                        <mat-error *ngIf="hasErrorControl('widthTrailer')">{{ getErrorMessage('widthTrailer') }}</mat-error> -->
-                    <input matInput placeholder="Input">
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                  <mat-form-field class="form-field-dynamic-width">
-                    <!-- <input matInput placeholder="Alto" required formControlName="highTrailer">
-                        <mat-error *ngIf="hasErrorControl('highTrailer')">{{ getErrorMessage('highTrailer') }}</mat-error> -->
-                    <input matInput placeholder="Input">
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                  <mat-form-field class="form-field-dynamic-width">
-                    <!-- <input matInput placeholder="Largo" required formControlName="longTrailer">
-                        <mat-error *ngIf="hasErrorControl('longTrailer')">{{ getErrorMessage('longTrailer') }}</mat-error> -->
-                    <input matInput placeholder="Input">
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                  <mat-form-field class="form-field-dynamic-width">
-                    <!-- <mat-label>Carrocería</mat-label>
-                        <mat-select required formControlName="bodywork">
-                          <mat-option *ngFor="let bodywork of bodyworks" [value]="bodywork.id">
-                            {{ bodywork.description }}
-                          </mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="hasErrorControl('bodywork')">{{ getErrorMessage('bodywork') }}</mat-error> -->
-                    <input matInput placeholder="Input">
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                  <mat-form-field class="form-field-dynamic-width">
-                    <!-- <input matInput placeholder="Número de chasis" required formControlName="chassisNumber">
-                        <mat-error *ngIf="hasErrorControl('chassisNumber')">{{ getErrorMessage('chassisNumber') }}
-                        </mat-error> -->
-                    <input matInput placeholder="Input">
-                  </mat-form-field>
-                </div>
-
-                <div class="col-sm-6 col-md-4">
-                  <mat-form-field class="form-field-dynamic-width">
-                    <!-- <input matInput placeholder="Propietario" formControlName="ownerTrailer"
-                          [matAutocomplete]="ownerAutoComplete">
-                        <mat-autocomplete #ownerAutoComplete="matAutocomplete"
-                          [displayWith]="behaviorPlaceholderForDisplayInfo">
-                          <mat-option *ngFor="let owner of filteredOwners | async" [value]="owner">
-                            {{ owner.name }}
-                          </mat-option>
-                        </mat-autocomplete>
-                        <mat-error *ngIf="hasErrorControl('ownerTrailer')">{{ getErrorMessage('ownerTrailer') }}</mat-error> -->
-                    <input matInput placeholder="Input">
+                    <input matInput [matDatepicker]="pickerInitialDate" placeholder="Fecha " formControlName="createAt">
+                    <mat-datepicker-toggle matSuffix [for]="pickerInitialDate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerInitialDate [disabled]="false"></mat-datepicker>
                   </mat-form-field>
                 </div>
               </div>
@@ -160,8 +45,7 @@
           </mat-vertical-stepper>
         </div>
         <div class="card-footer" [ngStyle]="{'display': 'block', 'text-align': 'right'}">
-          <button mat-raised-button color="primary" class="btn-responsive"
-            >
+          <button mat-raised-button color="primary" class="btn-responsive" (click)="create()" [disabled]="reactiveForm.invalid">
             REGISTRAR
           </button>
         </div>

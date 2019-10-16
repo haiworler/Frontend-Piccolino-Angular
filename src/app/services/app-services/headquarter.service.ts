@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Headquarter } from '../../interfaces/app/headquarter';
 import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -20,7 +21,7 @@ export class HeadquarterService {
 	getHeadquarters = (): Headquarter[] => this.headquarters;
 	setHeadquarters = (headquarters: any) => this.headquarters = headquarters;
 
-	
+
 
 	async search(data: any): Promise<any> {
 		//return await this.http.get(`${environment.UrlApi}/headquarters/datatable`, { params: data }).toPromise();
@@ -28,10 +29,16 @@ export class HeadquarterService {
 
 	}
 
-	async create(data: any): Promise<any> {
-		const response: any = await this.http.post(`${environment.UrlApi}/headquarters`, data).toPromise();
-		return response.data;
+
+	/**
+   * Tiene como objetivo Registrar la Sede
+   * @param data 
+   * @returns void 
+   */
+	public create(data: any): Observable<any> {
+		return this.http.post(`${environment.UrlApi}/headquarter`, data);
 	}
+
 	async update(headquarterId: number, data: any):
 		Promise<any> {
 		const response: any = await this.http.put(`${environment.UrlApi}/headquarters/${headquarterId}`, data).toPromise();
@@ -43,5 +50,5 @@ export class HeadquarterService {
 		return response.data;
 	}
 
-	
+
 }

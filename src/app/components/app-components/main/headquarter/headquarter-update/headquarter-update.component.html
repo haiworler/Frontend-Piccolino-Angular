@@ -1,23 +1,23 @@
-<div [formGroup]="headquarterCreateForm" class="row needs-validation mb-4" novalidate>
+<div [formGroup]="headquarterUpdateForm" class="row needs-validation mb-4" novalidate>
 	<div class="col-12">
 		<div class="row mb-3">
 			<div class="col-12">
-				<div [ngClass]="{ 'card-shadow-success': headquarterCreateForm.valid }"
+				<div [ngClass]="{ 'card-shadow-success': headquarterUpdateForm.valid }"
 					class="card card-body card-shadow-secondary mb-0 p-2">
 					<div class="row d-flex align-items-center">
 						<div class="col-12 col-md-9">
 							<p class="mb-0 px-2 py-3">
 								<i class="lnr-pushpin mr-2"></i>
 								Diligencie la información a continuación, y posteriormente por favor haga click en el botón
-								<strong>Registrar Sede.</strong>
+								<strong>Actualizar Sede.</strong>
 							</p>
 						</div>
 						<div class="col-12 col-md-3 d-flex justify-content-center">
-							<button *ngIf="headquarterCreateForm.valid" (click)="createHeadquarter()" [ladda]="progress"
+							<button *ngIf="headquarterUpdateForm.valid"  (click)="updateHeadquarter()" [ladda]="progress"
 								class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
 								data-style="expand-left">
 								<span class="ladda-label">
-									<i class="fa fa-check-circle mr-2"></i>Registrar Sede
+									<i class="fa fa-check-circle mr-2"></i>Actualizar Sede
 								</span>
 								<span class="ladda-spinner"></span>
 							</button>
@@ -51,9 +51,9 @@
 												<input formControlName="name" id="name" placeholder="Nombre" type="text" class="form-control">
 											</div>
 											<div class="col-12 col-md-6 col-lg-4 form-group ">
-												<required-field [control]="basicData.get( 'observation') " label="observation ">
+												<required-field [control]="basicData.get( 'observations') " label="observations ">
 													Descripción:</required-field>
-												<textarea formControlName="observation" id="observation" class="form-control "
+												<textarea formControlName="observations" id="observations" class="form-control "
 													rows="1 "></textarea>
 											</div>
 											<div class="col-12 col-md-6 col-lg-4 form-group">

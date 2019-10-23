@@ -21,42 +21,35 @@ export class HeadquarterService {
 	getHeadquarters = (): Headquarter[] => this.headquarters;
 	setHeadquarters = (headquarters: any) => this.headquarters = headquarters;
 
-
-
 	async search(data: any, page = '', pageSize = ''): Promise<any> {
-		//return await this.http.get(`${environment.UrlApi}/headquarters/datatable`, { params: data }).toPromise();
 		return await this.http.get(`${environment.UrlApi}/headquarter/?page=${page}&pageSize=${pageSize}`, { params: data }).toPromise();
-
 	}
 	async searchbyname(name: any, page = '', pageSize = ''): Promise<any> {
-		//return await this.http.get(`${environment.UrlApi}/headquarters/datatable`, { params: data }).toPromise();
 		return await this.http.get(`${environment.UrlApi}/headquarter/?name=${name}`).toPromise();
 
 	}
 	/**
+   *
    * Tiene como objetivo Registrar la Sede
-   * @param data
-   * @returns void
    */
-	public create(data: any): Observable<any> {
-		return this.http.post(`${environment.UrlApi}/headquarter`, data);
+	async create(data: any): Promise<any> {
+		const response: any = await this.http.post(`${environment.UrlApi}/headquarter`, data).toPromise();
+		return response.data;
 	}
 
-	async update(headquarterId: number, data: any):
-		Promise<any> {
-		const response: any = await this.http.put(`${environment.UrlApi}/headquarters/${headquarterId}`, data).toPromise();
+	async update(headquarterId: number, data: any): Promise<any> {
+		const response: any = await this.http.put(`${environment.UrlApi}/headquarter/${headquarterId}`, data).toPromise();
 		return response.data;
 	}
 
 	async delete(headquarterId: number): Promise<any> {
-		const response: any = await this.http.delete(`${environment.UrlApi}/headquarters/${headquarterId}`).toPromise();
+		const response: any = await this.http.delete(`${environment.UrlApi}/headquarter/${headquarterId}`).toPromise();
 		return response.data;
 	}
 
 
-	async getneighbourhood(): Promise<any> {
-		const response: any = await this.http.delete(`${environment.UrlApi}/neighbourhood`).toPromise();
-		return response.data;
+	async getNeighbourhood(): Promise<any> {
+		return await this.http.get(`${environment.UrlApi}/neighbourhood`).toPromise();
 	}
 
 

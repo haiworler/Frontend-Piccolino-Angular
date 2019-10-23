@@ -1,3 +1,4 @@
+import { HeadquarterUpdateComponent } from './../headquarter-update/headquarter-update.component';
 import { HeadquarterCreateComponent } from './../headquarter-create/headquarter-create.component';
 //import { AreaCreateComponent } from './../area-create/area-create.component';
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
@@ -17,7 +18,7 @@ import swal from 'sweetalert2';
 	templateUrl: './headquarter-list.component.html',
 	styles: []
 })
-export class HeadquarterListComponent implements OnInit {
+export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 
 	heading = 'Sedes';
 	subheading = 'Listado';
@@ -52,17 +53,20 @@ export class HeadquarterListComponent implements OnInit {
 		this.permissions = this._mainService.Permissions;
 		this.currentRoute = this.router.url;
 		for (const permission in this.permissions) {
-			this.buttonsOp.push(
-				{
-					title: this.permissions[permission].title,
-					secondTitle: this.permissions[permission].secondTitle,
-					icon: this.permissions[permission].icon,
-					method: this.permissions[permission].method,
-					class: this.permissions[permission].class,
-					condition: this.permissions[permission].condition,
-					parameter: null,
-				}
-			);
+			if (this.permissions[permission].method != 'activate-deactivate' && this.permissions[permission].method != 'delete') {
+				this.buttonsOp.push(
+					{
+						title: this.permissions[permission].title,
+						secondTitle: this.permissions[permission].secondTitle,
+						icon: this.permissions[permission].icon,
+						method: this.permissions[permission].method,
+						class: this.permissions[permission].class,
+						condition: this.permissions[permission].condition,
+						parameter: null,
+					}
+				);
+
+			}
 
 		}
 
@@ -120,10 +124,10 @@ export class HeadquarterListComponent implements OnInit {
 		this.headquarters = [];
 		this.loadControl = 0;
 		console.log(this.searchData.term);
-		 return await this._headquarterService.searchbyname(this.searchData.term).then((response: any) => {
-		 	this.loadControl = 1;
-		 	this.headquarters = response;
-		 });
+		return await this._headquarterService.searchbyname(this.searchData.term).then((response: any) => {
+			this.loadControl = 1;
+			this.headquarters = response;
+		});
 	}
 
 	reset = () => {
@@ -151,15 +155,9 @@ export class HeadquarterListComponent implements OnInit {
 	selectionOptions(parameters: any = null) {
 		switch (parameters.parameters.method) {
 			case 'update':
-				this.updateAreaModal(parameters.object);
+				this.updateHeadquarter(parameters.object);
 				break;
-			case 'activate-deactivate':
-				this.updateArea(parameters.object);
-				break;
-			case 'delete':
-				this.setHeadquarter(parameters.object);
-				this.deleteArea();
-				break;
+
 			default:
 				break;
 		}
@@ -176,13 +174,13 @@ export class HeadquarterListComponent implements OnInit {
 		});
 	}
 
-	updateAreaModal = (headquarter: Headquarter) => {
-		// this._areasService.setArea(area);
-		// this._modalService.open({
-		// 	component: AreaUpdateComponent,
-		// 	title: 'Actualización de una área',
-		// 	size: 'modal-xl'
-		// });
+	updateHeadquarter = (headquarter: any) => {
+		this._headquarterService.setHeadquarter(headquarter);
+		 this._modalService.open({
+		 	component: HeadquarterUpdateComponent,
+		 	title: 'Actualización de una Sede',
+		 	size: 'modal-xl'
+		 });
 	}
 
 	updateArea = (headquarter: Headquarter) => {
@@ -198,30 +196,7 @@ export class HeadquarterListComponent implements OnInit {
 
 	setHeadquarter = (headquarter: Headquarter) => this._headquarterService.setHeadquarter(headquarter);
 
-	deleteArea = () => {
-		swal.fire({
-			title: '¿ Esta seguro(a) ?',
-			text: '¿ De eliminar esta SEDE?',
-			type: 'question',
-			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Si',
-			cancelButtonText: 'No'
-		}).then((result) => {
-			if (result.value) {
-				const headquarter: Headquarter = this._headquarterService.getHeadquarter();
 
-				// this._areasService.delete(area.id).then((response: any) => {
-				// 	this._storageService.setItem('token', localStorage.getItem('token'));
-				// 	this._notificationService.success({
-				// 		title: 'Información',
-				// 		message: 'La área se ha eliminado correctamente.'
-				// 	});
-				// });
-			}
-		});
-	}
 
 	ngOnDestroy() {
 		this._storageService.removeItem();

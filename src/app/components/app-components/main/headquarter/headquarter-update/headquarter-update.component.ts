@@ -7,16 +7,14 @@ import { NotificationsService } from '@services/shared/notifications.service';
 import { HeadquarterService } from '@services/app-services/headquarter.service';
 import { NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
-
 @Component({
-	selector: 'app-headquarter-create',
-	templateUrl: './headquarter-create.component.html',
+	selector: 'app-headquarter-update',
+	templateUrl: './headquarter-update.component.html',
 	styles: []
 })
-export class HeadquarterCreateComponent implements OnInit {
+export class HeadquarterUpdateComponent implements OnInit {
 
-
-	headquarterCreateForm: FormGroup;
+	headquarterUpdateForm: FormGroup;
 
 	userData: any;
 	countryID: number;
@@ -35,49 +33,63 @@ export class HeadquarterCreateComponent implements OnInit {
 		public calendar: NgbCalendar
 	) { }
 
-	async ngOnInit() {
+	async   ngOnInit() {
 		this.userData = this._mainService.getUserData();
-		this.headquarterCreateForm = this.formBuilder.group({
+		this.headquarter = this._headquarterService.getHeadquarter();
+		console.log('Lo que retorna el Set: ', this.headquarter);
+		this.headquarterUpdateForm = this.formBuilder.group({
 			basic_data: this.formBuilder.group({
 				name: ['', [Validators.required]],
 				neighborhood: [[], [Validators.required]],
 				state: [1, [Validators.required]],
-				observation: ['', [Validators.required]],
+				observations: ['', [Validators.required]],
 				createAt: [this.calendar.getToday(), [Validators.required]]
 			})
 		});
 		this.neighbourhood = await this._headquarterService.getNeighbourhood();
+
+		this.basicData.patchValue(this.headquarter);
+		this.basicData.get('admission_date').setValue(this.formatDatepiker(this.headquarter.createAt));
 	}
 
 	get basicData() {
-		return this.headquarterCreateForm.get('basic_data');
+		return this.headquarterUpdateForm.get('basic_data');
 	}
 
 	assignTodayDate = (control: FormControl) => control.setValue(this.calendar.getToday());
 	addLeadingZeroes = (number: number) => (number < 10 ? `0${number}` : number);
 	formatJsonDate = (date: any) => (`${date.year}-${this.addLeadingZeroes(date.month)}-${this.addLeadingZeroes(date.day)}`);
 
-	createHeadquarter = () => {
+	/**
+	* Toma la fecha y la transforma en formato NgDAtepiker
+	*/
+
+	formatDatepiker(dateString: string) {
+		let date = new Date(dateString);
+		return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
+	}
+
+
+	updateHeadquarter = () => {
 		const basicData: any = (this.basicData as FormGroup).getRawValue();
 		const data = {
 			name: basicData.name,
 			neighborhoodId: basicData.neighborhood.id,
 			state: basicData.state,
-			observation: basicData.observation,
+			observations: basicData.observations,
 			createAt: this.formatJsonDate(basicData.createAt)
 		}
-		this._headquarterService.create(data).then((response: any) => {
+		this._headquarterService.update(this.headquarter.id, data).then((response: any) => {
 			this.progress = 1;
 			this._storageService.setItem('token', localStorage.getItem('token'));
 			this._modalService.close();
 			this._notificationService.success({
 				title: 'Información',
-				message: 'La Sede se ha registrado correctamente.'
+				message: 'La Sede se ha actualizado correctamente.'
 			});
 		}).catch((response: any) => {
 			this.progress = false;
 		});
 	}
-
 
 }

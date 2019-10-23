@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule,NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -17,11 +17,13 @@ import { ModalService } from '@services/shared/modal.service';
 import { HeadquarterRoutingModule } from './headquarter-routing.module';
 import { HeadquarterListComponent } from './headquarter-list/headquarter-list.component';
 import { HeadquarterCreateComponent } from './headquarter-create/headquarter-create.component';
-
+// Service datapiker
+import { I18n, CustomDatepickerI18n } from '@services/shared/datepicker-i18n.service';
+import { HeadquarterUpdateComponent } from './headquarter-update/headquarter-update.component';
 
 @NgModule({
-	declarations: [HeadquarterListComponent, HeadquarterCreateComponent],
-	entryComponents: [HeadquarterCreateComponent],
+	declarations: [HeadquarterListComponent, HeadquarterCreateComponent, HeadquarterUpdateComponent],
+	entryComponents: [HeadquarterCreateComponent,HeadquarterUpdateComponent],
 	imports: [
 		CommonModule,
 		HeadquarterRoutingModule,
@@ -40,6 +42,7 @@ import { HeadquarterCreateComponent } from './headquarter-create/headquarter-cre
 		SharedModule,
 		LayoutModule
 	],
-	providers: [ModalService]
+	providers: [ModalService,I18n,
+		{provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}]
 })
 export class HeadquarterModule { }

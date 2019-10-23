@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
 		private router: Router,
 		private formBuilder: FormBuilder,
 		private _authService: AuthService,
-	) {}
+	) { }
 
 	ngOnInit(): void {
-		
+
 
 		this.loginForm = this.formBuilder.group({
 			username: ['', [Validators.required]],
@@ -39,13 +39,11 @@ export class LoginComponent implements OnInit {
 
 	login = (): void => {
 		this.progress = 0;
-		console.log('Formulario: ', this.controls);
 		this._authService.login(this.controls.username.value, this.controls.password.value).then((response: any) => {
-			console.log('Respuesta Login: ', response);
 			if (response && response.token) {
 				localStorage.setItem('token', response.token);
-				localStorage.setItem('user', JSON.stringify(response.data));
-				this._authService.user.next(response.data);
+				localStorage.setItem('user', JSON.stringify(response.user));
+				this._authService.user.next(response.user);
 				this.progress = 1;
 				this.router.navigate(['/dashboard']);
 			}

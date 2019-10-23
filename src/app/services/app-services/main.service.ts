@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
+import { Permissions } from './../../global/permissions';
 
 
 
@@ -16,8 +17,10 @@ export class MainService {
 	constructor(
 		private http: HttpClient
 	) {}
+	get Permissions(): any{
+		return Permissions.CRUDPERMISSIONS;
+	}
 
-	
 	getUserData = (): any => this.localUserData;
 	setUserData = (userData: any): void => this.localUserData = userData;
 

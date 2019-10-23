@@ -14,6 +14,7 @@ export class SidebarComponent implements OnInit {
 
 	permissions: any;
 	userData: any;
+	modul: any[];
 
 	constructor(
 		public globals: ThemeOptions,
@@ -21,7 +22,7 @@ export class SidebarComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private _authGuard: AuthGuardService,
 		private _mainService: MainService
-	) {}
+	) { }
 
 	@select('config')
 	public config$: Observable<any>;
@@ -45,19 +46,22 @@ export class SidebarComponent implements OnInit {
 				this.globals.toggleSidebar = true;
 			}
 		});
+		this.modul = [
+			{
+				route: '/headquarter', name: 'Sedes', icon: 'dashboard', class: ''
+				, children: [
+					{
+						route: '/headquarter', name: 'Gestion Sedes', icon: 'how_to_reg', class: '', children: [], abstract: false
+					}
+				], abstract: true
+			},
+		];
 
-		//this.permissions = this._mainService.permissions;
 		this.userData = this._authGuard.resolve(this.activatedRoute.snapshot);
-
 	}
 
-	getRoutePermission = (route: string, permission: string): boolean => {
-		return true;
-		//return this._mainService.getRoutePermission(this.userData.module_permissions, route, permission);
-	}
 
 	verifyActiveMenu = (route: string): string => (this.router.url.includes(route)) ? route : '';
-
 	@HostListener('window:resize', ['$event'])
 	onResize(event: any): void {
 		this.newInnerWidth = event.target.innerWidth;

@@ -1,8 +1,10 @@
-<div [class]="'app-sidebar sidebar-shadow ' + (config$ | async).sidebarTheme" (mouseover)="sidebarHover()" (mouseout)="sidebarHover()">
+<div [class]="'app-sidebar sidebar-shadow ' + (config$ | async).sidebarTheme" (mouseover)="sidebarHover()"
+	(mouseout)="sidebarHover()">
 	<div class="app-header__logo">
 		<div class="logo-src"></div>
 		<div class="header__pane ml-auto">
-			<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" [ngClass]="{'is-active' : globals.toggleSidebar}" (click)="toggleSidebar()">
+			<button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+				[ngClass]="{'is-active' : globals.toggleSidebar}" (click)="toggleSidebar()">
 				<span class="hamburger-box">
 					<span class="hamburger-inner"></span>
 				</span>
@@ -22,15 +24,17 @@
 							</ngb-panel>
 						</ngb-accordion>
 						<div class="vsm-item">
-							<a [routerLink]="['/dashboard']" routerLinkActive="active-item" [routerLinkActiveOptions]="{ exact: true }" class="vsm-link mb-1">
+							<a [routerLink]="['/dashboard']" routerLinkActive="active-item"
+								[routerLinkActiveOptions]="{ exact: true }" class="vsm-link mb-1">
 								<i class="vsm-icon pe-7s-display1"></i>
 								<span class="vsm-title">Dashboard</span>
 							</a>
 						</div>
 						<ng-template #recursiveMenu let-modules>
-							<div *ngFor="let item of modules; let i = index">
-								<ngb-accordion *ngIf="item.abstract; else notAbstract" [destroyOnHide]="false" [closeOthers]="true" [activeIds]="verifyActiveMenu(item.route)">
-									<ngb-panel *ngIf="getRoutePermission(item.route, permissions.access)" [id]="item.route">
+							<div *ngFor="let item of modul; let i = index">
+								<ngb-accordion *ngIf="item.abstract; else notAbstract" [destroyOnHide]="false" [closeOthers]="true"
+									[activeIds]="verifyActiveMenu(item.route)">
+									<ngb-panel [id]="item.route">
 										<ng-template ngbPanelHeader>
 											<button ngbPanelToggle class="vsm-link">
 												<i class="vsm-icon pe-7s-folder"></i>
@@ -39,13 +43,25 @@
 											</button>
 										</ng-template>
 										<ng-template *ngIf="item.children.length > 0" ngbPanelContent>
-											<ng-container *ngTemplateOutlet="recursiveMenu; context: {$implicit: item.children}"></ng-container>
+											<!-- <label > {{item.children.length}}  </label> -->
+											<!-- <ng-container *ngTemplateOutlet="recursiveMenu; context: {$implicit: item.children}">
+											</ng-container> -->
+											<div *ngFor="let children of item.children; let i = index">
+												<div class="vsm-item">
+													<a [routerLink]="children.route" routerLinkActive="active-item"
+														[routerLinkActiveOptions]="{ exact: true }" class="vsm-link">
+														<i class="vsm-icon fa fa-angle-double-right"></i>
+														<span class="vsm-title">{{ children.name }}</span>
+													</a>
+												</div>
+											</div>
 										</ng-template>
 									</ngb-panel>
 								</ngb-accordion>
 								<ng-template #notAbstract>
 									<div class="vsm-item">
-										<a *ngIf="getRoutePermission(item.route, permissions.access)" [routerLink]="item.route" routerLinkActive="active-item" [routerLinkActiveOptions]="{ exact: true }" class="vsm-link">
+										<a [routerLink]="item.route" routerLinkActive="active-item"
+											[routerLinkActiveOptions]="{ exact: true }" class="vsm-link">
 											<i class="vsm-icon fa fa-angle-double-right"></i>
 											<span class="vsm-title">{{ item.name }}</span>
 										</a>
@@ -53,7 +69,9 @@
 								</ng-template>
 							</div>
 						</ng-template>
-						<ng-container *ngTemplateOutlet="recursiveMenu; context: {$implicit: userData.app.formatted_child_modules}"></ng-container>
+						<ng-container
+							*ngTemplateOutlet="recursiveMenu; context: {$implicit: {route: null,name: null,children: null,abstract: null }}">
+						</ng-container>
 					</div>
 				</div>
 			</perfect-scrollbar>

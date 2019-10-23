@@ -14,11 +14,16 @@ const routes: Routes = [
 		component: PrivilegesComponent,
 		data: { breadcrumbs: 'Privilegios' }
 	},
-	
+	{
+		path: 'headquarter',
+		loadChildren: () => import('./headquarter/headquarter.module').then(m => m.HeadquarterModule),
+		data: { breadcrumbs: 'Sedes' }
+	},
+
 ];
 
 @NgModule({
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule]
 })
-export class MainRoutingModule {}
+export class MainRoutingModule { }

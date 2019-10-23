@@ -116,6 +116,16 @@ export class HeadquarterListComponent implements OnInit {
 		this.searchHeadquarters().then(() => this.progressSearch = false);
 	}
 
+	async searchbyname() {
+		this.headquarters = [];
+		this.loadControl = 0;
+		console.log(this.searchData.term);
+		 return await this._headquarterService.searchbyname(this.searchData.term).then((response: any) => {
+		 	this.loadControl = 1;
+		 	this.headquarters = response;
+		 });
+	}
+
 	reset = () => {
 		this.headquarterListForm.reset();
 		this.term.setValue('');

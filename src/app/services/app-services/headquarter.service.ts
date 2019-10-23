@@ -28,8 +28,11 @@ export class HeadquarterService {
 		return await this.http.get(`${environment.UrlApi}/headquarter/?page=${page}&pageSize=${pageSize}`, { params: data }).toPromise();
 
 	}
+	async searchbyname(name: any, page = '', pageSize = ''): Promise<any> {
+		//return await this.http.get(`${environment.UrlApi}/headquarters/datatable`, { params: data }).toPromise();
+		return await this.http.get(`${environment.UrlApi}/headquarter/?name=${name}`).toPromise();
 
-
+	}
 	/**
    * Tiene como objetivo Registrar la Sede
    * @param data
@@ -47,6 +50,12 @@ export class HeadquarterService {
 
 	async delete(headquarterId: number): Promise<any> {
 		const response: any = await this.http.delete(`${environment.UrlApi}/headquarters/${headquarterId}`).toPromise();
+		return response.data;
+	}
+
+
+	async getneighbourhood(): Promise<any> {
+		const response: any = await this.http.delete(`${environment.UrlApi}/neighbourhood`).toPromise();
 		return response.data;
 	}
 

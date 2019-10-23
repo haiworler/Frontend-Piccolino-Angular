@@ -1,0 +1,12 @@
+<div class="mb-2 mr-2 btn-group" ngbDropdown>
+    <button class="btn btn-outline-primary lnr-list"><i></i></button>
+    <button type="button" ngbDropdownToggle class="dropdown-toggle-split btn btn-outline-primary"><span
+      class="sr-only"></span></button>
+    <div ngbDropdownMenu>
+        <button [class]="'dropdown-item '  +   button.class" *ngFor="let button of buttonsOp" (click)="selectionOptions(button)">
+            <i [class]="button.icon"></i>
+            <span *ngIf="button.condition"> {{ (condition) ? button.secondTitle   : button.title}}</span>
+            <span *ngIf="!button.condition">{{ button.title }}</span>
+        </button>
+    </div>
+</div>

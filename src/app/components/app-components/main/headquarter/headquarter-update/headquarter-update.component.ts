@@ -79,6 +79,7 @@ export class HeadquarterUpdateComponent implements OnInit {
 			observations: basicData.observations,
 			createAt: this.formatJsonDate(basicData.createAt)
 		}
+
 		this._headquarterService.update(this.headquarter.id, data).then((response: any) => {
 			this.progress = 1;
 			this._storageService.setItem('token', localStorage.getItem('token'));

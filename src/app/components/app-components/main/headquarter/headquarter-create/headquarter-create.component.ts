@@ -66,6 +66,7 @@ export class HeadquarterCreateComponent implements OnInit {
 			observation: basicData.observation,
 			createAt: this.formatJsonDate(basicData.createAt)
 		}
+
 		this._headquarterService.create(data).then((response: any) => {
 			this.progress = 1;
 			this._storageService.setItem('token', localStorage.getItem('token'));

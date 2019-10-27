@@ -19,6 +19,11 @@ const routes: Routes = [
 		loadChildren: () => import('./headquarter/headquarter.module').then(m => m.HeadquarterModule),
 		data: { breadcrumbs: 'Sedes' }
 	},
+	{
+		path: 'person',
+		loadChildren: () => import('./person/person.module').then(m => m.PersonModule),
+		data: { breadcrumbs: 'Personas' }
+	},
 
 ];
 

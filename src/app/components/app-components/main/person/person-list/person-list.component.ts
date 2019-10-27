@@ -9,6 +9,7 @@ import { MainService } from '@services/app-services/main.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { PersonCreateComponent } from '../person-create/person-create.component';
+import { PersonUpdateComponent } from '../person-update/person-update.component';
 
 @Component({
   selector: 'app-person-list',
@@ -153,7 +154,7 @@ export class PersonListComponent implements OnInit, OnChanges, OnDestroy {
   selectionOptions(parameters: any = null) {
     switch (parameters.parameters.method) {
       case 'update':
-        //this.updateHeadquarter(parameters.object);
+        this.updatePerson(parameters.object);
         break;
 
       default:
@@ -173,28 +174,14 @@ export class PersonListComponent implements OnInit, OnChanges, OnDestroy {
 		 });
 	}
 
-	updatePerson = (headquarter: any) => {
-		// this._headquarterService.setHeadquarter(headquarter);
-		//  this._modalService.open({
-		//  	component: HeadquarterUpdateComponent,
-		//  	title: 'Actualización de una Sede',
-		//  	size: 'modal-xl'
-		//  });
+	updatePerson = (person: any) => {
+		 this._personService.setPerson(person);
+		  this._modalService.open({
+		  	component: PersonUpdateComponent,
+		  	title: 'Actualización de una persona',
+		  	size: 'modal-xl'
+		  });
 	}
-
-	updateArea = (headquarter: any) => {
-		// area.is_enabled = (area.is_enabled) ? 0 : 1;
-		// this._areasService.update(area.id, area).then((response: any) => {
-		// 	this._notificationService.success({
-		// 		title: 'Información',
-		// 		message: 'Ela área se ha actualizado correctamente.'
-		// 	});
-		// });
-
-	}
-
-
-
 
 	ngOnDestroy() {
 		this._storageService.removeItem();

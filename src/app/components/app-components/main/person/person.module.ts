@@ -21,11 +21,13 @@ import { I18n, CustomDatepickerI18n } from '@services/shared/datepicker-i18n.ser
 import { PersonRoutingModule } from './person-routing.module';
 import { PersonListComponent } from './person-list/person-list.component';
 import { PersonCreateComponent } from './person-create/person-create.component';
-
+import { InputFileConfig, InputFileModule } from 'ngx-input-file';
+import { PersonUpdateComponent } from './person-update/person-update.component';
+const config: InputFileConfig = {};
 
 @NgModule({
-  declarations: [PersonListComponent, PersonCreateComponent],
-  entryComponents: [PersonCreateComponent],
+  declarations: [PersonListComponent, PersonCreateComponent, PersonUpdateComponent],
+  entryComponents: [PersonCreateComponent,PersonUpdateComponent],
   imports: [
     CommonModule,
     PersonRoutingModule,
@@ -42,7 +44,8 @@ import { PersonCreateComponent } from './person-create/person-create.component';
     SweetAlert2Module,
     TextMaskModule,
     SharedModule,
-    LayoutModule
+    LayoutModule,
+    InputFileModule.forRoot(config)
   ],
   providers: [ModalService, I18n,
     { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]

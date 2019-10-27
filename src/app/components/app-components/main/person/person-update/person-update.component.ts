@@ -8,17 +8,14 @@ import { PersonService } from '@services/app-services/person.service';
 import { NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-person-create',
-  templateUrl: './person-create.component.html',
+  selector: 'app-person-update',
+  templateUrl: './person-update.component.html',
   styles: []
 })
-export class PersonCreateComponent implements OnInit {
+export class PersonUpdateComponent implements OnInit {
 
-
-  personCreateForm: FormGroup;
-
+  personUpdateForm: FormGroup;
   userData: any;
-
   progress: boolean | number = false;
   neighbourhood: any;
   person: any;
@@ -38,22 +35,25 @@ export class PersonCreateComponent implements OnInit {
     public calendar: NgbCalendar
   ) { }
 
-  async  ngOnInit() {
+  async ngOnInit() {
+
     this.userData = this._mainService.getUserData();
-    this.personCreateForm = this.formBuilder.group({
+    this.person = this._personService.getPerson();
+    console.log('Persona: ', this.person);
+    this.personUpdateForm = this.formBuilder.group({
       basic_data: this.formBuilder.group({
         names: ['', [Validators.required]],
         surnames: ['', [Validators.required]],
-        documentTypeId: ['', [Validators.required]],
+        DocumentType: ['', [Validators.required]],
         documentNumber: ['', [Validators.required]],
         birthDate: [this.calendar.getToday(), [Validators.required]],
-        cityId: ['', [Validators.required]],
-        genderId: ['', [Validators.required]],
+        City: ['', [Validators.required]],
+        Gender: ['', [Validators.required]],
         phone: ['', [Validators.required]],
         cell: ['', [Validators.required]],
         email: ['', [Validators.required]],
         addressResidence: ['', [Validators.required]],
-        neighborhoodId: ['', [Validators.required]],
+        Neighbourhood: ['', [Validators.required]],
         occupation: ['', [Validators.required]],
         rh: ['', [Validators.required]],
         eps: ['', [Validators.required]],
@@ -63,9 +63,12 @@ export class PersonCreateComponent implements OnInit {
         state: [1, [Validators.required]],
         meansContact: ['', [Validators.required]],
         image: [[]],
-        personType: ['', [Validators.required]]
+        PersonType: ['', [Validators.required]]
       })
     });
+    this.basicData.patchValue(this.person);
+    this.basicData.get('birthDate').setValue(this.formatDatepiker(this.person.birthDate));
+
     this.documentTypes = await this._personService.getDependence('document-type');
     this.genders = await this._personService.getDependence('genders');
     this.cities = await this._personService.getDependence('cities');
@@ -74,7 +77,7 @@ export class PersonCreateComponent implements OnInit {
   }
 
   get basicData() {
-    return this.personCreateForm.get('basic_data');
+    return this.personUpdateForm.get('basic_data');
   }
 
   assignTodayDate = (control: FormControl) => control.setValue(this.calendar.getToday());
@@ -82,21 +85,21 @@ export class PersonCreateComponent implements OnInit {
   formatJsonDate = (date: any) => (`${date.year}-${this.addLeadingZeroes(date.month)}-${this.addLeadingZeroes(date.day)}`);
 
 
-  createPerson = () => {
+  updatePerson = () => {
     const basicData: any = (this.basicData as FormGroup).getRawValue();
     const data = {
       names: basicData.names,
       surnames: basicData.surnames,
-      documentTypeId: basicData.documentTypeId.id,
+      documentTypeId: basicData.DocumentType.id,
       documentNumber: basicData.documentNumber,
       birthDate: this.formatJsonDate(basicData.birthDate),
-      cityId: basicData.cityId.id,
-      genderId: basicData.genderId.id,
+      cityId: basicData.City.id,
+      genderId: basicData.Gender.id,
       phone: basicData.phone,
       cell: basicData.cell,
       email: basicData.email,
       addressResidence: basicData.addressResidence,
-      neighborhoodId: basicData.neighborhoodId.id,
+      neighborhoodId: basicData.Neighbourhood.id,
       occupation: basicData.occupation,
       rh: basicData.rh,
       eps: basicData.eps,
@@ -105,20 +108,29 @@ export class PersonCreateComponent implements OnInit {
       levelSisben: basicData.levelSisben,
       state: basicData.state,
       meansContact: basicData.meansContact,
-      personType: basicData.personType.id,
-      image: ((basicData.image.length > 0) ? basicData.image[0].file.name : '')
+      personType: basicData.PersonType.id //,
+      //image: ((basicData.image.length > 0) ? basicData.image[0].file.name : '')
     }
-    this._personService.create(data).then((response: any) => {
-      this.progress = 1;
-      this._storageService.setItem('token', localStorage.getItem('token'));
-      this._modalService.close();
-      this._notificationService.success({
-        title: 'Información',
-        message: 'La Persona se ha registrado correctamente.'
-      });
-    }).catch((response: any) => {
-      this.progress = false;
-    });
+    this._personService.update(this.person.id,data).then((response: any) => {
+       this.progress = 1;
+       this._storageService.setItem('token', localStorage.getItem('token'));
+       this._modalService.close();
+       this._notificationService.success({
+         title: 'Información',
+         message: 'La Persona se ha actualizado correctamente.'
+       });
+     }).catch((response: any) => {
+       this.progress = false;
+     });
   }
+
+   /**
+   * Toma la fecha y la transforma en formato NgDAtepiker
+   */
+
+	formatDatepiker(dateString: string) {
+		let date = new Date(dateString);
+		return { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
+	}
 
 }

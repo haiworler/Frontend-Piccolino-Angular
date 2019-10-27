@@ -1,19 +1,19 @@
-<div [formGroup]="personCreateForm" class="row needs-validation mb-4" novalidate>
+<div [formGroup]="personUpdateForm" class="row needs-validation mb-4" novalidate>
     <div class="col-12">
         <div class="row mb-3">
             <div class="col-12">
-                <div [ngClass]="{ 'card-shadow-success': personCreateForm.valid }" class="card card-body card-shadow-secondary mb-0 p-2">
+                <div [ngClass]="{ 'card-shadow-success': personUpdateForm.valid }" class="card card-body card-shadow-secondary mb-0 p-2">
                     <div class="row d-flex align-items-center">
                         <div class="col-12 col-md-9">
                             <p class="mb-0 px-2 py-3">
                                 <i class="lnr-pushpin mr-2"></i> Diligencie la información a continuación, y posteriormente por favor haga click en el botón
-                                <strong>Registrar Persona.</strong>
+                                <strong>Actualizar Persona.</strong>
                             </p>
                         </div>
                         <div class="col-12 col-md-3 d-flex justify-content-center">
-                            <button *ngIf="personCreateForm.valid" (click)="createPerson()" [ladda]="progress" class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in" data-style="expand-left">
+                            <button *ngIf="personUpdateForm.valid" (click)="updatePerson()" [ladda]="progress" class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in" data-style="expand-left">
 								<span class="ladda-label">
-									<i class="fa fa-check-circle mr-2"></i>Registrar Persona
+									<i class="fa fa-check-circle mr-2"></i>Actualizar Persona
 								</span>
 								<span class="ladda-spinner"></span>
 							</button>
@@ -49,9 +49,9 @@
                                                 <input formControlName="surnames" id="surnames" placeholder="Apellidos de la persona" type="text" class="form-control">
                                             </div>
                                             <div class="col-12 col-md-6 col-lg-4 form-group">
-                                                <required-field [control]="basicData.get('documentTypeId')" label="documentTypeId">Tipo de documento:
+                                                <required-field [control]="basicData.get('DocumentType')" label="DocumentType">Tipo de documento:
                                                 </required-field>
-                                                <ng-select [items]="documentTypes" dropdownPosition="bottom" formControlName="documentTypeId" id="documentTypeId" bindLabel="name"></ng-select>
+                                                <ng-select [items]="documentTypes" dropdownPosition="bottom" formControlName="DocumentType" id="DocumentType" bindLabel="name"></ng-select>
                                             </div>
                                             <div class="col-12 col-md-6 col-lg-4 form-group">
                                                 <required-field [control]="basicData.get('documentNumber')" label="documentNumber">Número de documento:</required-field>
@@ -76,14 +76,14 @@
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6 col-lg-4 form-group">
-                                                <required-field [control]="basicData.get('cityId')" label="cityId">Ciudad de nacimiento:
+                                                <required-field [control]="basicData.get('City')" label="City">Ciudad de nacimiento:
                                                 </required-field>
-                                                <ng-select [items]="cities" dropdownPosition="bottom" formControlName="cityId" id="cityId" bindLabel="name"></ng-select>
+                                                <ng-select [items]="cities" dropdownPosition="bottom" formControlName="City" id="City" bindLabel="name"></ng-select>
                                             </div>
                                             <div class="col-12 col-md-6 col-lg-4 form-group">
-                                                <required-field [control]="basicData.get('genderId')" label="genderId">Genero:
+                                                <required-field [control]="basicData.get('Gender')" label="Gender">Genero:
                                                 </required-field>
-                                                <ng-select [items]="genders" dropdownPosition="bottom" formControlName="genderId" id="genderId" bindLabel="name"></ng-select>
+                                                <ng-select [items]="genders" dropdownPosition="bottom" formControlName="Gender" id="Gender" bindLabel="name"></ng-select>
                                             </div>
                                             <div class="col-12 col-md-6 col-lg-4 form-group">
                                                 <required-field [control]="basicData.get('phone')" label="phone">Telefono:</required-field>
@@ -104,9 +104,9 @@
                                                 <input formControlName="addressResidence" id="addressResidence" placeholder="Dirección de residencia" type="text" class="form-control">
                                             </div>
                                             <div class="col-12 col-md-6 col-lg-4 form-group">
-                                                <required-field [control]="basicData.get('neighborhoodId')" label="neighborhoodId">Barrio :
+                                                <required-field [control]="basicData.get('Neighbourhood')" label="Neighbourhood">Barrio :
                                                 </required-field>
-                                                <ng-select [items]="neighbourhoods" dropdownPosition="bottom" formControlName="neighborhoodId" id="neighborhoodId" bindLabel="name"></ng-select>
+                                                <ng-select [items]="neighbourhoods" dropdownPosition="bottom" formControlName="Neighbourhood" id="Neighbourhood" bindLabel="name"></ng-select>
                                             </div>
                                             <div class="col-12 col-md-6 col-lg-4 form-group">
                                                 <required-field [control]="basicData.get('occupation')" label="occupation">Ocupación :</required-field>
@@ -135,34 +135,14 @@
                                                 <input formControlName="levelSisben" id="levelSisben" placeholder="Nivel Sisben" type="number" class="form-control">
                                             </div>
                                             <div class="col-12 col-md-6 col-lg-4 form-group">
-                                                <required-field [control]="basicData.get('personType')" label="personType">Tipo de persona :
+                                                <required-field [control]="basicData.get('PersonType')" label="PersonType">Tipo de persona :
                                                 </required-field>
-                                                <ng-select [items]="personTypes" dropdownPosition="bottom" formControlName="personType" id="personType" bindLabel="name"></ng-select>
+                                                <ng-select [items]="personTypes" dropdownPosition="bottom" formControlName="PersonType" id="PersonType" bindLabel="name"></ng-select>
                                             </div>
                                             <div class="col-12 col-md-6 col-lg-4 form-group">
                                                 <required-field [control]="basicData.get('meansContact')" label="meansContact">Nombre de Contacto :</required-field>
                                                 <input formControlName="meansContact" id="meansContact" placeholder="Nombre del contacto" type="text" class="form-control">
                                             </div>
-
-
-                                            <!-- <div class="col-12 col-md-6 col-lg-4 form-group">
-                                                <required-field [control]="basicData.get('createAt')" label="name">
-                                                    Fecha de admisión:
-                                                </required-field>
-                                                <div class="input-group">
-                                                    <input #createAt="ngbDatepicker" (click)="createAt.toggle()" [footerTemplate]="footerTemplate1" [readOnly]="true" ngbDatepicker placement="bottom" formControlName="createAt" id="createAt" class="form-control" placeholder="yyyy-mm-dd">
-                                                    <div class="input-group-append">
-                                                        <button (click)="createAt.toggle()" type="button" class="btn btn-primary">
-															<i class="fa fa-calendar"></i>
-														</button>
-                                                    </div>
-                                                    <ng-template #footerTemplate1>
-                                                        <hr class="my-0">
-                                                        <button (click)="assignTodayDate(basicData.get('createAt')); createAt.close()" class="btn btn-primary btn-sm m-2 float-left">Hoy</button>
-                                                        <button (click)="createAt.close()" type="button" class="btn btn-secondary btn-sm m-2 float-right">Cerrar</button>
-                                                    </ng-template>
-                                                </div>
-                                            </div> -->
                                         </div>
                                     </div>
                                 </div>

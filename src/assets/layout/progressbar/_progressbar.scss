@@ -1,0 +1,8 @@
+.ng-progress-bar {
+	background: rgba($black, .25);
+	height: 100% !important;
+	
+	&.-active {
+		pointer-events: auto !important;
+	}
+}

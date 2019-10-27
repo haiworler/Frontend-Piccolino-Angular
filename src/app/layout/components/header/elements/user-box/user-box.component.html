@@ -1,0 +1,34 @@
+<div class="d-flex">
+	<div class="btn-group" ngbDropdown>
+		<button type="button" class="btn btn-icon btn-pill btn-outline-primary btn-outline-2x btn-lg dropdown-toggle" ngbDropdownToggle>
+			<i class="pe-7s-user btn-icon-wrapper"></i>
+			Usuario
+		</button>
+		<div class="dropdown-menu dropdown-menu-xl dropdown-menu-rounded mt-4 mt-sm-1" ngbDropdownMenu>
+			<div class="dropdown-menu-header">
+				<div class="dropdown-menu-header-inner bg-dark">
+					<div class="menu-header-image opacity-2 dd-header-bg-6"></div>
+					<div class="menu-header-content text-left">
+						<div class="widget-content p-0">
+							<div class="widget-content-wrapper">
+								<div class="widget-content-left mr-3">
+									<i class="pe-7s-user fa-4x"></i>
+								</div>
+								<div class="widget-content-left">
+									<div class="widget-heading">Bienvenido(a), <strong>{{ userData?.name }}</strong></div>
+									<div class="widget-subheading opacity-8">Perfil:
+										<!-- <strong>{{ roles }}</strong> -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h6 class="dropdown-header">Opciones</h6>
+			<button (click)="logout()" class="dropdown-item border-0 btn-transition btn-outline-danger" type="button">
+				<i class="pe-7s-lock mr-2"></i>Cerrar sesión
+			</button>
+		</div>
+	</div>
+</div>

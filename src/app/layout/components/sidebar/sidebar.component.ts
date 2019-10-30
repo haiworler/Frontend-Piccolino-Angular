@@ -62,6 +62,14 @@ export class SidebarComponent implements OnInit {
 						route: '/person', name: 'Gestion Personas', icon: 'how_to_reg', class: '', children: [], abstract: false
 					}
 				], abstract: true
+			},
+			{
+				route: '/subject', name: 'Asignaturas', icon: 'dashboard', class: ''
+				, children: [
+					{
+						route: '/subject', name: 'Gestion Asignaturas', icon: 'how_to_reg', class: '', children: [], abstract: false
+					}
+				], abstract: true
 			}
 		];
 

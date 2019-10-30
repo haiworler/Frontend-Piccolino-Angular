@@ -24,6 +24,11 @@ const routes: Routes = [
 		loadChildren: () => import('./person/person.module').then(m => m.PersonModule),
 		data: { breadcrumbs: 'Personas' }
 	},
+	{
+		path: 'subject',
+		loadChildren: () => import('./subject/subject.module').then(m => m.SubjectModule),
+		data: { breadcrumbs: 'Asignaturas' }
+	},
 
 ];
 

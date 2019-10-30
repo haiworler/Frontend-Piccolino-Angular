@@ -1,49 +1,48 @@
-
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { StorageService } from '@services/app-services/storage.service';
 import { ModalService } from '@services/shared/modal.service';
-import { HeadquarterService } from '@services/app-services/headquarter.service';
+import { SubjectService } from '@services/app-services/subject.service';
 import { NotificationsService } from '@services/shared/notifications.service';
 import { Headquarter } from '@interfaces/headquarter';
 import { MainService } from '@services/app-services/main.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
-import { HeadquarterUpdateComponent } from './../headquarter-update/headquarter-update.component';
-import { HeadquarterCreateComponent } from './../headquarter-create/headquarter-create.component';
+import { SubjectCreateComponent } from './../subject-create/subject-create.component';
+
+
 
 @Component({
-	selector: 'app-headquarter-list',
-	templateUrl: './headquarter-list.component.html',
+	selector: 'app-subject-list',
+	templateUrl: './subject-list.component.html',
 	styles: []
 })
-export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
+export class SubjectListComponent implements OnInit,OnChanges, OnDestroy {
 
-	heading = 'Sedes';
+	heading = 'Asignaturas';
 	subheading = 'Listado';
 	icon = 'fa fa-cogs icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
 	storageSub: any = null;
-	headquarter: any;
+	subject: any;
 	searchData: any;
 	progressSearch: boolean | number = false;
-	headquarterListForm: FormGroup;
+	subjectsListForm: FormGroup;
 	loadControl: any = 0;
 	buttonsOp: any[] = [];
 	userData: any;
 	permissions: any[];
 	currentRoute: any;
-	headquarters: any;
-
+	subjects:any = [];
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private _modalService: ModalService,
 		private _storageService: StorageService,
 		private _notificationService: NotificationsService,
-		private _headquarterService: HeadquarterService,
+		private _subjectService: SubjectService,
 		private _mainService: MainService,
 		private router: Router
 	) { }
@@ -70,7 +69,7 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 
 		}
 
-		this.headquarterListForm = this.formBuilder.group({
+		this.subjectsListForm = this.formBuilder.group({
 			term: ['', []],
 			page: [1, []],
 			limit: [10, []]
@@ -91,9 +90,8 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 		this.ngOnChanges();
 	}
 
-
 	ngOnChanges() {
-		this.headquarterListForm.valueChanges.subscribe((form: any) => {
+		this.subjectsListForm.valueChanges.subscribe((form: any) => {
 			this.searchData = {
 				term: form.term,
 				page: form.page,
@@ -104,15 +102,15 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	get term() {
-		return this.headquarterListForm.get('term');
+		return this.subjectsListForm.get('term');
 	}
 
 	get page() {
-		return this.headquarterListForm.get('page');
+		return this.subjectsListForm.get('page');
 	}
 
 	get limit() {
-		return this.headquarterListForm.get('limit');
+		return this.subjectsListForm.get('limit');
 	}
 
 	search = () => {
@@ -121,29 +119,29 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	async searchbyname() {
-		this.headquarters = [];
+		this.subjects = [];
 		this.loadControl = 0;
 		console.log(this.searchData.term);
-		return await this._headquarterService.searchbyname(this.searchData.term).then((response: any) => {
-			this.loadControl = 1;
-			this.headquarters = response;
-		});
+		// return await this._headquarterService.searchbyname(this.searchData.term).then((response: any) => {
+		// 	this.loadControl = 1;
+		// 	this.subjects = response;
+		// });
 	}
 
 	reset = () => {
-		this.headquarterListForm.reset();
+		this.subjectsListForm.reset();
 		this.term.setValue('');
 		this.page.setValue(1);
 		this.limit.setValue(10);
-		this.headquarters = [];
+		this.subjects = [];
 	}
 
 	async searchHeadquarters() {
-		this.headquarters = [];
+		this.subjects = [];
 		this.loadControl = 0;
-		return await this._headquarterService.search(this.searchData).then((response: any) => {
+		return await this._subjectService.search(this.searchData).then((response: any) => {
 			this.loadControl = 1;
-			this.headquarters = response;
+			this.subjects = response;
 		});
 	}
 
@@ -166,21 +164,21 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 	/**
 	 * Abre el modal seteando el componente HeadquarterCreateComponent
 	 */
-	createHeadquarterModal = () => {
-		this._modalService.open({
-			component: HeadquarterCreateComponent,
-			title: 'Registro de una sede',
-			size: 'modal-xl'
-		});
+	createSubjectModal = () => {
+		 this._modalService.open({
+		 	component: SubjectCreateComponent,
+		 	title: 'Registro de una asignatura',
+		 	size: 'modal-xl'
+		 });
 	}
 
 	updateHeadquarter = (headquarter: any) => {
-		this._headquarterService.setHeadquarter(headquarter);
-		 this._modalService.open({
-		 	component: HeadquarterUpdateComponent,
-		 	title: 'Actualización de una Sede',
-		 	size: 'modal-xl'
-		 });
+		// this._headquarterService.setHeadquarter(headquarter);
+		//  this._modalService.open({
+		//  	component: HeadquarterUpdateComponent,
+		//  	title: 'Actualización de una Sede',
+		//  	size: 'modal-xl'
+		//  });
 	}
 
 	updateArea = (headquarter: Headquarter) => {
@@ -194,7 +192,6 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 
 	}
 
-	setHeadquarter = (headquarter: Headquarter) => this._headquarterService.setHeadquarter(headquarter);
 
 
 

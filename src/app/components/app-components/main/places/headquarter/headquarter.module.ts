@@ -12,7 +12,7 @@ import { LaddaModule } from 'angular2-ladda';
 import { TextMaskModule } from 'angular2-text-mask';
 import { LayoutModule } from '@layout/layout.module';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { ModalService } from '@services/shared/modal.service';
 import { HeadquarterRoutingModule } from './headquarter-routing.module';
 import { HeadquarterListComponent } from './headquarter-list/headquarter-list.component';

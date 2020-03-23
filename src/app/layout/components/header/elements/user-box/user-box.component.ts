@@ -22,7 +22,7 @@ export class UserBoxComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.userData = this._authService.currentUserValue;
-		this.roles = this.userData.roles.map((role: any) => role.name).join(', ');
+		this.roles = this.userData.profile.map((role: any) => role.name).join(', ');
 	}
 
 	async logout(): Promise<any> {

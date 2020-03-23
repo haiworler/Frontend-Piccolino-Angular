@@ -6,7 +6,6 @@ import { StorageService } from '@services/app-services/storage.service';
 import { ModalService } from '@services/shared/modal.service';
 import { HeadquarterService } from '@services/app-services/headquarter.service';
 import { NotificationsService } from '@services/shared/notifications.service';
-import { Headquarter } from '@interfaces/headquarter';
 import { MainService } from '@services/app-services/main.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
@@ -18,7 +17,7 @@ import { HeadquarterCreateComponent } from './../headquarter-create/headquarter-
 	templateUrl: './headquarter-list.component.html',
 	styles: []
 })
-export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
+export class HeadquarterListComponent implements OnInit, OnChanges {
 
 	heading = 'Sedes';
 	subheading = 'Listado';
@@ -53,7 +52,7 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 		this.permissions = this._mainService.Permissions;
 		this.currentRoute = this.router.url;
 		for (const permission in this.permissions) {
-			if (this.permissions[permission].method != 'activate-deactivate' && this.permissions[permission].method != 'delete') {
+			if ( this.permissions[permission].method != 'delete') {
 				this.buttonsOp.push(
 					{
 						title: this.permissions[permission].title,
@@ -120,16 +119,6 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 		this.searchHeadquarters().then(() => this.progressSearch = false);
 	}
 
-	async searchbyname() {
-		this.headquarters = [];
-		this.loadControl = 0;
-		console.log(this.searchData.term);
-		return await this._headquarterService.searchbyname(this.searchData.term).then((response: any) => {
-			this.loadControl = 1;
-			this.headquarters = response;
-		});
-	}
-
 	reset = () => {
 		this.headquarterListForm.reset();
 		this.term.setValue('');
@@ -157,7 +146,9 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 			case 'update':
 				this.updateHeadquarter(parameters.object);
 				break;
-
+				case 'activate-deactivate':
+					this.updateHeadquarterState(parameters.object);
+					break;
 			default:
 				break;
 		}
@@ -175,7 +166,7 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 	}
 
 	updateHeadquarter = (headquarter: any) => {
-		this._headquarterService.setHeadquarter(headquarter);
+		this._headquarterService.setheadquarter(headquarter);
 		 this._modalService.open({
 		 	component: HeadquarterUpdateComponent,
 		 	title: 'Actualización de una Sede',
@@ -183,24 +174,21 @@ export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 		 });
 	}
 
-	updateArea = (headquarter: Headquarter) => {
-		// area.is_enabled = (area.is_enabled) ? 0 : 1;
-		// this._areasService.update(area.id, area).then((response: any) => {
-		// 	this._notificationService.success({
-		// 		title: 'Información',
-		// 		message: 'Ela área se ha actualizado correctamente.'
-		// 	});
-		// });
+	updateHeadquarterState = (headquarter: any) => {
+		headquarter.enabled = (headquarter.enabled) ? 0 : 1;
+		 this._headquarterService.update(headquarter.id, headquarter).then((response: any) => {
+		 	this._notificationService.success({
+		 		title: 'Información',
+		 		message: 'La sede se ha actualizado correctamente.'
+		 	});
+		 });
 
 	}
 
-	setHeadquarter = (headquarter: Headquarter) => this._headquarterService.setHeadquarter(headquarter);
+	setheadquarter = (headquarter: any) => this._headquarterService.setheadquarter(headquarter);
 
 
 
-	ngOnDestroy() {
-		this._storageService.removeItem();
-		this.storageSub.unsubscribe();
-	}
+	
 
 }

@@ -15,11 +15,6 @@ const routes: Routes = [
 		data: { breadcrumbs: 'Privilegios' }
 	},
 	{
-		path: 'headquarter',
-		loadChildren: () => import('./headquarter/headquarter.module').then(m => m.HeadquarterModule),
-		data: { breadcrumbs: 'Sedes' }
-	},
-	{
 		path: 'person',
 		loadChildren: () => import('./person/person.module').then(m => m.PersonModule),
 		data: { breadcrumbs: 'Personas' }
@@ -28,6 +23,16 @@ const routes: Routes = [
 		path: 'subject',
 		loadChildren: () => import('./subject/subject.module').then(m => m.SubjectModule),
 		data: { breadcrumbs: 'Asignaturas' }
+	},
+	{
+		path: 'cost-enrollet',
+		loadChildren: () => import('./cost-enrollet/cost-enrollet.module').then(m => m.CostEnrolletModule),
+		data: { breadcrumbs: 'Costo de la matrícula' }
+	},
+	{
+		path: 'places',
+		loadChildren: () => import('./places/places.module').then(m => m.PlacesModule),
+		data: { breadcrumbs: 'Lugares' }
 	},
 
 ];

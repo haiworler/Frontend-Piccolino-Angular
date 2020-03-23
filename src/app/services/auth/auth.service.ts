@@ -29,7 +29,7 @@ export class AuthService {
 	}
 
 	async login(name: string, password: string): Promise<any> {
-		return await this.http.post(`${environment.UrlApi}/auth/login`, { name: name, password: password }).toPromise();
+		return await this.http.post(`${environment.UrlApi}/auth/login`, { email: name, password: password }).toPromise();
 	}
 
 	isAuthenticated = (): boolean => !!this.currentUserValue;

@@ -3,13 +3,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { StorageService } from '@services/app-services/storage.service';
 import { ModalService } from '@services/shared/modal.service';
-import { SubjectService } from '@services/app-services/subject.service';
+import { SubjectService } from '@services/app-services/schools/subject.service';
 import { NotificationsService } from '@services/shared/notifications.service';
 import { Headquarter } from '@interfaces/headquarter';
 import { MainService } from '@services/app-services/main.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
-import { SubjectCreateComponent } from './../subject-create/subject-create.component';
+import { SubjectCreateComponent } from '../subject-create/subject-create.component';
+import { SubjectUpdateComponent } from '../subject-update/subject-update.component';
+import { AssignTeachersComponent } from '../assign-teachers/assign-teachers.component';
 
 
 
@@ -18,9 +20,9 @@ import { SubjectCreateComponent } from './../subject-create/subject-create.compo
 	templateUrl: './subject-list.component.html',
 	styles: []
 })
-export class SubjectListComponent implements OnInit,OnChanges, OnDestroy {
+export class SubjectListComponent implements OnInit, OnChanges {
 
-	heading = 'Asignaturas';
+	heading = 'Listado de asignaturas';
 	subheading = 'Listado';
 	icon = 'fa fa-cogs icon-gradient bg-night-sky';
 	primaryColour = '#fff';
@@ -35,7 +37,7 @@ export class SubjectListComponent implements OnInit,OnChanges, OnDestroy {
 	userData: any;
 	permissions: any[];
 	currentRoute: any;
-	subjects:any = [];
+	subjects: any = [];
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -52,7 +54,7 @@ export class SubjectListComponent implements OnInit,OnChanges, OnDestroy {
 		this.permissions = this._mainService.Permissions;
 		this.currentRoute = this.router.url;
 		for (const permission in this.permissions) {
-			if (this.permissions[permission].method != 'activate-deactivate' && this.permissions[permission].method != 'delete') {
+			if (this.permissions[permission].method != 'delete') {
 				this.buttonsOp.push(
 					{
 						title: this.permissions[permission].title,
@@ -66,9 +68,10 @@ export class SubjectListComponent implements OnInit,OnChanges, OnDestroy {
 				);
 
 			}
-
 		}
-
+		this.buttonsOp.push(
+			{ name: 'add', title: 'Asignar Maestros', secondTitle: null, icon: 'fa fa-users fa-fw mr-2', method: 'add', class: 'btn btn-sm btn-pill btn-outline-primary', condition: null, parameter: null, specialCondition: false }
+		);
 		this.subjectsListForm = this.formBuilder.group({
 			term: ['', []],
 			page: [1, []],
@@ -118,15 +121,7 @@ export class SubjectListComponent implements OnInit,OnChanges, OnDestroy {
 		this.searchHeadquarters().then(() => this.progressSearch = false);
 	}
 
-	async searchbyname() {
-		this.subjects = [];
-		this.loadControl = 0;
-		console.log(this.searchData.term);
-		// return await this._headquarterService.searchbyname(this.searchData.term).then((response: any) => {
-		// 	this.loadControl = 1;
-		// 	this.subjects = response;
-		// });
-	}
+
 
 	reset = () => {
 		this.subjectsListForm.reset();
@@ -134,6 +129,7 @@ export class SubjectListComponent implements OnInit,OnChanges, OnDestroy {
 		this.page.setValue(1);
 		this.limit.setValue(10);
 		this.subjects = [];
+		this.search();
 	}
 
 	async searchHeadquarters() {
@@ -153,9 +149,14 @@ export class SubjectListComponent implements OnInit,OnChanges, OnDestroy {
 	selectionOptions(parameters: any = null) {
 		switch (parameters.parameters.method) {
 			case 'update':
-				this.updateHeadquarter(parameters.object);
+				this.updateSubject(parameters.object);
 				break;
-
+			case 'activate-deactivate':
+				this.updateSubjectState(parameters.object);
+				break;
+				case 'add':
+				this.assignSubject(parameters.object);
+				break;
 			default:
 				break;
 		}
@@ -165,39 +166,41 @@ export class SubjectListComponent implements OnInit,OnChanges, OnDestroy {
 	 * Abre el modal seteando el componente HeadquarterCreateComponent
 	 */
 	createSubjectModal = () => {
+		this._modalService.open({
+			component: SubjectCreateComponent,
+			title: 'Registro de una asignatura',
+			size: 'modal-xl'
+		});
+	}
+
+	updateSubject = (subject: any) => {
+		 this._subjectService.setsubject(subject);
+		  this._modalService.open({
+		  	component: SubjectUpdateComponent,
+		  	title: 'Actualización de una asignatura',
+		  	size: 'modal-xl'
+		  });
+	}
+
+	assignSubject = (subject: any) => {
+		this._subjectService.setsubject(subject);
 		 this._modalService.open({
-		 	component: SubjectCreateComponent,
-		 	title: 'Registro de una asignatura',
-		 	size: 'modal-xl'
+			 component: AssignTeachersComponent,
+			 title: 'Asignación de maestros',
+			 size: 'modal-xl'
 		 });
-	}
-
-	updateHeadquarter = (headquarter: any) => {
-		// this._headquarterService.setHeadquarter(headquarter);
-		//  this._modalService.open({
-		//  	component: HeadquarterUpdateComponent,
-		//  	title: 'Actualización de una Sede',
-		//  	size: 'modal-xl'
-		//  });
-	}
-
-	updateArea = (headquarter: Headquarter) => {
-		// area.is_enabled = (area.is_enabled) ? 0 : 1;
-		// this._areasService.update(area.id, area).then((response: any) => {
-		// 	this._notificationService.success({
-		// 		title: 'Información',
-		// 		message: 'Ela área se ha actualizado correctamente.'
-		// 	});
-		// });
-
-	}
+   }
 
 
+	updateSubjectState = (subject: any) => {
+		subject.enabled = (subject.enabled) ? 0 : 1;
+		this._subjectService.update(subject.id, subject).then((response: any) => {
+			this._notificationService.success({
+				title: 'Información',
+				message: 'La asignatura se ha actualizado correctamente.'
+			});
+		});
 
-
-	ngOnDestroy() {
-		this._storageService.removeItem();
-		this.storageSub.unsubscribe();
 	}
 
 }

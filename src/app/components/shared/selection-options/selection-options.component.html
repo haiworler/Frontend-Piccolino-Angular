@@ -8,5 +8,13 @@
             <span *ngIf="button.condition"> {{ (condition) ? button.secondTitle   : button.title}}</span>
             <span *ngIf="!button.condition">{{ button.title }}</span>
         </button>
+         <!-- Button 6 -->
+         <!-- <button ngbTooltip="" placement="auto" [class]="'dropdown-item '  +   button.class" (click)="selectionOptions(button)" *ngIf="button.method == 'add' && object.value.abstract">
+            <i [class]="button.icon"></i>
+            <span *ngIf="button.condition">
+                {{ (condition) ? button.secondTitle   : button.title}}</span>
+            <span *ngIf="!button.condition">{{ button.title }}</span>
+        </button> -->
+        <!-- /Button 6 -->
     </div>
 </div>

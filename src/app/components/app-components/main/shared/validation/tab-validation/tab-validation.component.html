@@ -1,0 +1,5 @@
+<span [ngClass]="{ 'invalid': control.invalid, 'valid': control.valid }" class="d-flex align-items-center">
+	<i [ngClass]="{ 'fa-exclamation-triangle': control.invalid, 'fa-check': control.valid }" class="fa mr-2"></i>
+	{{ title }}
+	<ng-content></ng-content>
+</span>

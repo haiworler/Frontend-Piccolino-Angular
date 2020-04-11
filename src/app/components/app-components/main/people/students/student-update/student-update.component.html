@@ -1,0 +1,107 @@
+<div [formGroup]="studentUpdateForm" class="row needs-validation mb-4" novalidate>
+    <div class="col-12">
+        <div class="row mb-3">
+            <div class="col-12">
+                <div [ngClass]="{ 'card-shadow-success': studentUpdateForm.valid }"
+                    class="card card-body card-shadow-secondary mb-0 p-2">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-12 col-md-9">
+                            <p class="mb-0 px-2 py-3">
+                                <i class="lnr-pushpin mr-2"></i> Diligencie la información a continuación, y
+                                posteriormente por favor haga click en el botón
+                                <strong>Actualizar Estudiante.</strong>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-3 d-flex justify-content-center">
+                            <button *ngIf="studentUpdateForm.valid" (click)="updateStudent()" [ladda]="progress"
+                                class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+                                data-style="expand-left">
+                                <span class="ladda-label">
+                                    <i class="fa fa-check-circle mr-2"></i>Actualizar Estudiante
+                                </span>
+                                <span class="ladda-spinner"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-tabbed-header card-shadow-secondary">
+            <ngb-tabset class="tabs-animated tabs-animated-line" [justify]="'start'">
+                <ngb-tab>
+                    <ng-template ngbTabTitle>
+                        <tab-validation [control]="basicData" title="Información General"></tab-validation>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <card-validation [control]="basicData">
+                            <app-form-people-general title="Información General" [form]="studentUpdateForm">
+                            </app-form-people-general>
+                        </card-validation>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab *ngIf="basicData.valid">
+                    <ng-template ngbTabTitle>
+                        <tab-validation [control]="additionalData" title="Información Adicional"></tab-validation>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <card-validation [control]="additionalData">
+                            <h5 class="card-header">Información Adicional</h5>
+                            <div class="card-body p-2">
+                                <div formGroupName="additional_data">
+                                    <div class="row p-2">
+                                        <div class="col-12 col-md-6 col-lg-4 form-group">
+                                            <required-field [control]="basicData.get('rh')" label="rh">RH :
+                                            </required-field>
+                                            <input formControlName="rh" id="rh" placeholder="RH" type="text"
+                                                class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-4 form-group">
+                                            <required-field [control]="basicData.get('eps')" label="eps">EPS :
+                                            </required-field>
+                                            <input formControlName="eps" id="eps" placeholder="EPS de la persona"
+                                                type="text" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-4 form-group ">
+                                            <required-field [control]="basicData.get( 'observations') "
+                                                label="observations ">
+                                                Observaciones:</required-field>
+                                            <textarea formControlName="observations" id="observations"
+                                                class="form-control" rows="1"></textarea>
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-4 form-group">
+                                            <required-field [control]="basicData.get('stratum')" label="stratum">Estrato
+                                                :</required-field>
+                                            <input formControlName="stratum" id="stratum" placeholder="Estrato"
+                                                type="number" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-4 form-group">
+                                            <required-field [control]="basicData.get('level_sisben')"
+                                                label="level_sisben">Nivel Sisben :</required-field>
+                                            <input formControlName="level_sisben" id="level_sisben"
+                                                placeholder="Nivel Sisben" type="number" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-4 form-group">
+                                            <required-field [control]="additionalData.get('type_people')"
+                                                label="type_people">
+                                                Tipo de estudiante :
+                                            </required-field>
+                                            <ng-select [items]="typePeoples" dropdownPosition="bottom"
+                                                formControlName="type_people" id="type_people" bindLabel="name">
+                                            </ng-select>
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-4 form-group ">
+                                            <required-field [control]="basicData.get( 'history') " label="history ">
+                                                Como nos conocio:</required-field>
+                                            <textarea formControlName="history" id="history" class="form-control "
+                                                rows="1 "></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </card-validation>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>

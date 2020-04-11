@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+/**
+ * 
+ */
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule, NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -12,25 +15,28 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { LaddaModule } from 'angular2-ladda';
 import { TextMaskModule } from 'angular2-text-mask';
 import { LayoutModule } from '@layout/layout.module';
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { SharedModule } from '../shared/shared.module';
 import { ModalService } from '@services/shared/modal.service';
-// Service datapiker
-import { I18n, CustomDatepickerI18n } from '@services/shared/datepicker-i18n.service';
+import { SharedModule } from '../../shared/shared.module';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+/**
+ * 
+ */
 
-import { PersonRoutingModule } from './person-routing.module';
-import { PersonListComponent } from './person-list/person-list.component';
-import { PersonCreateComponent } from './person-create/person-create.component';
-import { InputFileConfig, InputFileModule } from 'ngx-input-file';
-import { PersonUpdateComponent } from './person-update/person-update.component';
-const config: InputFileConfig = {};
+import { VoluntariesRoutingModule } from './voluntaries-routing.module';
+import { VoluntaryListComponent } from './voluntary-list/voluntary-list.component';
+import { VoluntaryCreateComponent } from './voluntary-create/voluntary-create.component';
+import { VoluntaryUpdateComponent } from './voluntary-update/voluntary-update.component';
+/**
+ * 
+ */
+import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 
 @NgModule({
-  declarations: [PersonListComponent, PersonCreateComponent, PersonUpdateComponent],
-  entryComponents: [PersonCreateComponent,PersonUpdateComponent],
+  declarations: [VoluntaryListComponent, VoluntaryCreateComponent, VoluntaryUpdateComponent],
+  entryComponents: [VoluntaryCreateComponent, VoluntaryUpdateComponent],
   imports: [
     CommonModule,
-    PersonRoutingModule,
+    VoluntariesRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
@@ -45,9 +51,8 @@ const config: InputFileConfig = {};
     TextMaskModule,
     SharedModule,
     LayoutModule,
-    InputFileModule.forRoot(config)
+    JwBootstrapSwitchNg2Module
   ],
-  providers: [ModalService, I18n,
-    { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
+  providers: [ModalService]
 })
-export class PersonModule { }
+export class VoluntariesModule { }

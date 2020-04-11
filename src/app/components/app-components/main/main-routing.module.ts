@@ -15,11 +15,6 @@ const routes: Routes = [
 		data: { breadcrumbs: 'Privilegios' }
 	},
 	{
-		path: 'person',
-		loadChildren: () => import('./person/person.module').then(m => m.PersonModule),
-		data: { breadcrumbs: 'Personas' }
-	},
-	{
 		path: 'subject',
 		loadChildren: () => import('./subject/subject.module').then(m => m.SubjectModule),
 		data: { breadcrumbs: 'Asignaturas' }
@@ -34,6 +29,11 @@ const routes: Routes = [
 		loadChildren: () => import('./places/places.module').then(m => m.PlacesModule),
 		data: { breadcrumbs: 'Lugares' }
 	},
+	{
+		path: 'people',
+		loadChildren: () => import('./people/people.module').then(m => m.PeopleModule),
+		data: { breadcrumbs: 'Personas' }
+	}
 
 ];
 

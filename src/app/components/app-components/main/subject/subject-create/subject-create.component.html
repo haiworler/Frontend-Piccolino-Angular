@@ -31,7 +31,7 @@
 				<ngb-tab>
 					<ng-template ngbTabTitle>
 						<i class="fa fa-chevron-down mr-2"></i>
-						Información de la sede
+						Información de la asignatura
 					</ng-template>
 					<ng-template ngbTabContent>
 						<div class="card card-shadow-secondary">
@@ -40,10 +40,26 @@
 									<h5 class="card-header">Datos básicos</h5>
 									<div class="card-body p-2">
 										<div class="row p-2">
-											<div class="col-12 col-md-12 col-lg-10 form-group">
+											<div class="col-12 col-md-6 col-lg-3 form-group">
 												<required-field [control]="basicData.get('name')" label="name">Nombre:</required-field>
 												<input formControlName="name" id="name" placeholder="Nombre" type="text" class="form-control">
 											</div>
+											<div class="col-12 col-md-6 col-lg-3 form-group">
+												<required-field [control]="basicData.get('code')" label="name">Código:</required-field>
+												<input formControlName="code" id="code" placeholder="Código" type="number" class="form-control">
+											</div>
+											<div class="col-12 col-md-6 col-lg-2 form-group ">
+												<required-field [control]="basicData.get( 'observations') "
+													label="observations ">
+													Observaciones:</required-field>
+												<textarea formControlName="observations" id="observations"
+													class="form-control " rows="1" placeholder="Observaciones"></textarea>
+											</div>
+											<div class="col-12 col-md-6 col-lg-2 form-group">
+												<required-field [control]="basicData.get('credits')" label="name">Creditos:</required-field>
+												<input formControlName="credits" id="credits" placeholder="Creditos" type="number" class="form-control">
+											</div>
+
 											<div class="col-12 col-md-12 col-lg-2 form-group">
 												<label><span class="ladda-label">
 														<i class="fa fa-check-circle mr-2"></i>Agregar competencia
@@ -65,9 +81,9 @@
 										<div class="card-body p-2">
 											<div class="row p-2">
 												<div class="col-12 col-md-12 col-lg-10 form-group">
-													<required-field [control]="competencies.get('nameC')" label="nameC">Nombre Competencia:
+													<required-field [control]="competencies.get('name')" label="name">Nombre Competencia:
 													</required-field>
-													<input formControlName="nameC" id="nameC" placeholder="Nombre de la competencia" type="text"
+													<input formControlName="name" id="name" placeholder="Nombre de la competencia" type="text"
 														class="form-control">
 												</div>
 												<div class="col-12 col-md-12 col-lg-2 form-group">

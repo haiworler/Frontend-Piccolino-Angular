@@ -1,1 +1,113 @@
-<p>subject-update works!</p>
+<div [formGroup]="subjectUpdateForm" class="row needs-validation mb-4">
+	<div class="col-12">
+		<div class="row mb-3">
+			<div class="col-12">
+				<div [ngClass]="{ 'card-shadow-success': subjectUpdateForm.valid }"
+					class="card card-body card-shadow-secondary mb-0 p-2">
+					<div class="row d-flex align-items-center">
+						<div class="col-12 col-md-9">
+							<p class="mb-0 px-2 py-3">
+								<i class="lnr-pushpin mr-2"></i>
+								Diligencie la información a continuación, y posteriormente por favor haga click en el botón
+								<strong>Registrar actualizar.</strong>
+							</p>
+						</div>
+						<div class="col-12 col-md-3 d-flex justify-content-center">
+							<button *ngIf="subjectUpdateForm.valid" (click)="createSubject()" [ladda]="progress"
+								class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+								data-style="expand-left">
+								<span class="ladda-label">
+									<i class="fa fa-check-circle mr-2"></i>Registrar actualizar
+								</span>
+								<span class="ladda-spinner"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card card-tabbed-header card-shadow-secondary">
+			<ngb-tabset justify="start" class="tabs-animated tabs-animated-line">
+				<ngb-tab>
+					<ng-template ngbTabTitle>
+						<i class="fa fa-chevron-down mr-2"></i>
+						Información de la asignatura
+					</ng-template>
+					<ng-template ngbTabContent>
+						<div class="card card-shadow-secondary">
+							<div class="card-body p-0">
+								<div formGroupName="basic_data" class="card card-shadow-secondary">
+									<h5 class="card-header">Datos básicos</h5>
+									<div class="card-body p-2">
+										<div class="row p-2">
+											<div class="col-12 col-md-6 col-lg-3 form-group">
+												<required-field [control]="basicData.get('name')" label="name">Nombre:</required-field>
+												<input formControlName="name" id="name" placeholder="Nombre" type="text" class="form-control">
+											</div>
+											<div class="col-12 col-md-6 col-lg-3 form-group">
+												<required-field [control]="basicData.get('code')" label="name">Código:</required-field>
+												<input formControlName="code" id="code" placeholder="Código" type="number" class="form-control">
+											</div>
+											<div class="col-12 col-md-6 col-lg-2 form-group ">
+												<required-field [control]="basicData.get( 'observations') "
+													label="observations ">
+													Observaciones:</required-field>
+												<textarea formControlName="observations" id="observations"
+													class="form-control " rows="1" placeholder="Observaciones"></textarea>
+											</div>
+											<div class="col-12 col-md-6 col-lg-2 form-group">
+												<required-field [control]="basicData.get('credits')" label="name">Creditos:</required-field>
+												<input formControlName="credits" id="credits" placeholder="Creditos" type="number" class="form-control">
+											</div>
+
+											<div class="col-12 col-md-12 col-lg-2 form-group">
+												<label><span class="ladda-label">
+														<i class="fa fa-check-circle mr-2"></i>Agregar competencia
+													</span></label>
+												<button (click)="createCompetencie()" [ladda]="progress"
+													class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+													data-style="expand-left">
+													<span class="ladda-label">
+														<i class="ion ion-md-add mr-2"></i>
+													</span>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div formArrayName="competencies">
+									<div *ngFor="let competencie of competencies.controls; let competencieIndex = index"
+										[formGroupName]="competencieIndex">
+										<div class="card-body p-2">
+											<div class="row p-2">
+												<div class="col-12 col-md-12 col-lg-10 form-group">
+													<required-field [control]="competencies.get('name')" label="name">Nombre Competencia:
+													</required-field>
+													<input formControlName="name" id="name" placeholder="Nombre de la competencia" type="text"
+														class="form-control">
+												</div>
+												<div class="col-12 col-md-12 col-lg-2 form-group">
+													<label><span class="ladda-label">
+															<i class="fa fa-check-circle mr-2"></i>Remover
+														</span></label>
+													<button (click)="removeCompetencies($event, competencieIndex)" [ladda]="progress"
+														class="btn btn-pill btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+														[ngClass]="{ ' btn-outline-danger ': competencie.invalid, ' btn-outline-success ': competencie.valid }"
+														data-style="expand-left">
+														<span class="ladda-label">
+															<i class="fa fa-minus mr-2mr-2"></i>
+														</span>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</ngb-tab>
+			</ngb-tabset>
+		</div>
+	</div>
+</div>

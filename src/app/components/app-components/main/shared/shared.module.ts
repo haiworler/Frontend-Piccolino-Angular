@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ValidationModule } from './validation/validation.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule,NgbDatepickerI18n } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
@@ -14,15 +14,21 @@ import { LaddaModule } from 'angular2-ladda';
 import { TextMaskModule } from 'angular2-text-mask';
 import { LayoutModule } from '@layout/layout.module';
 
+/**
+ * 
+ */
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
+import { I18n, CustomDatepickerI18n } from '@services/shared/datepicker-i18n.service';
+/**
+ * 
+ */
+
 import { SelectionOptionsComponent } from '@components/shared/selection-options/selection-options.component';
-
-
-
-
-
+import { FormPeopleGeneralComponent } from './forms/form-people-general/form-people-general.component';
 
 @NgModule({
-	declarations: [SelectionOptionsComponent],
+	declarations: [SelectionOptionsComponent, FormPeopleGeneralComponent],
 	imports: [
 		CommonModule,
 		ValidationModule,
@@ -36,12 +42,17 @@ import { SelectionOptionsComponent } from '@components/shared/selection-options/
 		NgBootstrapFormValidationModule,
 		NgxLoadingModule.forRoot({}),
 		LaddaModule,
-		TextMaskModule
+		TextMaskModule,
+		SweetAlert2Module,
+		JwBootstrapSwitchNg2Module,
 		
 	],
 	exports: [
 		ValidationModule,
-		SelectionOptionsComponent
-	]
+		SelectionOptionsComponent,
+		FormPeopleGeneralComponent
+	],
+	providers: [I18n,{provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}],
+
 })
 export class SharedModule {}

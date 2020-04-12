@@ -26,9 +26,11 @@ import { I18n, CustomDatepickerI18n } from '@services/shared/datepicker-i18n.ser
 
 import { SelectionOptionsComponent } from '@components/shared/selection-options/selection-options.component';
 import { FormPeopleGeneralComponent } from './forms/form-people-general/form-people-general.component';
+import { GeneralSelectionRecordsComponent } from './selects/general-selection-records/general-selection-records.component';
 
 @NgModule({
-	declarations: [SelectionOptionsComponent, FormPeopleGeneralComponent],
+	declarations: [SelectionOptionsComponent, FormPeopleGeneralComponent,GeneralSelectionRecordsComponent],
+	entryComponents: [GeneralSelectionRecordsComponent],
 	imports: [
 		CommonModule,
 		ValidationModule,
@@ -50,7 +52,8 @@ import { FormPeopleGeneralComponent } from './forms/form-people-general/form-peo
 	exports: [
 		ValidationModule,
 		SelectionOptionsComponent,
-		FormPeopleGeneralComponent
+		FormPeopleGeneralComponent,
+		GeneralSelectionRecordsComponent
 	],
 	providers: [I18n,{provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}],
 

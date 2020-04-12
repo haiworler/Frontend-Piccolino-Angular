@@ -20,11 +20,6 @@ const routes: Routes = [
 		data: { breadcrumbs: 'Asignaturas' }
 	},
 	{
-		path: 'cost-enrollet',
-		loadChildren: () => import('./cost-enrollet/cost-enrollet.module').then(m => m.CostEnrolletModule),
-		data: { breadcrumbs: 'Costo de la matrícula' }
-	},
-	{
 		path: 'places',
 		loadChildren: () => import('./places/places.module').then(m => m.PlacesModule),
 		data: { breadcrumbs: 'Lugares' }
@@ -33,6 +28,18 @@ const routes: Routes = [
 		path: 'people',
 		loadChildren: () => import('./people/people.module').then(m => m.PeopleModule),
 		data: { breadcrumbs: 'Personas' }
+	}
+	,
+	{
+		path: 'enrollments',
+		loadChildren: () => import('./enrollments/enrollments.module').then(m => m.EnrollmentsModule),
+		data: { breadcrumbs: 'Inscripciones' }
+	}
+	,
+	{
+		path: 'groups',
+		loadChildren: () => import('./groups/groups.module').then(m => m.GroupsModule),
+		data: { breadcrumbs: 'Grupos' }
 	}
 
 ];

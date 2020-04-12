@@ -79,13 +79,32 @@ export class SidebarComponent implements OnInit {
 			}
 			,
 			{
-				route: '/cost-enrollet', name: 'Costo de la matrícula', icon: 'dashboard', class: ''
+				route: '/enrollments', name: 'Inscripciones', icon: 'dashboard', class: ''
 				, children: [
 					{
-						route: '/cost-enrollet', name: 'Gestion de costo de matrícula', icon: 'how_to_reg', class: '', children: [], abstract: false
+						route: '/enrollments/cuts', name: 'Gestion de Cortes', icon: 'how_to_reg', class: '', children: [], abstract: false
+					},
+					{
+						route: '/enrollments/semester', name: 'Gestion de Semestres', icon: 'how_to_reg', class: '', children: [], abstract: false
+					},
+					{
+						route: '/enrollments/grade', name: 'Gestion de Grados', icon: 'how_to_reg', class: '', children: [], abstract: false
+					}
+					,
+					{
+						route: '/enrollments/enrolled', name: 'Gestion de Matrículas', icon: 'how_to_reg', class: '', children: [], abstract: false
+					}
+				], abstract: true
+			},
+			{
+				route: '/groups', name: 'Grupos', icon: 'dashboard', class: ''
+				, children: [
+					{
+						route: '/groups', name: 'Gestion grupos', icon: 'how_to_reg', class: '', children: [], abstract: true
 					}
 				], abstract: true
 			}
+			
 		];
 
 		this.userData = this._authGuard.resolve(this.activatedRoute.snapshot);

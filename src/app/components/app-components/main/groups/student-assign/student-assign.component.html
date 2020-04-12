@@ -1,0 +1,111 @@
+<div [formGroup]="studentAssignForm" class="row needs-validation mb-4" novalidate autocomplete="off">
+    <div class="col-12">
+        <div class="card mb-5">
+            <div class="card-header">
+                <div class="col-12 col-md-9">
+                    <p class="mb-0 px-2 py-3">
+                        <i class="lnr-pushpin mr-2"></i> Por favor indique las asignaciones que desea realizar.
+                    </p>
+                </div>
+                <strong>
+                </strong>
+            </div>
+            <div class="card-body">
+                <div *ngIf="students?.length" class="card card-tabbed-header card-shadow-secondary">
+                    <div class="card card-shadow-secondary ">
+                        <div class="card-body p-0 ">
+                            <div class="row">
+                                <div class="col-12 order-3">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombres</th>
+                                                    <th>Apellidos</th>
+                                                    <th>Código Matrícula:</th>
+                                                    <th><button (click)="selectAll()" class=""
+                                                            [ngClass]=" !marked ? 'mb-2 mr-2 btn-icon btn-icon-only btn-pill btn btn-outline-success' : 'mb-2 mr-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger'"><i
+                                                                class="btn-icon-wrapper"
+                                                                [ngClass]=" !marked ? 'fa fa-check' : 'fa fa-close'"></i></button>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ng-container formArrayName="array_students">
+                                                    <tr *ngFor="let student of students;">
+                                                        <ng-container [formGroupName]="student.position">
+                                                            <td>{{student.names}}</td>
+                                                            <td>{{student.surnames}}</td>
+                                                            <td>{{student.code}}</td>
+                                                            <td style="text-align:center">
+                                                                <!-- [ngClass] = " rates.value[student.position].update ? 'is-valid' : ' is-invalid'" -->
+                                                                <div class="custom-checkbox  custom-control"
+                                                                    style="text-align:center"><input
+                                                                        class="custom-control-input"
+                                                                        style="text-align:center"
+                                                                        formControlName="update"
+                                                                        [ngClass]="arrayStudents.value[student.position].update ? 'is-valid' : ' is-invalid'"
+                                                                        [checked]="arrayStudents.value[student.position].update"
+                                                                        id="{{student.position}}" type="checkbox"
+                                                                        [value]="arrayStudents.value[student.position].update">
+                                                                    <label class="custom-control-label"
+                                                                        for="{{student.position}}"></label></div>
+                                                            </td>
+                                                        </ng-container>
+                                                    </tr>
+                                                </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Lista  -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Espcio del boton actualizar -->
+                <div *ngIf="students?.length" class="card card-tabbed-header card-shadow-secondary">
+                    <div class="card card-shadow-secondary ">
+                        <div class="card-body p-0 ">
+                            <div class="row">
+                                <div class="col-12 order-3">
+                                    <div class="card-header">
+                                        <div class="col-12 col-md-9">
+                                            <p class="mb-0 px-2 py-3">
+                                                <i class="lnr-pushpin mr-2"></i> Verifique que los estudiantes son los
+                                                correctos, antes de dar click en el boton Asignar Alumnos.
+                                            </p>
+                                        </div>
+                                        <strong *ngIf="marked || changes">
+                                            <button *ngIf="studentAssignForm.valid" (click)="registerAssignStudent()" [ladda]="progress"
+                                                class="btn btn-pill btn-outline-primary btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+                                                data-style="expand-left">
+                                                <span class="ladda-label">
+                                                    <i class="fa fa-users fa-fw mr-2"></i>Asignar Alumnos
+                                                </span>
+                                                <span class="ladda-spinner"></span>
+                                            </button>
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Lista  -->
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!students?.length" class="row">
+                    <div class="col-12">
+                        <div class="alert alert-warning my-0" role="alert">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-12">
+                                    <i class="fa fa-info-circle mr-2"></i>No se encontraron resultados.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Espacio del boton actualizar -->
+            </div>
+        </div>
+    </div>
+</div>

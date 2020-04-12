@@ -20,7 +20,7 @@ import { AssignTeachersComponent } from '../assign-teachers/assign-teachers.comp
 	templateUrl: './subject-list.component.html',
 	styles: []
 })
-export class SubjectListComponent implements OnInit, OnChanges {
+export class SubjectListComponent implements OnInit, OnChanges,OnDestroy {
 
 	heading = 'Listado de asignaturas';
 	subheading = 'Listado';
@@ -201,6 +201,10 @@ export class SubjectListComponent implements OnInit, OnChanges {
 			});
 		});
 
+	}
+
+	ngOnDestroy() {
+		this.storageSub.unsubscribe();
 	}
 
 }

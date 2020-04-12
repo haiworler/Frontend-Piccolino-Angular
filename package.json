@@ -72,6 +72,7 @@
 		"ng2-nouislider": "^1.8.2",
 		"ngx-clipboard": "^12.2.0",
 		"ngx-color-picker": "^8.0.1",
+		"ngx-currency": "^2.2.2",
 		"ngx-dropzone-wrapper": "^8.0.0",
 		"ngx-image-cropper": "^1.4.1",
 		"ngx-input-file": "^8.0.1",

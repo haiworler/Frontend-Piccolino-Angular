@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { StorageService } from '@services/app-services/storage.service';
@@ -20,7 +20,7 @@ import { StudentUpdateComponent } from '../student-update/student-update.compone
 	templateUrl: './student-list.component.html',
 	styles: []
 })
-export class StudentListComponent implements OnInit {
+export class StudentListComponent implements OnInit,OnDestroy {
 
 	heading = 'Listado de estudiantes';
 	subheading = 'Listado';
@@ -199,5 +199,9 @@ export class StudentListComponent implements OnInit {
 
 	}
 
+
+	ngOnDestroy() {
+		this.storageSub.unsubscribe();
+	}
 
 }

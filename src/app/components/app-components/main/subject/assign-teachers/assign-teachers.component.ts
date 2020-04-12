@@ -41,9 +41,7 @@ export class AssignTeachersComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    console.log('aui ingreso');
     this.subject = this._subjectService.getsubject();
-    console.log('subject: ', this.subject);
     this.userData = this._mainService.getUserData();
     this.subjectUpdateForm = this.formBuilder.group({
       basic_data: this.formBuilder.group({

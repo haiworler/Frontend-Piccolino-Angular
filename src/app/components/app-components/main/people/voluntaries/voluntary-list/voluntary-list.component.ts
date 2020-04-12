@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { StorageService } from '@services/app-services/storage.service';
@@ -24,7 +24,7 @@ import { VoluntaryUpdateComponent } from '../voluntary-update/voluntary-update.c
   templateUrl: './voluntary-list.component.html',
   styles: []
 })
-export class VoluntaryListComponent implements OnInit {
+export class VoluntaryListComponent implements OnInit,OnDestroy {
 
   heading = 'Listado de voluntarios';
 	subheading = 'Listado';
@@ -200,6 +200,9 @@ export class VoluntaryListComponent implements OnInit {
 		});
 
 	}
-
+	
+	ngOnDestroy() {
+		this.storageSub.unsubscribe();
+	}
 
 }

@@ -17,7 +17,7 @@ import { HeadquarterCreateComponent } from './../headquarter-create/headquarter-
 	templateUrl: './headquarter-list.component.html',
 	styles: []
 })
-export class HeadquarterListComponent implements OnInit, OnChanges {
+export class HeadquarterListComponent implements OnInit, OnChanges,OnDestroy {
 
 	heading = 'Sedes';
 	subheading = 'Listado';
@@ -188,7 +188,9 @@ export class HeadquarterListComponent implements OnInit, OnChanges {
 	setheadquarter = (headquarter: any) => this._headquarterService.setheadquarter(headquarter);
 
 
-
+	ngOnDestroy() {
+		this.storageSub.unsubscribe();
+	}
 	
 
 }

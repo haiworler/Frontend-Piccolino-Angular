@@ -1,0 +1,87 @@
+<form novalidate>
+    <div [formGroup]="generalSelectionRecordsListForm">
+        <div class="card">
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-12 mt-2">
+
+                        <div class="input-group">
+                            <div class="input-group-prepend"> <button (click)="search(1)" [ladda]="progressSearch" class="btn btn-pill btn-block btn-outline-primary btn-outline-2x btn-lg ladda-button" data-style="expand-left">
+                                <span class="ladda-label">
+                                    <i class="fa fa-search mr-2"></i>
+                                </span>
+                                <span class="ladda-spinner"></span>
+                            </button></div>
+                            <input formControlName="term" class="form-control" type="text" placeholder="Búsqueda">
+                            <div class="input-group-append"><button (click)="reset()" class="btn btn-pill btn-block btn-outline-info btn-outline-2x btn-lg">
+                                <i class="fa fa-refresh mr-2"></i>
+                            </button></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card mb-5">
+            <div class="card-header">Resultados de búsqueda</div>
+            <div class="card-body">
+                <div>
+                    <div *ngIf="generalSelectionRecords?.data?.length && loadControl" class="row">
+                        <div class="col-12 col-md-7 order-2 order-md-1 d-flex justify-content-center justify-content-md-start">
+                            <ngb-pagination [boundaryLinks]="true" *ngIf="generalSelectionRecords?.last_page > 1" (pageChange)="pageChange($event)" [collectionSize]="generalSelectionRecords?.total" [page]="generalSelectionRecords?.current_page" [pageSize]="limit.value" [maxSize]="3"
+                                [rotate]="true" [ellipses]="false">
+                            </ngb-pagination>
+                        </div>
+                        <div class="col-12 order-3">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th *ngFor="let nameColumn of nameColumns">{{ nameColumn }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let generalSelectionRecord of generalSelectionRecords?.data">
+                                            <td *ngFor="let nameField of nameFields" (click)="setObj(generalSelectionRecord)">{{ generalSelectionRecord[nameField]}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 order-1 order-md-2">
+                            <select (change)="searchgeneralSelectionRecords()" formControlName="limit" class="custom-select mb-3">
+								<option value="10">10 resultados por página</option>
+								<option value="25">25 resultados por página</option>
+							</select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div *ngIf="!generalSelectionRecords?.data?.length && !loadControl" class="row">
+                        <div class="col-12">
+                            <div class="alert alert-info my-0" role="alert">
+                                <div class="row d-flex align-items-center">
+                                    <div class="col-12">
+                                        <i class="fa fa-refresh fa-spin mr-2"></i>Cargando información...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!generalSelectionRecords?.data?.length && loadControl" class="row">
+                    <div class="col-12">
+                        <div class="alert alert-warning my-0" role="alert">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-12">
+                                    <i class="fa fa-info-circle mr-2"></i>No se encontraron resultados.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

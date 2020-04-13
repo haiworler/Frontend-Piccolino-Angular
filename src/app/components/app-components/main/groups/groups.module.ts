@@ -22,11 +22,13 @@ import { GroupCreateComponent } from './group-create/group-create.component';
 import { GroupUpdateComponent } from './group-update/group-update.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentAssignComponent } from './student-assign/student-assign.component';
+import { SubjectListComponent } from './subject-list/subject-list.component';
+import { SubjectAssignComponent } from './subject-assign/subject-assign.component';
 
 
 @NgModule({
-  declarations: [GroupListComponent, GroupCreateComponent, GroupUpdateComponent, StudentListComponent, StudentAssignComponent],
-  entryComponents: [GroupCreateComponent, GroupUpdateComponent,StudentListComponent,StudentAssignComponent],
+  declarations: [GroupListComponent, GroupCreateComponent, GroupUpdateComponent, StudentListComponent, StudentAssignComponent, SubjectListComponent, SubjectAssignComponent],
+  entryComponents: [GroupCreateComponent, GroupUpdateComponent,StudentListComponent,StudentAssignComponent,SubjectListComponent,SubjectAssignComponent],
   imports: [
     CommonModule,
     GroupsRoutingModule,

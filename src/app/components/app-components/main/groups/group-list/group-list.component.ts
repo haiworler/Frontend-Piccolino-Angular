@@ -14,6 +14,7 @@ import { GroupService } from '@services/app-services/schools/group.service';
 import { GroupCreateComponent } from '../group-create/group-create.component';
 import { GroupUpdateComponent } from '../group-update/group-update.component';
 import { StudentListComponent } from '../student-list/student-list.component';
+import { SubjectListComponent } from '../subject-list/subject-list.component';
 
 
 @Component({
@@ -77,6 +78,9 @@ export class GroupListComponent implements OnInit,OnDestroy {
 		}
 		this.buttonsOp.push(
 			{ name: 'add', title: 'Alumnos', secondTitle: null, icon: 'fa fa-users fa-fw mr-2', method: 'add', class: 'btn btn-sm btn-pill btn-outline-primary', condition: null, parameter: null, specialCondition: false }
+		);
+		this.buttonsOp.push(
+			{ name: 'subject-assign', title: 'Asignaturas', secondTitle: null, icon: 'fa fa-book fa-fw mr-2', method: 'subject-assign', class: 'btn btn-sm btn-pill btn-outline-alternate', condition: null, parameter: null, specialCondition: false }
 		);
 
 		/**
@@ -166,6 +170,9 @@ export class GroupListComponent implements OnInit,OnDestroy {
 				case 'add':
 				this.students(parameters.object);
 				break;
+				case 'subject-assign':
+				this.subjects(parameters.object);
+				break;
 			default:
 				break;
 		}
@@ -197,6 +204,15 @@ export class GroupListComponent implements OnInit,OnDestroy {
 		this._modalService.open({
 			component: StudentListComponent,
 			title: 'Listado de estudiantes',
+			size: 'modal-xl'
+		});
+	}
+
+	subjects = (group: any) => {
+		this._groupService.setgroup(group);
+		this._modalService.open({
+			component: SubjectListComponent,
+			title: 'Listado de asignaturas',
 			size: 'modal-xl'
 		});
 	}

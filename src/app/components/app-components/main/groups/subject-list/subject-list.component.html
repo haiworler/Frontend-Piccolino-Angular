@@ -1,0 +1,54 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon">
+    <button (click)="assignsubject()" class="btn btn-pill btn-outline-info btn-outline-2x btn-lg">
+        <i class="fa fa-plus-circle mr-2"></i>Asignar Materia
+    </button>
+</app-page-title>
+<form novalidate>
+    <div [formGroup]="subjectListForm">
+    <div class="card mb-5">
+        <div class="card-header">Resultados de búsqueda</div>
+        <div class="card-body">
+            <div *ngIf="subjectLists?.length && loadControl" class="row">
+                <div class="col-12 order-3">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Código:</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let subject of subjectLists">
+                                    <td>{{ subject.id }}</td>
+                                    <td>{{ subject.name}}</td>
+                                    <td>{{ subject.code }}</td>
+                                    <td>
+                                        <app-selection-options [buttonsOp]="buttonsOp"
+                                            (select)="selectionOptions($event)" [object]="subject">
+                                        </app-selection-options>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!subjectLists?.length && loadControl" class="row">
+                <div class="col-12">
+                    <div class="alert alert-warning my-0" role="alert">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-12">
+                                <i class="fa fa-info-circle mr-2"></i>No se encontraron asignaturas para este grupo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+</form>

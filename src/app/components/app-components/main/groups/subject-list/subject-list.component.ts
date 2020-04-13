@@ -12,32 +12,31 @@ import { Router } from '@angular/router';
  * Creados
  */
 import { GroupService } from '@services/app-services/schools/group.service';
-import { StudentAssignComponent } from '../student-assign/student-assign.component';
+import { SubjectAssignComponent } from '../subject-assign/subject-assign.component';
 
 
 @Component({
-  selector: 'app-student-list',
-  templateUrl: './student-list.component.html',
+  selector: 'app-subject-list',
+  templateUrl: './subject-list.component.html',
   styles: []
 })
-export class StudentListComponent implements OnInit {
+export class SubjectListComponent implements OnInit {
 
-  studentListForm: FormGroup;
+  subjectListForm: FormGroup;
   loadControl: any = 0;
   heading = 'Listado de Materias';
 	subheading = 'Listado';
-	icon = 'fa fa-users icon-gradient bg-night-sky';
+	icon = 'fa fa-book icon-gradient bg-night-sky';
 	primaryColour = '#fff';
-  secondaryColour = '#ccc';
-  
+	secondaryColour = '#ccc';
+
   buttonsOp: any[] = [];
   permissions: any[];
   currentRoute: any;
 
-  studentList: any = [];
-  studentLists: any = [];
+  subjectList: any = [];
+  subjectLists: any = [];
   group: any = [];
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,12 +46,11 @@ export class StudentListComponent implements OnInit {
     private _groupService: GroupService,
     private _mainService: MainService,
     private router: Router
-  ) {
-  }
+  ) { }
 
-  async  ngOnInit() {
+  async ngOnInit() {
     this.group = this._groupService.getgroup();
-    this.studentListForm = this.formBuilder.group({
+    this.subjectListForm = this.formBuilder.group({
 
     });
     this.buttonsOp.push(
@@ -60,16 +58,17 @@ export class StudentListComponent implements OnInit {
     );
     this._groupService.getSearchStudent().subscribe(value => {
       if (value) {
-        this.searchStudent();
+        this.searchsubject();
       }
     });
-    this.searchStudent();
+    this.searchsubject();
+    
   }
 
   selectionOptions(parameters: any = null) {
     switch (parameters.parameters.method) {
       case 'remove':
-        this.removeStudent(parameters.object);
+        this.removesubject(parameters.object);
         break;
 
       default:
@@ -77,36 +76,37 @@ export class StudentListComponent implements OnInit {
     }
   }
 
-  async searchStudent() {
-    let response = await this._groupService.groupStudentList(this.group.id);
-    this.studentLists = response.enrolleds;
+  async searchsubject() {
+    let response = await this._groupService.subjectStudentList(this.group.id);
+    this.subjectLists = response.subjects;
     this.loadControl = 1;
   }
 
-  removeStudent = (studentList: any) => {
+  removesubject = (subjectList: any) => {
     let data = {
-      enrolled_id: studentList.id
+      subject_id: subjectList.id
     }
-    this._groupService.removeStudent(this.group.id, data).then((response: any) => {
-      this._notificationService.success({
-        title: 'Información',
-        message: 'El estudiante fue retirado de la lista correctamente.'
-      });
-      this.searchStudent();
-    });
+     this._groupService.removeSubject(this.group.id, data).then((response: any) => {
+       this._notificationService.success({
+         title: 'Información',
+         message: 'La asignatura fue retirado de la lista correctamente.'
+       });
+       this.searchsubject();
+     });
   }
 
 
   /**
 	   * Abre el modal seteando el componente groupCreateComponent
 	   */
-	assignStudent = () => {
-    this._groupService.setEnrolleds(this.studentLists.map((obj:any)=> { return obj.id}));
+	assignsubject = () => {
+    this._groupService.setSubjects(this.subjectLists.map((obj:any)=> { return obj.id}));
 		this._modalService.open({
-			component: StudentAssignComponent,
-			title: 'Asignar estudiantes',
+			component: SubjectAssignComponent,
+			title: 'Asignar Materias',
 			size: 'modal-xl'
 		});
 	}
+
 
 }

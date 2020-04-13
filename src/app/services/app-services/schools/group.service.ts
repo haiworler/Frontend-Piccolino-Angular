@@ -13,6 +13,7 @@ export class GroupService {
 
 	enrolleds = [];
 	subjects = [];
+	schedule = [];
 
 	searchStudent = new BehaviorSubject<string>(null);
 
@@ -30,6 +31,9 @@ export class GroupService {
 
 	getSubjects = (): any => this.subjects;
 	setSubjects = (subjects: any) => this.subjects = subjects;
+
+	getSchedule = (): any => this.schedule;
+	setSchedule = (schedule: any) => this.schedule = schedule;
 	/**
    * Obtiene el objeto
    */
@@ -138,4 +142,63 @@ export class GroupService {
 		return response;
 	}
 
+
+	/**
+	 * Obtiene la lista de horarios asignados al grupos
+	 * @param groupId 
+	 */
+	async groupScheduleList(groupId: number): Promise<any> {
+		return await this.http.get(`${environment.UrlApi}/groups/groupScheduleList/${groupId}`).toPromise();
+	}
+
+	/**
+	 * Obtiene la lista de maestros asignados a la asignatura
+	 * @param groupId 
+	 */
+	async getSubjectTeacher(subjectId: number): Promise<any> {
+		return await this.http.get(`${environment.UrlApi}/groups/getSubjectTeacher/${subjectId}`).toPromise();
+	}
+
+
+	/**
+	 * Crea el día del horario con sus horas
+	 */
+	async chreateSchedule(data: any): Promise<any> {
+		const response: any = await this.http.post(`${environment.UrlApi}/scheduleDays`, data).toPromise();
+		return response;
+	}
+
+	/**
+	 * Elimina la hora asignada al día del horario
+	 * @param hoirID 
+	 */
+	async deleteScheduleHour(hoirID: number): Promise<any> {
+		const response: any = await this.http.delete(`${environment.UrlApi}/scheduleHours/${hoirID}`).toPromise();
+		return response.data;
+	}
+
+	/**
+	 * Se actualiza el día del horario
+	 */
+	async updateScheduleDay(day_id: number, data: any): Promise<any> {
+		const response: any = await this.http.put(`${environment.UrlApi}/scheduleDays/${day_id}`, data).toPromise();
+		return response.data;
+	}
+
+	/**
+	 * Actualiza el estado del objeto SheduleDay
+	 */
+	async stateScheduleDay(scheduleDayId:number,data: any): Promise<any> {
+		const response: any = await this.http.post(`${environment.UrlApi}/stateScheduleDay/${scheduleDayId}`, data).toPromise();
+		return response;
+	}
+
+	/**
+	 * Elimina el día asignada al día del horario
+	 * @param dayID 
+	 */
+	async deleteScheduleDay(dayID: number): Promise<any> {
+		const response: any = await this.http.delete(`${environment.UrlApi}/scheduleDays/${dayID}`).toPromise();
+		return response.data;
+	}
 }

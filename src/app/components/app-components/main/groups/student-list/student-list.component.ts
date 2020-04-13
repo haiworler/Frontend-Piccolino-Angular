@@ -24,7 +24,7 @@ export class StudentListComponent implements OnInit {
 
   studentListForm: FormGroup;
   loadControl: any = 0;
-  heading = 'Listado de Materias';
+  heading = 'Listado de alumnos';
 	subheading = 'Listado';
 	icon = 'fa fa-users icon-gradient bg-night-sky';
 	primaryColour = '#fff';

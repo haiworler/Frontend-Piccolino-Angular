@@ -24,11 +24,15 @@ import { StudentListComponent } from './student-list/student-list.component';
 import { StudentAssignComponent } from './student-assign/student-assign.component';
 import { SubjectListComponent } from './subject-list/subject-list.component';
 import { SubjectAssignComponent } from './subject-assign/subject-assign.component';
+import { ScheduleDayListComponent } from './schedule-day-list/schedule-day-list.component';
+import { ScheduleHourListComponent } from './schedule-hour-list/schedule-hour-list.component';
+import { ScheduleCreateComponent } from './schedule-create/schedule-create.component';
+import { ScheduleUpdateComponent } from './schedule-update/schedule-update.component';
 
 
 @NgModule({
-  declarations: [GroupListComponent, GroupCreateComponent, GroupUpdateComponent, StudentListComponent, StudentAssignComponent, SubjectListComponent, SubjectAssignComponent],
-  entryComponents: [GroupCreateComponent, GroupUpdateComponent,StudentListComponent,StudentAssignComponent,SubjectListComponent,SubjectAssignComponent],
+  declarations: [GroupListComponent, GroupCreateComponent, GroupUpdateComponent, StudentListComponent, StudentAssignComponent, SubjectListComponent, SubjectAssignComponent, ScheduleDayListComponent, ScheduleHourListComponent, ScheduleCreateComponent, ScheduleUpdateComponent],
+  entryComponents: [GroupCreateComponent, GroupUpdateComponent,StudentListComponent,StudentAssignComponent,SubjectListComponent,SubjectAssignComponent,ScheduleDayListComponent,ScheduleHourListComponent,ScheduleCreateComponent,ScheduleUpdateComponent],
   imports: [
     CommonModule,
     GroupsRoutingModule,

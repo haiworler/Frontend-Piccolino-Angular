@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { StorageService } from '@services/app-services/storage.service';
@@ -15,16 +15,17 @@ import { GroupCreateComponent } from '../group-create/group-create.component';
 import { GroupUpdateComponent } from '../group-update/group-update.component';
 import { StudentListComponent } from '../student-list/student-list.component';
 import { SubjectListComponent } from '../subject-list/subject-list.component';
+import { ScheduleDayListComponent } from '../schedule-day-list/schedule-day-list.component';
 
 
 @Component({
-  selector: 'app-group-list',
-  templateUrl: './group-list.component.html',
-  styles: []
+	selector: 'app-group-list',
+	templateUrl: './group-list.component.html',
+	styles: []
 })
-export class GroupListComponent implements OnInit,OnDestroy {
+export class GroupListComponent implements OnInit, OnDestroy {
 
-  heading = 'Listado de grupos';
+	heading = 'Listado de grupos';
 	subheading = 'Listado';
 	icon = 'fa fa-cogs icon-gradient bg-night-sky';
 	primaryColour = '#fff';
@@ -43,17 +44,17 @@ export class GroupListComponent implements OnInit,OnDestroy {
 	groups: any;
 
 
-  constructor(
-    private formBuilder: FormBuilder,
+	constructor(
+		private formBuilder: FormBuilder,
 		private _modalService: ModalService,
 		private _storageService: StorageService,
 		private _notificationService: NotificationsService,
 		private _groupService: GroupService,
 		private _mainService: MainService,
 		private router: Router
-  ) { }
+	) { }
 
-  ngOnInit() {
+	ngOnInit() {
     	/**
 	 * Indica los permisos que sse van  a utilizar
 	 */
@@ -82,6 +83,9 @@ export class GroupListComponent implements OnInit,OnDestroy {
 		this.buttonsOp.push(
 			{ name: 'subject-assign', title: 'Asignaturas', secondTitle: null, icon: 'fa fa-book fa-fw mr-2', method: 'subject-assign', class: 'btn btn-sm btn-pill btn-outline-alternate', condition: null, parameter: null, specialCondition: false }
 		);
+		this.buttonsOp.push(
+			{ name: 'schedule-list', title: 'Horario', secondTitle: null, icon: 'fa fa-calendar fa-fw mr-2', method: 'schedule-list', class: 'btn btn-sm btn-pill btn-outline-info', condition: null, parameter: null, specialCondition: false }
+		);
 
 		/**
 			 * 
@@ -105,9 +109,9 @@ export class GroupListComponent implements OnInit,OnDestroy {
 		});
 
 		this.ngOnChanges();
-  }
+	}
 
-  ngOnChanges() {
+	ngOnChanges() {
 		this.groupListForm.valueChanges.subscribe((form: any) => {
 			this.searchData = {
 				term: form.term,
@@ -167,11 +171,14 @@ export class GroupListComponent implements OnInit,OnDestroy {
 			case 'activate-deactivate':
 				this.updategroupState(parameters.object);
 				break;
-				case 'add':
+			case 'add':
 				this.students(parameters.object);
 				break;
-				case 'subject-assign':
+			case 'subject-assign':
 				this.subjects(parameters.object);
+				break;
+			case 'schedule-list':
+				this.scheduleList(parameters.object);
 				break;
 			default:
 				break;
@@ -203,7 +210,7 @@ export class GroupListComponent implements OnInit,OnDestroy {
 		this._groupService.setgroup(group);
 		this._modalService.open({
 			component: StudentListComponent,
-			title: 'Listado de estudiantes',
+			title: '',
 			size: 'modal-xl'
 		});
 	}
@@ -212,7 +219,16 @@ export class GroupListComponent implements OnInit,OnDestroy {
 		this._groupService.setgroup(group);
 		this._modalService.open({
 			component: SubjectListComponent,
-			title: 'Listado de asignaturas',
+			title: '',
+			size: 'modal-xl'
+		});
+	}
+
+	scheduleList = (group: any) => {
+		this._groupService.setgroup(group);
+		this._modalService.open({
+			component: ScheduleDayListComponent,
+			title: '',
 			size: 'modal-xl'
 		});
 	}

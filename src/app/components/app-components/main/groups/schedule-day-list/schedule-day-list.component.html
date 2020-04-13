@@ -1,0 +1,55 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon">
+    <button (click)="assignscheduleDay()" class="btn btn-pill btn-outline-info btn-outline-2x btn-lg">
+        <i class="fa fa-plus-circle mr-2"></i>Registrar Día
+    </button>
+</app-page-title>
+<form novalidate>
+    <div [formGroup]="scheduleDayListForm">
+
+        <div class="card mb-5">
+            <div class="card-header">Resultados de la búsqueda de días organizados</div>
+            <div class="card-body">
+                <div *ngIf="scheduleDayLists?.length && loadControl" class="row">
+                    <div class="col-12 order-3">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Día:</th>
+                                        <th>Estado</th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let scheduleDay of scheduleDayLists">
+                                        <td>{{ scheduleDay.name }}</td>
+                                        <td>{{ scheduleDay.day?.name }}</td>
+                                        <td>{{ scheduleDay.enabled == 1 ? 'Activo' : 'Inactivo' }}</td>
+                                        <td>
+                                            <app-selection-options [condition]="scheduleDay.enabled" [buttonsOp]="buttonsOp"
+                                                (select)="selectionOptions($event)" [object]="scheduleDay">
+                                            </app-selection-options>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!scheduleDayLists?.length && loadControl" class="row">
+                    <div class="col-12">
+                        <div class="alert alert-warning my-0" role="alert">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-12">
+                                    <i class="fa fa-info-circle mr-2"></i>No se encontraron días organizados para este grupo.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,134 @@
+<div [formGroup]="scheduleUpdateForm" class="row needs-validation mb-4">
+    <div class="col-12">
+        <div class="row mb-3">
+            <div class="col-12">
+                <div [ngClass]="{ 'card-shadow-success': scheduleUpdateForm.valid }"
+                    class="card card-body card-shadow-secondary mb-0 p-2">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-12 col-md-9">
+                            <p class="mb-0 px-2 py-3">
+                                <i class="lnr-pushpin mr-2"></i>
+                                Diligencie la información a continuación, y posteriormente por favor haga click en el
+                                botón
+                                <strong>Actualizar día.</strong>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-3 d-flex justify-content-center">
+                            <button *ngIf="scheduleUpdateForm.valid" (click)="updateDay()" [ladda]="progress"
+                                class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+                                data-style="expand-left">
+                                <span class="ladda-label">
+                                    <i class="fa fa-check-circle mr-2"></i>Actualizar día
+                                </span>
+                                <span class="ladda-spinner"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-tabbed-header card-shadow-secondary">
+            <ngb-tabset justify="start" class="tabs-animated tabs-animated-line">
+                <ngb-tab>
+                    <ng-template ngbTabTitle>
+                        <i class="fa fa-chevron-down mr-2"></i>
+                        Información del día
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="card card-shadow-secondary">
+                            <div class="card-body p-0">
+                                <div formGroupName="basic_data" class="card card-shadow-secondary">
+                                    <h5 class="card-header">Datos básicos</h5>
+                                    <div class="card-body p-2">
+                                        <div class="row p-2">
+                                            <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                <required-field [control]="basicData.get('name')" label="name">Nombre:
+                                                </required-field>
+                                                <input formControlName="name" id="name" placeholder="Nombre" type="text"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                <required-field [control]="basicData.get('day')" label="day">Día:
+                                                </required-field>
+                                                <ng-select [items]="days" dropdownPosition="bottom"
+                                                    formControlName="day" id="day" bindLabel="name">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-12 col-lg-2 form-group">
+                                                <label><span class="ladda-label">
+                                                        <i class="fa fa-check-circle mr-2"></i>Agregar Hora
+                                                    </span></label>
+                                                <button (click)="createHour()" [ladda]="progress"
+                                                    class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+                                                    data-style="expand-left">
+                                                    <span class="ladda-label">
+                                                        <i class="ion ion-md-add mr-2"></i>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div formArrayName="schedule_hour">
+                                    <div *ngFor="let schedule of scheduleHour.controls; let index = index"
+                                        [formGroupName]="index">
+                                        <div class="card-body p-2">
+                                            <div class="row p-2">
+                                                <div class="col-12 col-md-6 col-lg-2 form-group">
+                                                    <required-field [control]="basicData.get('hour')" label="hour">Hora:
+                                                    </required-field>
+                                                    <ng-select [items]="hours" dropdownPosition="bottom"
+                                                        formControlName="hour" id="hour" bindLabel="name">
+                                                    </ng-select>
+                                                </div>
+                                                <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                    <required-field [control]="basicData.get('subject')"
+                                                        label="subject">Asignatura:
+                                                    </required-field>
+                                                    <ng-select [items]="subjects" dropdownPosition="bottom"
+                                                        formControlName="subject" id="subject" bindLabel="name" (change)="getSubjectTeacher($event, index)">
+                                                    </ng-select>
+                                                </div>
+                                                <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                    <required-field [control]="basicData.get('people')" label="people">
+                                                        Maestro:
+                                                    </required-field>
+                                                    <ng-select [items]="people" dropdownPosition="bottom"
+                                                        formControlName="people" id="people" bindLabel="name">
+                                                    </ng-select>
+                                                </div>
+                                                <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                    <required-field [control]="basicData.get('headquarter')"
+                                                        label="headquarter">Sede:
+                                                    </required-field>
+                                                    <ng-select [items]="headquarters" dropdownPosition="bottom"
+                                                        formControlName="headquarter" id="headquarter" bindLabel="name">
+                                                    </ng-select>
+                                                </div>
+
+                                                <div class="col-12 col-md-6 col-lg-1 form-group">
+                                                    <label><span class="ladda-label">
+                                                          
+                                                        </span></label>
+                                                    <button (click)="removescheduleHour($event, index)"
+                                                        [ladda]="progress"
+                                                        class="btn btn-pill btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+                                                        [ngClass]="{ ' btn-outline-danger ': schedule.invalid, ' btn-outline-success ': schedule.valid }"
+                                                        data-style="expand-left">
+                                                        <span class="ladda-label">
+                                                            <i class="fa fa-minus mr-2mr-2"></i>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>

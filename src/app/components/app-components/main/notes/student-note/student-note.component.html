@@ -1,0 +1,130 @@
+<div [formGroup]="studentNoteCreateForm" class="row needs-validation mb-4">
+    <div class="col-12">
+        <div class="row mb-3">
+            <div class="col-12">
+                <div [ngClass]="{ 'card-shadow-success': studentNoteCreateForm.valid }"
+                    class="card card-body card-shadow-secondary mb-0 p-2">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-12 col-md-9">
+                            <p class="mb-0 px-2 py-3">
+                                <i class="lnr-pushpin mr-2"></i>
+                                Diligencie la información a continuación, y posteriormente por favor haga click en el
+                                botón
+                                <strong>Registrar Nota.</strong>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-3 d-flex justify-content-center">
+                            <button *ngIf="studentNoteCreateForm.valid" (click)="createnote()" [ladda]="progress"
+                                class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+                                data-style="expand-left">
+                                <span class="ladda-label">
+                                    <i class="fa fa-check-circle mr-2"></i>Registrar Nota
+                                </span>
+                                <span class="ladda-spinner"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-tabbed-header card-shadow-secondary">
+            <ngb-tabset justify="start" class="tabs-animated tabs-animated-line">
+                <ngb-tab>
+                    <ng-template ngbTabTitle>
+                        <i class="fa fa-chevron-down mr-2"></i>
+                        Información de la nota
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="card card-shadow-secondary">
+                            <div class="card-body p-0">
+                                <div formGroupName="basic_data" class="card card-shadow-secondary">
+                                    <h5 class="card-header">Datos básicos</h5>
+                                    <div class="card-body p-2">
+                                        <div class="row p-2">
+                                            <!-- <div class="col-12 col-md-6 col-lg-6 form-group">
+												<required-field [control]="basicData.get('code')" label="code">Código:</required-field>
+												<input formControlName="code" id="code" placeholder="Código" type="text" class="form-control">
+											</div> -->
+                                            <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                <required-field [control]="basicData.get('semester')" label="name">
+                                                    Semestre:
+                                                </required-field>
+                                                <ng-select [items]="semesters" dropdownPosition="bottom"
+                                                    formControlName="semester" id="semester" bindLabel="name"
+                                                    (change)="getGroupTeacher(basicData.get('semester').value)">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                <required-field [control]="basicData.get('group')" label="name">
+                                                    Grupo:
+                                                </required-field>
+                                                <ng-select [items]="groups" dropdownPosition="bottom"
+                                                    formControlName="group" id="group" bindLabel="name"
+                                                    (change)="getSubjectTeacher(basicData.get('group').value)">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                <required-field [control]="basicData.get('subject')" label="name">
+                                                    Asignatura:
+                                                </required-field>
+                                                <ng-select [items]="subjects" dropdownPosition="bottom"
+                                                    formControlName="subject" id="subject" bindLabel="name">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                <required-field [control]="basicData.get('cut')" label="name">
+                                                    Corte:
+                                                </required-field>
+                                                <ng-select [items]="cuts" dropdownPosition="bottom"
+                                                    formControlName="cut" id="cut" bindLabel="name">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                <required-field [control]="basicData.get('names')" label="names">Nombres
+                                                    alumno:</required-field>
+                                                <input formControlName="names" id="names" placeholder="Nombre"
+                                                    type="text" class="form-control">
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                <required-field [control]="basicData.get('surnames')" label="name">
+                                                    Apellidos alumno:</required-field>
+                                                <input formControlName="surnames" id="surnames" placeholder="Nombre"
+                                                    type="text" class="form-control">
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                <required-field [control]="basicData.get('identification')"
+                                                    label="name">Identificación:</required-field>
+                                                <input formControlName="identification" id="identification"
+                                                    placeholder="Identificación" type="text" class="form-control">
+                                            </div>
+
+                                            <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                <required-field [control]="basicData.get('note')" label="name">
+                                                    Calificación:</required-field>
+                                                <input formControlName="note" id="note" placeholder="Identificación"
+                                                    type="number" class="form-control">
+                                            </div>
+
+                                            <div class="col-12 col-md-8 col-lg-8 form-group ">
+                                                <required-field [control]="basicData.get( 'observations') "
+                                                    label="observations ">
+                                                    Observaciones:</required-field>
+                                                <textarea formControlName="observations" id="observations"
+                                                    class="form-control " rows="1"
+                                                    placeholder="Observaciones"></textarea>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>

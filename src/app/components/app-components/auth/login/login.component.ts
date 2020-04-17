@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@services/auth/auth.service';
+import { MainService } from '@services/app-services/main.service';
 
 @Component({
 	selector: 'app-login',
@@ -19,6 +20,8 @@ export class LoginComponent implements OnInit {
 		private router: Router,
 		private formBuilder: FormBuilder,
 		private _authService: AuthService,
+		private _mainService: MainService,
+
 	) { }
 
 	ngOnInit(): void {
@@ -43,6 +46,7 @@ export class LoginComponent implements OnInit {
 			if (response && response.token) {
 				localStorage.setItem('token', response.token);
 				localStorage.setItem('user', JSON.stringify(response.user));
+				this._mainService.setUserData(response.user);
 				this._authService.user.next(response.user);
 				this.progress = 1;
 				this.router.navigate(['/dashboard']);

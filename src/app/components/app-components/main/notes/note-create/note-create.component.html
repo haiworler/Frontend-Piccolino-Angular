@@ -1,0 +1,142 @@
+<div [formGroup]="noteCreateForm" class="row needs-validation mb-4">
+    <div class="col-12">
+        <div class="row mb-3">
+            <div class="col-12">
+                <div [ngClass]="{ 'card-shadow-success': noteCreateForm.valid }"
+                    class="card card-body card-shadow-secondary mb-0 p-2">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-12 col-md-9">
+                            <p class="mb-0 px-2 py-3">
+                                <i class="lnr-pushpin mr-2"></i>
+                                Por favor indique el semestre, el grupo, la asignatura y el corte en el cual 
+                                desea registrar las notas.
+                                <strong>Luego haga clic sobre el estudiante para registar la.</strong>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-3 d-flex justify-content-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-tabbed-header card-shadow-secondary">
+            <ngb-tabset justify="start" class="tabs-animated tabs-animated-line">
+                <ngb-tab>
+                    <ng-template ngbTabTitle>
+                        <i class="fa fa-chevron-down mr-2"></i>
+                       Filtros
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="card card-shadow-secondary">
+                            <div class="card-body p-0">
+                                <div formGroupName="basic_data" class="card card-shadow-secondary">
+                                    <h5 class="card-header">Datos básicos</h5>
+                                    <div class="card-body p-2">
+                                        <div class="row p-2">
+                                            <!-- <div class="col-12 col-md-6 col-lg-6 form-group">
+												<required-field [control]="basicData.get('code')" label="code">Código:</required-field>
+												<input formControlName="code" id="code" placeholder="Código" type="text" class="form-control">
+											</div> -->
+                                            <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                <required-field [control]="basicData.get('semester')" label="name">
+                                                    Por favor seleccione el semestre:
+                                                </required-field>
+                                                <ng-select [items]="semesters" dropdownPosition="bottom"
+                                                    formControlName="semester" id="semester" bindLabel="name" (change)="getGroupTeacher(basicData.get('semester').value)">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                <required-field [control]="basicData.get('group')" label="name" >
+                                                    Por favor seleccione el grupo:
+                                                </required-field>
+                                                <ng-select [items]="groups" dropdownPosition="bottom"
+                                                    formControlName="group" id="group" bindLabel="name" (change)="getSubjectTeacher(basicData.get('group').value)">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                <required-field [control]="basicData.get('subject')" label="name">
+                                                    Por favor seleccione la asignatura:
+                                                </required-field>
+                                                <ng-select [items]="subjects" dropdownPosition="bottom"
+                                                    formControlName="subject" id="subject" bindLabel="name">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                <required-field [control]="basicData.get('cut')" label="name">
+                                                    Por favor seleccione el corte:
+                                                </required-field>
+                                                <ng-select [items]="cuts" dropdownPosition="bottom"
+                                                    formControlName="cut" id="cut" bindLabel="name">
+                                                </ng-select>
+                                            </div>
+
+
+
+
+                                            <!-- <div class="col-12 col-md-6 col-lg-12 form-group ">
+												<required-field [control]="basicData.get( 'observations') "
+													label="observations ">
+													Observaciones:</required-field>
+												<textarea formControlName="observations" id="observations"
+													class="form-control " rows="1" placeholder="Observaciones"></textarea>
+											</div> -->
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div *ngIf="enrolleds?.length" class="card card-tabbed-header card-shadow-secondary">
+                                        <div class="card card-shadow-secondary ">
+                                            <div class="card-body p-0 ">
+                                                <div class="row">
+                                                    <div class="col-12 order-3">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Código estudiante</th>
+                                                                        <th>Nombres:</th>
+                                                                        <th>Apellidos:</th>
+                                                                        <th>Código matrícula:</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                        <tr *ngFor="let enrolled of enrolleds;" (click)="createStudentNoteComponentModal(enrolled)">
+                                                                            <td>{{enrolled?.people.id}}</td>
+                                                                                <td>{{enrolled?.people.names}}</td>
+                                                                                <td>{{enrolled?.people.surnames}}</td>
+                                                                                <td>{{enrolled.id}}</td>
+                                                                        </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /Lista  -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div *ngIf="!enrolleds?.length" class="row">
+                                        <div class="col-12">
+                                            <div class="alert alert-warning my-0" role="alert">
+                                                <div class="row d-flex align-items-center">
+                                                    <div class="col-12">
+                                                        <i class="fa fa-info-circle mr-2"></i>No se encontraron estudiantes.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Espacio del boton actualizar -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>

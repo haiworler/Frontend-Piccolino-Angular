@@ -103,6 +103,17 @@ export class SidebarComponent implements OnInit {
 						route: '/groups', name: 'Gestion grupos', icon: 'how_to_reg', class: '', children: [], abstract: true
 					}
 				], abstract: true
+			},
+			{
+				route: '/notes', name: 'Notas', icon: '', class: ''
+				, children: [
+					{
+						route: '/notes/create', name: 'Registrar', icon: 'how_to_reg', class: '', children: [], abstract: true
+					},
+					{
+						route: '/notes/update', name: 'Actualizar', icon: 'how_to_reg', class: '', children: [], abstract: true
+					}
+				], abstract: true
 			}
 			
 		];

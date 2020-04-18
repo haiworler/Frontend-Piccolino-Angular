@@ -28,7 +28,7 @@ export class VoluntaryListComponent implements OnInit,OnDestroy {
 
   heading = 'Listado de voluntarios';
 	subheading = 'Listado';
-	icon = 'fa fa-cogs icon-gradient bg-night-sky';
+	icon = 'fa fa-user-secret icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
 	searchData: any;

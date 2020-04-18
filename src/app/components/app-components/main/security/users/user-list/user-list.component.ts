@@ -1,58 +1,57 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { StorageService } from '@services/app-services/storage.service';
 import { ModalService } from '@services/shared/modal.service';
 import { NotificationsService } from '@services/shared/notifications.service';
-import { Headquarter } from '@interfaces/headquarter';
 import { MainService } from '@services/app-services/main.service';
 import { Router } from '@angular/router';
+import swal from 'sweetalert2';
 /**
- * Creados
+ * 
  */
-import { EnrolledService } from '@services/app-services/schools/enrolled.service';
-import { EnrolledCreateComponent } from '../enrolled-create/enrolled-create.component';
-import { EnrolledUpdateComponent } from '../enrolled-update/enrolled-update.component';
+import { UserService } from '@services/app-services/security/user.service';
+import { UserCreateComponent } from '../user-create/user-create.component';
+import { UserUpdateComponent } from '../user-update/user-update.component';
 
 @Component({
-  selector: 'app-enrolled-list',
-  templateUrl: './enrolled-list.component.html',
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
   styles: []
 })
-export class EnrolledListComponent implements OnInit,OnDestroy {
+export class UserListComponent implements OnInit {
 
-  heading = 'Listado de matrículas';
+  heading = 'Usuarios';
 	subheading = 'Listado';
-	icon = 'fa fa-id-card icon-gradient bg-night-sky';
+	icon = 'fa fa-key icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
-	searchData: any;
 	storageSub: any = null;
+	user: any;
+	searchData: any;
 	progressSearch: boolean | number = false;
-	enrolledListForm: FormGroup;
+	userListForm: FormGroup;
 	loadControl: any = 0;
-
 	buttonsOp: any[] = [];
+	userData: any;
 	permissions: any[];
 	currentRoute: any;
+	users: any;
 
-	enrolled: any;
-	enrolleds: any;
 
   constructor(
     private formBuilder: FormBuilder,
 		private _modalService: ModalService,
 		private _storageService: StorageService,
 		private _notificationService: NotificationsService,
-		private _enrolledService: EnrolledService,
 		private _mainService: MainService,
-		private router: Router
+		private router: Router,
+		private _userService: UserService,
   ) { }
 
   ngOnInit() {
-    	/**
-	 * Indica los permisos que sse van  a utilizar
-	 */
+
+    this.userData = this._mainService.getUserData();
 		this.permissions = this._mainService.Permissions;
 		this.currentRoute = this.router.url;
 		for (const permission in this.permissions) {
@@ -73,10 +72,7 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 
 		}
 
-		/**
-			 * 
-			 */
-		this.enrolledListForm = this.formBuilder.group({
+		this.userListForm = this.formBuilder.group({
 			term: ['', []],
 			page: [1, []],
 			limit: [10, []]
@@ -90,17 +86,15 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 
 		this.storageSub = this._storageService.watch().pipe(debounceTime(500)).subscribe((token: any) => {
 			if (token) {
-				this.searchenrolleds();
+				this.searchusers();
 			}
 		});
 
 		this.ngOnChanges();
   }
 
-
-
-	ngOnChanges() {
-		this.enrolledListForm.valueChanges.subscribe((form: any) => {
+  ngOnChanges() {
+		this.userListForm.valueChanges.subscribe((form: any) => {
 			this.searchData = {
 				term: form.term,
 				page: form.page,
@@ -111,37 +105,37 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 	}
 
 	get term() {
-		return this.enrolledListForm.get('term');
+		return this.userListForm.get('term');
 	}
 
 	get page() {
-		return this.enrolledListForm.get('page');
+		return this.userListForm.get('page');
 	}
 
 	get limit() {
-		return this.enrolledListForm.get('limit');
+		return this.userListForm.get('limit');
 	}
 
 	search = () => {
 		this.progressSearch = 0;
-		this.searchenrolleds().then(() => this.progressSearch = false);
+		this.searchusers().then(() => this.progressSearch = false);
 	}
 
 	reset = () => {
-		this.enrolledListForm.reset();
+		this.userListForm.reset();
 		this.term.setValue('');
 		this.page.setValue(1);
 		this.limit.setValue(10);
-		this.enrolleds = [];
-		this.search();
+		this.users = [];
 	}
 
-	async searchenrolleds() {
-		this.enrolleds = [];
+	async searchusers() {
+		this.users = [];
 		this.loadControl = 0;
-		return await this._enrolledService.search(this.searchData).then((response: any) => {
-			this.loadControl = 1;
-			this.enrolleds = response;
+		return await this._userService.search(this.searchData).then((response: any) => {
+      this.loadControl = 1;
+      console.log('Users: ', response);
+			this.users = response;
 		});
 	}
 
@@ -153,10 +147,10 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 	selectionOptions(parameters: any = null) {
 		switch (parameters.parameters.method) {
 			case 'update':
-				this.updateenrolled(parameters.object);
+				this.updateuser(parameters.object);
 				break;
 			case 'activate-deactivate':
-				this.updateenrolledState(parameters.object);
+				this.updateuserState(parameters.object);
 				break;
 			default:
 				break;
@@ -164,35 +158,42 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 	}
 
 	/**
-	   * Abre el modal seteando el componente enrolledCreateComponent
-	   */
-	createenrolledModal = () => {
+	 * Abre el modal seteando el componente userCreateComponent
+	 */
+	createuserModal = () => {
 		this._modalService.open({
-			component: EnrolledCreateComponent,
-			title: 'Registro de una nueva matrícula',
+			component: UserCreateComponent,
+			title: 'Registro de un usuario',
 			size: 'modal-xl'
 		});
 	}
 
-
-	updateenrolled = (enrolled: any) => {
-		this._enrolledService.setenrolled(enrolled);
+	updateuser = (user: any) => {
+		this._userService.setuser(user);
 		this._modalService.open({
-			component: EnrolledUpdateComponent,
-			title: 'Actualización de una matrícula',
+			component: UserUpdateComponent,
+			title: 'Actualización de un usuario',
 			size: 'modal-xl'
 		});
 	}
 
-	updateenrolledState = (enrolled: any) => {
-		enrolled.enabled = (enrolled.enabled) ? 0 : 1;
-		this._enrolledService.update(enrolled.id, enrolled).then((response: any) => {
+	updateuserState = (user: any) => {
+		user.enabled = (user.enabled) ? 0 : 1;
+		let data = {
+			enabled: user.enabled,
+			name: user.name,
+			modules: []
+		}
+		this._userService.update(user.id, data).then((response: any) => {
 			this._notificationService.success({
 				title: 'Información',
-				message: 'La matrícula se ha actualizado correctamente.'
+				message: 'El usuario se ha actualizado correctamente.'
 			});
 		});
+
 	}
+
+
 
 	ngOnDestroy() {
 		this.storageSub.unsubscribe();

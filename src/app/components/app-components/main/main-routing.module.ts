@@ -47,6 +47,12 @@ const routes: Routes = [
 		loadChildren: () => import('./notes/notes.module').then(m => m.NotesModule),
 		data: { breadcrumbs: 'Notas' }
 	}
+	,
+	{
+		path: 'security',
+		loadChildren: () => import('./security/security.module').then(m => m.SecurityModule),
+		data: { breadcrumbs: 'Seguridad' }
+	}
 
 ];
 

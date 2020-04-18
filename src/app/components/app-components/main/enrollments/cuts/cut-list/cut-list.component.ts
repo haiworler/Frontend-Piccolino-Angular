@@ -24,7 +24,7 @@ export class CutListComponent implements OnInit,OnDestroy {
 
   heading = 'Listado de cortes';
 	subheading = 'Listado';
-	icon = 'fa fa-cogs icon-gradient bg-night-sky';
+	icon = 'fa fa-th icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
 	searchData: any;

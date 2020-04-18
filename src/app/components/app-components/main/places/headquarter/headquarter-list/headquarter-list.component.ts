@@ -21,7 +21,8 @@ export class HeadquarterListComponent implements OnInit, OnChanges,OnDestroy {
 
 	heading = 'Sedes';
 	subheading = 'Listado';
-	icon = 'fa fa-cogs icon-gradient bg-night-sky';
+	//icon = 'fa fa-cogs icon-gradient bg-night-sky';
+	icon = 'fa fa-fort-awesome icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
 	storageSub: any = null;

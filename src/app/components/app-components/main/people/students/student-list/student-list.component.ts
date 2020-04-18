@@ -24,7 +24,7 @@ export class StudentListComponent implements OnInit,OnDestroy {
 
 	heading = 'Listado de estudiantes';
 	subheading = 'Listado';
-	icon = 'fa fa-cogs icon-gradient bg-night-sky';
+	icon = 'fa fa-user icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
 	searchData: any;

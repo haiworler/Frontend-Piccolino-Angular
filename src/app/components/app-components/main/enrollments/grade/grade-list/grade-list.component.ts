@@ -23,7 +23,7 @@ export class GradeListComponent implements OnInit,OnDestroy {
 
   heading = 'Listado de grados';
 	subheading = 'Listado';
-	icon = 'fa fa-cogs icon-gradient bg-night-sky';
+	icon = 'fa fa-th-large icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
 	searchData: any;

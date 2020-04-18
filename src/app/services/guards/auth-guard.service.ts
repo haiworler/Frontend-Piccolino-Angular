@@ -9,6 +9,7 @@ import { MainService } from '../app-services/main.service';
 })
 export class AuthGuardService implements CanActivate {
 
+	profile:any = [];
 	constructor(
 		private router: Router,
 		private _authService: AuthService,
@@ -17,6 +18,8 @@ export class AuthGuardService implements CanActivate {
 	) { }
 
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> | boolean {
+		this.profile = JSON.parse(localStorage.getItem('user'));
+
 		if (state.url !== '/auth/login') {
 			if (state.url === '/') {
 				if (this._authService.isAuthenticated()) {
@@ -35,7 +38,14 @@ export class AuthGuardService implements CanActivate {
 						if (state.url === '/dashboard' || state.url === '/privileges') {
 							resolve(true);
 						} else {
-							if (1) { // Aqui voy a validar los accesos
+							let privilege = false;
+							this.profile.profile.modules.forEach((element:any) => {
+								if(state.url == element.route){
+                                 privilege = true;
+								}
+								
+							});
+							if (privilege) { // Aqui voy a validar los accesos
 								this._storageService.setItem('token', localStorage.getItem('token'));
 								resolve(true);
 							} else {

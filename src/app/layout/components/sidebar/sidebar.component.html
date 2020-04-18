@@ -37,7 +37,7 @@
 									<ngb-panel [id]="item.route">
 										<ng-template ngbPanelHeader>
 											<button ngbPanelToggle class="vsm-link">
-												<i class="vsm-icon pe-7s-folder"></i>
+												<i class="vsm-icon item.icon"></i>
 												<span class="vsm-title">{{ item.name }}</span>
 												<i class="vsm-arrow"></i>
 											</button>
@@ -50,7 +50,7 @@
 												<div class="vsm-item">
 													<a [routerLink]="children.route" routerLinkActive="active-item"
 														[routerLinkActiveOptions]="{ exact: true }" class="vsm-link">
-														<i class="vsm-icon fa fa-angle-double-right"></i>
+														<i class="vsm-icon fa children.icon"></i>
 														<span class="vsm-title">{{ children.name }}</span>
 													</a>
 												</div>
@@ -62,7 +62,7 @@
 									<div class="vsm-item">
 										<a [routerLink]="item.route" routerLinkActive="active-item"
 											[routerLinkActiveOptions]="{ exact: true }" class="vsm-link">
-											<i class="vsm-icon fa fa-angle-double-right"></i>
+											<i [className]="item.icon"></i>
 											<span class="vsm-title">{{ item.name }}</span>
 										</a>
 									</div>

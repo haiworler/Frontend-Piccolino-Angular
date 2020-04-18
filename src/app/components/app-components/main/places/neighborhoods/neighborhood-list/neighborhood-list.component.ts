@@ -23,7 +23,7 @@ export class NeighborhoodListComponent implements OnInit,OnDestroy {
 
 	heading = 'Listado de barrios';
 	subheading = 'Listado';
-	icon = 'fa fa-cogs icon-gradient bg-night-sky';
+	icon = 'fa fa-map-marker icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
 	searchData: any;

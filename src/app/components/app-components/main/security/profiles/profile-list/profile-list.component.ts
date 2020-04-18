@@ -3,53 +3,53 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { StorageService } from '@services/app-services/storage.service';
 import { ModalService } from '@services/shared/modal.service';
-import { SubjectService } from '@services/app-services/schools/subject.service';
 import { NotificationsService } from '@services/shared/notifications.service';
-import { Headquarter } from '@interfaces/headquarter';
 import { MainService } from '@services/app-services/main.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
-import { SubjectCreateComponent } from '../subject-create/subject-create.component';
-import { SubjectUpdateComponent } from '../subject-update/subject-update.component';
-import { AssignTeachersComponent } from '../assign-teachers/assign-teachers.component';
-
-
+/**
+ * 
+ */
+import { ProfileService } from '@services/app-services/security/profile.service';
+import { ProfileUpdateComponent } from '../profile-update/profile-update.component';
+import { ProfileCreateComponent } from '../profile-create/profile-create.component';
 
 @Component({
-	selector: 'app-subject-list',
-	templateUrl: './subject-list.component.html',
+	selector: 'app-profile-list',
+	templateUrl: './profile-list.component.html',
 	styles: []
 })
-export class SubjectListComponent implements OnInit, OnChanges,OnDestroy {
+export class ProfileListComponent implements OnInit,OnDestroy {
 
-	heading = 'Listado de asignaturas';
+	heading = 'Perfiles';
 	subheading = 'Listado';
-	icon = 'fa fa-book icon-gradient bg-night-sky';
+	icon = 'fa fa-unlock-alt icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
 	storageSub: any = null;
-	subject: any;
+	profile: any;
 	searchData: any;
 	progressSearch: boolean | number = false;
-	subjectsListForm: FormGroup;
+	profileListForm: FormGroup;
 	loadControl: any = 0;
 	buttonsOp: any[] = [];
 	userData: any;
 	permissions: any[];
 	currentRoute: any;
-	subjects: any = [];
+	profiles: any;
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private _modalService: ModalService,
 		private _storageService: StorageService,
 		private _notificationService: NotificationsService,
-		private _subjectService: SubjectService,
 		private _mainService: MainService,
-		private router: Router
+		private router: Router,
+		private _profileService: ProfileService,
 	) { }
 
 	ngOnInit() {
+
 		this.userData = this._mainService.getUserData();
 		this.permissions = this._mainService.Permissions;
 		this.currentRoute = this.router.url;
@@ -68,11 +68,10 @@ export class SubjectListComponent implements OnInit, OnChanges,OnDestroy {
 				);
 
 			}
+
 		}
-		this.buttonsOp.push(
-			{ name: 'add', title: 'Asignar Maestros', secondTitle: null, icon: 'fa fa-users fa-fw mr-2', method: 'add', class: 'btn btn-sm btn-pill btn-outline-primary', condition: null, parameter: null, specialCondition: false }
-		);
-		this.subjectsListForm = this.formBuilder.group({
+
+		this.profileListForm = this.formBuilder.group({
 			term: ['', []],
 			page: [1, []],
 			limit: [10, []]
@@ -86,7 +85,7 @@ export class SubjectListComponent implements OnInit, OnChanges,OnDestroy {
 
 		this.storageSub = this._storageService.watch().pipe(debounceTime(500)).subscribe((token: any) => {
 			if (token) {
-				this.searchHeadquarters();
+				this.searchprofiles();
 			}
 		});
 
@@ -94,7 +93,7 @@ export class SubjectListComponent implements OnInit, OnChanges,OnDestroy {
 	}
 
 	ngOnChanges() {
-		this.subjectsListForm.valueChanges.subscribe((form: any) => {
+		this.profileListForm.valueChanges.subscribe((form: any) => {
 			this.searchData = {
 				term: form.term,
 				page: form.page,
@@ -105,39 +104,36 @@ export class SubjectListComponent implements OnInit, OnChanges,OnDestroy {
 	}
 
 	get term() {
-		return this.subjectsListForm.get('term');
+		return this.profileListForm.get('term');
 	}
 
 	get page() {
-		return this.subjectsListForm.get('page');
+		return this.profileListForm.get('page');
 	}
 
 	get limit() {
-		return this.subjectsListForm.get('limit');
+		return this.profileListForm.get('limit');
 	}
 
 	search = () => {
 		this.progressSearch = 0;
-		this.searchHeadquarters().then(() => this.progressSearch = false);
+		this.searchprofiles().then(() => this.progressSearch = false);
 	}
 
-
-
 	reset = () => {
-		this.subjectsListForm.reset();
+		this.profileListForm.reset();
 		this.term.setValue('');
 		this.page.setValue(1);
 		this.limit.setValue(10);
-		this.subjects = [];
-		this.search();
+		this.profiles = [];
 	}
 
-	async searchHeadquarters() {
-		this.subjects = [];
+	async searchprofiles() {
+		this.profiles = [];
 		this.loadControl = 0;
-		return await this._subjectService.search(this.searchData).then((response: any) => {
+		return await this._profileService.search(this.searchData).then((response: any) => {
 			this.loadControl = 1;
-			this.subjects = response;
+			this.profiles = response;
 		});
 	}
 
@@ -149,13 +145,10 @@ export class SubjectListComponent implements OnInit, OnChanges,OnDestroy {
 	selectionOptions(parameters: any = null) {
 		switch (parameters.parameters.method) {
 			case 'update':
-				this.updateSubject(parameters.object);
+				this.updateprofile(parameters.object);
 				break;
 			case 'activate-deactivate':
-				this.updateSubjectState(parameters.object);
-				break;
-				case 'add':
-				this.assignSubject(parameters.object);
+				this.updateprofileState(parameters.object);
 				break;
 			default:
 				break;
@@ -163,45 +156,42 @@ export class SubjectListComponent implements OnInit, OnChanges,OnDestroy {
 	}
 
 	/**
-	 * Abre el modal seteando el componente HeadquarterCreateComponent
+	 * Abre el modal seteando el componente profileCreateComponent
 	 */
-	createSubjectModal = () => {
+	createprofileModal = () => {
 		this._modalService.open({
-			component: SubjectCreateComponent,
-			title: 'Registro de una asignatura',
+			component: ProfileCreateComponent,
+			title: 'Registro de un perfil',
 			size: 'modal-xl'
 		});
 	}
 
-	updateSubject = (subject: any) => {
-		 this._subjectService.setsubject(subject);
-		  this._modalService.open({
-		  	component: SubjectUpdateComponent,
-		  	title: 'Actualización de una asignatura',
-		  	size: 'modal-xl'
-		  });
+	updateprofile = (profile: any) => {
+		this._profileService.setprofile(profile);
+		this._modalService.open({
+			component: ProfileUpdateComponent,
+			title: 'Actualización de un perfil',
+			size: 'modal-xl'
+		});
 	}
 
-	assignSubject = (subject: any) => {
-		this._subjectService.setsubject(subject);
-		 this._modalService.open({
-			 component: AssignTeachersComponent,
-			 title: 'Asignación de maestros',
-			 size: 'modal-xl'
-		 });
-   }
-
-
-	updateSubjectState = (subject: any) => {
-		subject.enabled = (subject.enabled) ? 0 : 1;
-		this._subjectService.update(subject.id, subject).then((response: any) => {
+	updateprofileState = (profile: any) => {
+		profile.enabled = (profile.enabled) ? 0 : 1;
+		let data = {
+			enabled: profile.enabled,
+			name: profile.name,
+			modules: []
+		}
+		this._profileService.update(profile.id, data).then((response: any) => {
 			this._notificationService.success({
 				title: 'Información',
-				message: 'La asignatura se ha actualizado correctamente.'
+				message: 'El perfil se ha actualizado correctamente.'
 			});
 		});
 
 	}
+
+
 
 	ngOnDestroy() {
 		this.storageSub.unsubscribe();

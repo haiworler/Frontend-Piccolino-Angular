@@ -27,7 +27,7 @@ export class GroupListComponent implements OnInit, OnDestroy {
 
 	heading = 'Listado de grupos';
 	subheading = 'Listado';
-	icon = 'fa fa-cogs icon-gradient bg-night-sky';
+	icon = 'fa fa-slideshare icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
 	searchData: any;

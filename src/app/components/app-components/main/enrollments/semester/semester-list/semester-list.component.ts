@@ -24,7 +24,7 @@ export class SemesterListComponent implements OnInit,OnDestroy {
 
 	heading = 'Listado de semestres';
 	subheading = 'Listado';
-	icon = 'fa fa-cogs icon-gradient bg-night-sky';
+	icon = 'fa fa-th-list icon-gradient bg-night-sky';
 	primaryColour = '#fff';
 	secondaryColour = '#ccc';
 	searchData: any;

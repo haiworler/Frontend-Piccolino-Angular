@@ -9,7 +9,7 @@ import { MainService } from '../app-services/main.service';
 })
 export class AuthGuardService implements CanActivate {
 
-	profile:any = [];
+	profile: any = [];
 	constructor(
 		private router: Router,
 		private _authService: AuthService,
@@ -34,26 +34,30 @@ export class AuthGuardService implements CanActivate {
 
 			return new Promise(resolve => {
 				if (this._authService.isAuthenticated()) {
-					
-						if (state.url === '/dashboard' || state.url === '/privileges') {
+
+					if (state.url === '/dashboard' || state.url === '/privileges') {
+						resolve(true);
+					} else {
+						let privilege = false;
+						this.profile.profile.modules.forEach((element: any) => {
+							if (state.url == element.route) {
+								privilege = true;
+							}
+							element.children.forEach((elementChildren: any) => {
+								if (state.url == elementChildren.route) {
+									privilege = true;
+								}
+							});
+						});
+						if (privilege) { // Aqui voy a validar los accesos
+							this._storageService.setItem('token', localStorage.getItem('token'));
 							resolve(true);
 						} else {
-							let privilege = false;
-							this.profile.profile.modules.forEach((element:any) => {
-								if(state.url == element.route){
-                                 privilege = true;
-								}
-								
-							});
-							if (privilege) { // Aqui voy a validar los accesos
-								this._storageService.setItem('token', localStorage.getItem('token'));
-								resolve(true);
-							} else {
-								this.router.navigate(["/privileges"]);
-								resolve(true);
-							}
+							this.router.navigate(["/privileges"]);
+							resolve(true);
 						}
-						
+					}
+
 				} else {
 					this._mainService.setUserData(null);
 					this._authService.logout();

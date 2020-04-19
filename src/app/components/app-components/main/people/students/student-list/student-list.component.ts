@@ -144,7 +144,6 @@ export class StudentListComponent implements OnInit,OnDestroy {
 		this.loadControl = 0;
 		return await this._peopleService.search(this.searchData).then((response: any) => {
 			this.loadControl = 1;
-			console.log('response:', response);
 			this.peoples = response;
 		});
 	}

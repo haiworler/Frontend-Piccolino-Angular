@@ -95,6 +95,7 @@ import { CUSTOM_ERRORS } from '@global/custom-errors';
 
 import { ModalComponent } from '@components/shared/modal/modal.component';
 
+import { DatePipe } from '../../node_modules/@angular/common';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -202,7 +203,7 @@ registerLocaleData(localeEs, 'es');
 		PpBreadcrumbsModule,
 
 	],
-	providers: [
+	providers: [DatePipe,
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorsInterceptor, multi: true },
 		{

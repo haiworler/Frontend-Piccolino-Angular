@@ -59,7 +59,7 @@
 		"html2canvas": "^1.0.0-rc.3",
 		"ionicons": "^4.6.1",
 		"ionicons-npm": "^2.0.1",
-		"jquery": "^3.4.1",
+		"jquery": "^3.5.0",
 		"jspdf": "^1.5.3",
 		"jw-bootstrap-switch-ng2": "^2.0.5",
 		"linearicons": "^1.0.1",

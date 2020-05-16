@@ -1,13 +1,18 @@
 {
 	"name": "base-frontend",
 	"version": "1.0.0",
+	"engines": {
+		"node": "13.11.0",
+		"npm": "6.13.7"
+	  },
 	"scripts": {
-		"ng": "node --max-old-space-size=8192 ./node_modules/@angular/cli/bin/ng",
-		"start": "ng serve",
-		"build": "build",
-		"test": "ng test",
-		"lint": "ng lint",
-		"e2e": "ng e2e"
+		"ng": "ng",
+        "start": "node server.js",
+        "build": "ng build",
+        "postinstall": "ng build --aot --prod",
+        "test": "ng test",
+        "lint": "ng lint",
+        "e2e": "ng e2e"
 	},
 	"private": true,
 	"dependencies": {

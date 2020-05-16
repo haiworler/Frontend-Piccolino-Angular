@@ -25,7 +25,7 @@ export class FormPeopleGeneralComponent implements OnInit {
 	@Input() neighborhoods: any = [];
 	@Input() occupations: any[] = [];
 	@Input() genders: any[] = [];
-
+    dateMin:any = null;
 	dependences:any;
 
   constructor(private _peopleService:PeopleService) { }

@@ -4,5 +4,6 @@
 
 export const environment = {
 	  production: false,
-	  UrlApi: 'http://127.0.0.1:8000/api'
+	  //UrlApi: 'http://127.0.0.1:8000/api'
+	  UrlApi: 'http://luchopruebas2.herokuapp.com/api'
   };

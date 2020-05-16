@@ -44,7 +44,7 @@ export class StudentsComponent implements OnInit {
 		'Celular',
 		'Correo',
 		'RH',
-		'EPS']
+		'EPS'];
 
 
 	constructor(

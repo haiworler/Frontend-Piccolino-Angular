@@ -31,8 +31,10 @@ import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
  * para el excel
  */
 import { DatePipe } from './../../../../../../node_modules/@angular/common';
+import { GroupComponent } from './group/group.component';
+
 @NgModule({
-  declarations: [StudentsComponent],
+  declarations: [StudentsComponent, GroupComponent],
   imports: [
     CommonModule,
     ExportRoutingModule,

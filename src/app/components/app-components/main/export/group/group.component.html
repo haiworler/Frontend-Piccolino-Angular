@@ -1,0 +1,71 @@
+<div [formGroup]="groupCreateForm" class="row needs-validation mb-4">
+    <div class="col-12">
+        <div class="row mb-3">
+            <div class="col-12">
+                <div [ngClass]="{ 'card-shadow-success': groupCreateForm.valid }"
+                    class="card card-body card-shadow-secondary mb-0 p-2">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-12 col-md-9">
+                            <p class="mb-0 px-2 py-3">
+                                <i class="lnr-pushpin mr-2"></i>
+                                Por favor indique los filtros que desea realizar .
+                                <strong>Luego haga clic sobre el boton generar informe.</strong>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-3 d-flex justify-content-center">
+                            <button *ngIf="groupCreateForm.valid" (click)="export()" [ladda]=""
+                                class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+                                data-style="expand-left">
+                                <span class="ladda-label">
+                                    <i class="fa fa-file-excel-o mr-2"></i>Generar Informe
+                                </span>
+                                <span class="ladda-spinner"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-tabbed-header card-shadow-secondary">
+            <ngb-tabset justify="start" class="tabs-animated tabs-animated-line">
+                <ngb-tab>
+                    <ng-template ngbTabTitle>
+                        <i class="fa fa-chevron-down mr-2"></i>
+                        Filtros
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="card card-shadow-secondary">
+                            <div class="card-body p-0">
+                                <div formGroupName="basic_data" class="card card-shadow-secondary">
+                                    <h5 class="card-header">Datos básicos</h5>
+                                    <div class="card-body p-2">
+                                        <div class="row p-2">
+
+                                            <div class="col-12 col-md-6 col-lg-6 form-group">
+                                                <required-field [control]="basicData.get('semester')" label="name">
+                                                    Semestre:
+                                                </required-field>
+                                                <ng-select [items]="semesters" dropdownPosition="bottom"
+                                                    formControlName="semester" id="semester" bindLabel="name">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-6 form-group">
+                                                <required-field [control]="basicData.get('group')" label="name">
+                                                    Grupo:
+                                                </required-field>
+                                                <ng-select [items]="groups" dropdownPosition="bottom"
+                                                    formControlName="group" id="group" bindLabel="name">
+                                                </ng-select>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>

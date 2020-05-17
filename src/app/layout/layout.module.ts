@@ -1,8 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+//import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -30,7 +32,7 @@ import { FooterComponent } from './components/footer/footer.component';
 		CommonModule,
 		NgProgressModule,
 		NgProgressHttpModule,
-		AngularFontAwesomeModule,
+		FontAwesomeModule,
 		PerfectScrollbarModule,
 		NgbModule,
 		RouterModule,
@@ -44,6 +46,10 @@ import { FooterComponent } from './components/footer/footer.component';
 		UserBoxComponent,
 		SidebarComponent,
 		FooterComponent
-	]
+	],
+	schemas: [
+		CUSTOM_ELEMENTS_SCHEMA,
+		NO_ERRORS_SCHEMA
+	  ]
 })
 export class LayoutModule {}

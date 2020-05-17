@@ -18,7 +18,8 @@ import { AppComponent } from './app.component';
 
 // BOOTSTRAP COMPONENTS
 
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
+//import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbDateParserFormatter, NgbDatepickerI18n, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -35,7 +36,7 @@ import { CountUpModule } from 'countup.js-angular2';
 // import {AgmCoreModule} from '@agm/core';
 // import {ImageCropperModule} from 'ngx-image-cropper';
 import { NgBootstrapFormValidationModule, CUSTOM_ERROR_MESSAGES } from 'ng-bootstrap-form-validation';
-import { AngularStickyThingsModule } from '@w11k/angular-sticky-things';
+//import { AngularStickyThingsModule } from '@w11k/angular-sticky-things';
 import { NouisliderModule } from 'ng2-nouislider';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
@@ -128,7 +129,7 @@ registerLocaleData(localeEs, 'es');
 		LayoutModule,
 		PerfectScrollbarModule,
 		NgbModule,
-		AngularFontAwesomeModule,
+		FontAwesomeModule,
 		LaddaModule,
 		FormsModule,
 		ReactiveFormsModule,
@@ -148,7 +149,7 @@ registerLocaleData(localeEs, 'es');
 			useFactory: adapterFactory
 		}),
 		CountUpModule,
-		AngularStickyThingsModule,
+		//AngularStickyThingsModule,
 		NouisliderModule,
 		NgSelectModule,
 		SelectDropDownModule,

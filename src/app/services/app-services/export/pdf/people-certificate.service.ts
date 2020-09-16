@@ -5,7 +5,8 @@ import { logoPiccolinoBase64 } from '../images/logoPiccolinoBase64.js';
 /**
  * 
  */
-import * as jsPDF from 'jspdf'
+import jsPDF from 'jspdf'
+//import * as jsPDF from 'jspdf'
 
 @Injectable({
   providedIn: 'root'

@@ -2,13 +2,11 @@
     <h5 class="card-header">{{title}}</h5>
     <div class="card-body p-2">
         <div formGroupName="basic_data">
-            <div class="row"  style="text-align: center;"> 
+            <div class="row" style="text-align: center;">
                 <div class="col-12 col-md-12 col-lg-12 " style="text-align: center;">
                     <required-field [control]="basicData.get('imagen')" label="mediator_type">Imagen
-                    </required-field> 
-                    <input-file fileAccept="image/*" fileLimit="1"
-                        
-                        formControlName="imagen"  ></input-file>
+                    </required-field>
+                    <input-file fileAccept="image/*" fileLimit="1" formControlName="imagen"></input-file>
                 </div>
             </div>
             <div class="row p-2">
@@ -18,20 +16,17 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('surnames')" label="surnames">Apellidos:</required-field>
-                    <input formControlName="surnames" id="surnames" placeholder="Apellidos de la persona" type="text"
-                        class="form-control">
+                    <input formControlName="surnames" id="surnames" placeholder="Apellidos de la persona" type="text" class="form-control">
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('type_document')" label="type_document">Tipo de documento:
                     </required-field>
-                    <ng-select [items]="typeDocuments" dropdownPosition="bottom" formControlName="type_document"
-                        id="type_document" bindLabel="name"></ng-select>
+                    <ng-select [items]="typeDocuments" dropdownPosition="bottom" formControlName="type_document" id="type_document" bindLabel="name"></ng-select>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group">
-                    <required-field [control]="basicData.get('document_number')" label="document_number">Número de
-                        documento:</required-field>
-                    <input formControlName="document_number" id="document_number" placeholder="numero de documento"
-                        type="number" class="form-control">
+                    <required-field [control]="basicData.get('document_number')" label="document_number">Número de documento:
+                    </required-field>
+                    <input formControlName="document_number" id="document_number" placeholder="numero de documento" type="number" class="form-control">
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group ">
                     <required-field [control]="basicData.get('birth_date') " label="birth_date">
@@ -52,29 +47,25 @@
                     </div>
                 </div>
 
-              
+
 
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('town')" label="town">Ciudad de nacimiento:
                     </required-field>
-                    <ng-select [items]="towns" dropdownPosition="bottom" formControlName="town" id="town"
-                        bindLabel="name"></ng-select>
+                    <ng-select [items]="towns" dropdownPosition="bottom" formControlName="town" id="town" bindLabel="name"></ng-select>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('gender')" label="gender">Genero:
                     </required-field>
-                    <ng-select [items]="genders" dropdownPosition="bottom" formControlName="gender" id="gender"
-                        bindLabel="name"></ng-select>
+                    <ng-select [items]="genders" dropdownPosition="bottom" formControlName="gender" id="gender" bindLabel="name"></ng-select>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('phone')" label="phone">Telefono:</required-field>
-                    <input formControlName="phone" id="phone" placeholder="Número de telefono" type="number"
-                        class="form-control">
+                    <input formControlName="phone" id="phone" placeholder="Número de telefono" type="number" class="form-control">
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('cell')" label="cell">Celular:</required-field>
-                    <input formControlName="cell" id="cell" placeholder="Número de celular" type="number"
-                        class="form-control">
+                    <input formControlName="cell" id="cell" placeholder="Número de celular" type="number" class="form-control">
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-4 form-group">
@@ -83,26 +74,20 @@
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-4 form-group">
-                    <required-field [control]="basicData.get('address_residence')" label="address_residence">Dirección
-                        de residencia :</required-field>
-                    <input formControlName="address_residence" id="address_residence"
-                        placeholder="Dirección de residencia" type="text" class="form-control">
+                    <required-field [control]="basicData.get('address_residence')" label="address_residence">Dirección de residencia :</required-field>
+                    <input formControlName="address_residence" id="address_residence" placeholder="Dirección de residencia" type="text" class="form-control">
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('neighborhood')" label="neighborhood">Barrio :
                     </required-field>
-                    <ng-select [items]="neighborhoods" dropdownPosition="bottom" formControlName="neighborhood"
-                        id="neighborhood" bindLabel="name"></ng-select>
+                    <ng-select [items]="neighborhoods" dropdownPosition="bottom" formControlName="neighborhood" id="neighborhood" bindLabel="name"></ng-select>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('arrival_date')" label="name">
                         Fecha de llegada:
                     </required-field>
                     <div class="input-group">
-                        <input #arrival_date="ngbDatepicker" (click)="arrival_date.toggle()"
-                            [footerTemplate]="footerTemplate2" [minDate]="dateMin" [readOnly]="true" ngbDatepicker
-                            placement="bottom" formControlName="arrival_date" id="arrival_date" class="form-control"
-                            placeholder="yyyy-mm-dd">
+                        <input #arrival_date="ngbDatepicker" (click)="arrival_date.toggle()" [footerTemplate]="footerTemplate2" [readOnly]="true" ngbDatepicker placement="bottom" formControlName="arrival_date" id="arrival_date" class="form-control" placeholder="yyyy-mm-dd">
                         <div class="input-group-append">
                             <button (click)="arrival_date.toggle()" type="button" class="btn btn-primary">
                                 <i class="fa fa-calendar"></i>
@@ -110,18 +95,15 @@
                         </div>
                         <ng-template #footerTemplate2>
                             <hr class="my-0">
-                            <button (click)="assignTodayDate(basicData.get('arrival_date')); arrival_date.close()"
-                                class="btn btn-primary btn-sm m-2 float-left">Hoy</button>
-                            <button (click)="arrival_date.close()" type="button"
-                                class="btn btn-secondary btn-sm m-2 float-right">Cerrar</button>
+                            <button (click)="assignTodayDate(basicData.get('arrival_date')); arrival_date.close()" class="btn btn-primary btn-sm m-2 float-left">Hoy</button>
+                            <button (click)="arrival_date.close()" type="button" class="btn btn-secondary btn-sm m-2 float-right">Cerrar</button>
                         </ng-template>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('occupation')" label="occupation">Ocupación :
                     </required-field>
-                    <ng-select [items]="occupations" dropdownPosition="bottom" formControlName="occupation"
-                        id="occupation" bindLabel="name"></ng-select>
+                    <ng-select [items]="occupations" dropdownPosition="bottom" formControlName="occupation" id="occupation" bindLabel="name"></ng-select>
                 </div>
             </div>
         </div>

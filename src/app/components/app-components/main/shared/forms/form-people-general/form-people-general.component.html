@@ -2,6 +2,15 @@
     <h5 class="card-header">{{title}}</h5>
     <div class="card-body p-2">
         <div formGroupName="basic_data">
+            <div class="row"  style="text-align: center;"> 
+                <div class="col-12 col-md-12 col-lg-12 " style="text-align: center;">
+                    <required-field [control]="basicData.get('imagen')" label="mediator_type">Imagen
+                    </required-field> 
+                    <input-file fileAccept="image/*" fileLimit="1"
+                        
+                        formControlName="imagen"  ></input-file>
+                </div>
+            </div>
             <div class="row p-2">
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('names')" label="names">Nombres:</required-field>
@@ -24,29 +33,26 @@
                     <input formControlName="document_number" id="document_number" placeholder="numero de documento"
                         type="number" class="form-control">
                 </div>
-                <div class="col-12 col-md-6 col-lg-4 form-group">
-                    <required-field [control]="basicData.get('birth_date')" label="name">
+                <div class="col-12 col-md-6 col-lg-4 form-group ">
+                    <required-field [control]="basicData.get('birth_date') " label="birth_date">
                         Fecha de nacimiento:
                     </required-field>
-                    <div class="input-group">
-                        <input #birth_date="ngbDatepicker" (click)="birth_date.toggle()"
-                            [footerTemplate]="footerTemplate1" [minDate]="dateMin" [readOnly]="true" ngbDatepicker
-                            placement="bottom" formControlName="birth_date" id="birth_date" class="form-control"
-                            placeholder="yyyy-mm-dd">
-                        <div class="input-group-append">
+                    <div class="input-group ">
+                        <input #birth_date="ngbDatepicker" (click)="birth_date.toggle() " [footerTemplate]="footerTemplate1" [readOnly]="true" ngbDatepicker placement="bottom" formControlName="birth_date" id="birth_date" class="form-control" placeholder="yyyy-mm-dd">
+                        <div class="input-group-append ">
                             <button (click)="birth_date.toggle()" type="button" class="btn btn-primary">
                                 <i class="fa fa-calendar"></i>
                             </button>
                         </div>
                         <ng-template #footerTemplate1>
                             <hr class="my-0">
-                            <button (click)="assignTodayDate(basicData.get('birth_date')); birth_date.close()"
-                                class="btn btn-primary btn-sm m-2 float-left">Hoy</button>
-                            <button (click)="birth_date.close()" type="button"
-                                class="btn btn-secondary btn-sm m-2 float-right">Cerrar</button>
+                            <button (click)="assignTodayDate(basicData.get( 'birth_date')); birth_date.close()" class="btn btn-primary btn-sm m-2 float-left">Hoy</button>
+                            <button (click)="birth_date.close()" type="button" class="btn btn-secondary btn-sm m-2 float-right">Cerrar</button>
                         </ng-template>
                     </div>
                 </div>
+
+              
 
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('town')" label="town">Ciudad de nacimiento:
@@ -87,6 +93,29 @@
                     </required-field>
                     <ng-select [items]="neighborhoods" dropdownPosition="bottom" formControlName="neighborhood"
                         id="neighborhood" bindLabel="name"></ng-select>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 form-group">
+                    <required-field [control]="basicData.get('arrival_date')" label="name">
+                        Fecha de llegada:
+                    </required-field>
+                    <div class="input-group">
+                        <input #arrival_date="ngbDatepicker" (click)="arrival_date.toggle()"
+                            [footerTemplate]="footerTemplate2" [minDate]="dateMin" [readOnly]="true" ngbDatepicker
+                            placement="bottom" formControlName="arrival_date" id="arrival_date" class="form-control"
+                            placeholder="yyyy-mm-dd">
+                        <div class="input-group-append">
+                            <button (click)="arrival_date.toggle()" type="button" class="btn btn-primary">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </div>
+                        <ng-template #footerTemplate2>
+                            <hr class="my-0">
+                            <button (click)="assignTodayDate(basicData.get('arrival_date')); arrival_date.close()"
+                                class="btn btn-primary btn-sm m-2 float-left">Hoy</button>
+                            <button (click)="arrival_date.close()" type="button"
+                                class="btn btn-secondary btn-sm m-2 float-right">Cerrar</button>
+                        </ng-template>
+                    </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-4 form-group">
                     <required-field [control]="basicData.get('occupation')" label="occupation">Ocupación :

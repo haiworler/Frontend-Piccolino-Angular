@@ -189,7 +189,7 @@ export class StudentListComponent implements OnInit,OnDestroy {
 
 	updatePeopleState = (people: any) => {
 		people.enabled = (people.enabled) ? 0 : 1;
-		this._peopleService.update(people.id, people).then((response: any) => {
+		this._peopleService.updatePeople(people.id, people).then((response: any) => {
 			this._notificationService.success({
 				title: 'Información',
 				message: 'El estudiante se ha actualizado correctamente.'

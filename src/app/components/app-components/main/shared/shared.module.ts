@@ -27,6 +27,11 @@ import { I18n, CustomDatepickerI18n } from '@services/shared/datepicker-i18n.ser
 import { SelectionOptionsComponent } from '@components/shared/selection-options/selection-options.component';
 import { FormPeopleGeneralComponent } from './forms/form-people-general/form-people-general.component';
 import { GeneralSelectionRecordsComponent } from './selects/general-selection-records/general-selection-records.component';
+/**
+ * Imagen
+ */
+import { InputFileConfig, InputFileModule } from 'ngx-input-file';
+const config: InputFileConfig = {};
 
 @NgModule({
 	declarations: [SelectionOptionsComponent, FormPeopleGeneralComponent,GeneralSelectionRecordsComponent],
@@ -47,7 +52,7 @@ import { GeneralSelectionRecordsComponent } from './selects/general-selection-re
 		TextMaskModule,
 		SweetAlert2Module,
 		JwBootstrapSwitchNg2Module,
-		
+		InputFileModule.forRoot(config)
 	],
 	exports: [
 		ValidationModule,

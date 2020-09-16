@@ -31,7 +31,7 @@
 							</a>
 						</div>
 						<ng-template #recursiveMenu let-modules>
-							<div *ngFor="let item of modul; let i = index">
+							<div *ngFor="let item of modules; let i = index">
 								<ngb-accordion *ngIf="item.abstract; else notAbstract" [destroyOnHide]="false" [closeOthers]="true"
 									[activeIds]="verifyActiveMenu(item.route)">
 									<ngb-panel [id]="item.route">
@@ -44,9 +44,9 @@
 										</ng-template>
 										<ng-template *ngIf="item.children.length > 0" ngbPanelContent>
 											<!-- <label > {{item.children.length}}  </label> -->
-											<!-- <ng-container *ngTemplateOutlet="recursiveMenu; context: {$implicit: item.children}">
-											</ng-container> -->
-											<div *ngFor="let children of item.children; let i = index">
+											<ng-container *ngTemplateOutlet="recursiveMenu; context: {$implicit: item.children}">
+											</ng-container> 
+											<!-- <div *ngFor="let children of item.children; let i = index">
 												<div class="vsm-item">
 													<a [routerLink]="children.route" routerLinkActive="active-item"
 														[routerLinkActiveOptions]="{ exact: true }" class="vsm-link">
@@ -54,7 +54,7 @@
 														<span class="vsm-title">{{ children.name }}</span>
 													</a>
 												</div>
-											</div>
+											</div> -->
 										</ng-template>
 									</ngb-panel>
 								</ngb-accordion>
@@ -70,7 +70,7 @@
 							</div>
 						</ng-template>
 						<ng-container
-							*ngTemplateOutlet="recursiveMenu; context: {$implicit: {route: null,name: null,children: null,abstract: null }}">
+							*ngTemplateOutlet="recursiveMenu; context: {$implicit: modul}">
 						</ng-container>
 					</div>
 				</div>

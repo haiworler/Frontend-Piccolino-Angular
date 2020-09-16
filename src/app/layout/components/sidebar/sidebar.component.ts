@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
 
 	permissions: any;
 	userData: any;
-	modul: any[];
+	modul: any[] = [];
 	profile: any = [];
 
 	constructor(
@@ -133,6 +133,7 @@ export class SidebarComponent implements OnInit {
 		// 	}
 
 		// ];
+		
 
 		this.modul = this.profile.profile.modules;
 		this.userData = this._authGuard.resolve(this.activatedRoute.snapshot);

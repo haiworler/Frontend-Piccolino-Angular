@@ -47,6 +47,11 @@ export class AuthGuardService implements CanActivate {
 								if (state.url == elementChildren.route) {
 									privilege = true;
 								}
+								elementChildren.children.forEach((elementChildren2: any) => {
+									if (state.url == elementChildren2.route) {
+										privilege = true;
+									}
+								});
 							});
 						});
 						if (privilege) { // Aqui voy a validar los accesos

@@ -57,6 +57,11 @@ const routes: Routes = [
 		path: 'export',
 		loadChildren: () => import('./export/export.module').then(m => m.ExportModule),
 		data: { breadcrumbs: 'Informes' }
+	},
+	{
+		path: 'configurations',
+		loadChildren: () => import('./configurations/configurations.module').then(m => m.ConfigurationsModule),
+		data: { breadcrumbs: 'Configuración' }
 	}
 
 ];

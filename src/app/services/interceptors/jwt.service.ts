@@ -61,13 +61,16 @@ export class JwtInterceptor implements HttpInterceptor {
 		// }
 
 		let token = localStorage.getItem('token');
+		let user:any = JSON.parse(localStorage.getItem('user'));
 		let module = this.router.url;
-
 		if (token) {
 			request = request.clone({
 				setHeaders: {
 					Authorization: `Bearer ${token}`,
-					Module: module
+					Module: module,
+					people_id: `${((user) ? user.people[0].id: '')}`,
+					user_id: `${((user) ? user.id: '')}`
+
 				}
 			});
 		}

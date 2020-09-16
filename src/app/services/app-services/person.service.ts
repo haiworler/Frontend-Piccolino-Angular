@@ -47,6 +47,13 @@ export class PersonService {
 		return response.data;
 	}
 
+	/**
+	 * Se actualiza a la persona
+	 */
+	async updatePeople(personId: number, data: any): Promise<any> {
+		const response: any = await this.http.put(`${environment.UrlApi}/people/updatePeople/${personId}`, data).toPromise();
+		return response.data;
+	}
 
 
 

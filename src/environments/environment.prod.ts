@@ -1,4 +1,6 @@
 export const environment = {
     production: true,
-    UrlApi: 'http://luchopruebas2.herokuapp.com/api'
+    UrlApi: 'https://legasoft.sytes.net/Piccolino/api',
+    ServerUrl: 'https://legasoft.sytes.net/Piccolino/'
+
 };

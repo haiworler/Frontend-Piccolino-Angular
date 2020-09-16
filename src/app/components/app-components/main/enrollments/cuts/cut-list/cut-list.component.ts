@@ -4,7 +4,6 @@ import { debounceTime } from 'rxjs/operators';
 import { StorageService } from '@services/app-services/storage.service';
 import { ModalService } from '@services/shared/modal.service';
 import { NotificationsService } from '@services/shared/notifications.service';
-import { Headquarter } from '@interfaces/headquarter';
 import { MainService } from '@services/app-services/main.service';
 import { Router } from '@angular/router';
 /**

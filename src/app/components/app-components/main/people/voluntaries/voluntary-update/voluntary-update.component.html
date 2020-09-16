@@ -2,20 +2,16 @@
     <div class="col-12">
         <div class="row mb-3">
             <div class="col-12">
-                <div [ngClass]="{ 'card-shadow-success': voluntaryUpdateForm.valid }"
-                    class="card card-body card-shadow-secondary mb-0 p-2">
+                <div [ngClass]="{ 'card-shadow-success': voluntaryUpdateForm.valid }" class="card card-body card-shadow-secondary mb-0 p-2">
                     <div class="row d-flex align-items-center">
                         <div class="col-12 col-md-9">
                             <p class="mb-0 px-2 py-3">
-                                <i class="lnr-pushpin mr-2"></i> Diligencie la información a continuación, y
-                                posteriormente por favor haga click en el botón
+                                <i class="lnr-pushpin mr-2"></i> Diligencie la información a continuación, y posteriormente por favor haga click en el botón
                                 <strong>Actualizar Voluntario.</strong>
                             </p>
                         </div>
                         <div class="col-12 col-md-3 d-flex justify-content-center">
-                            <button *ngIf="voluntaryUpdateForm.valid" (click)="updateVoluntary()" [ladda]="progress"
-                                class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
-                                data-style="expand-left">
+                            <button *ngIf="voluntaryUpdateForm.valid" (click)="updateVoluntary()" [ladda]="progress" class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in" data-style="expand-left">
                                 <span class="ladda-label">
                                     <i class="fa fa-check-circle mr-2"></i>Actualizar Voluntario
                                 </span>
@@ -52,56 +48,335 @@
                                         <div class="col-12 col-md-6 col-lg-4 form-group">
                                             <required-field [control]="basicData.get('rh')" label="rh">RH :
                                             </required-field>
-                                            <input formControlName="rh" id="rh" placeholder="RH" type="text"
-                                                class="form-control">
+                                            <input formControlName="rh" id="rh" placeholder="RH" type="text" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-4 form-group">
                                             <required-field [control]="basicData.get('eps')" label="eps">EPS :
                                             </required-field>
-                                            <input formControlName="eps" id="eps" placeholder="EPS de la persona"
-                                                type="text" class="form-control">
+                                            <input formControlName="eps" id="eps" placeholder="EPS de la persona" type="text" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-4 form-group ">
-                                            <required-field [control]="basicData.get( 'observations') "
-                                                label="observations ">
+                                            <required-field [control]="basicData.get( 'observations') " label="observations ">
                                                 Observaciones:</required-field>
-                                            <textarea formControlName="observations" id="observations"
-                                                class="form-control" rows="1"></textarea>
+                                            <textarea formControlName="observations" id="observations" class="form-control" rows="1"></textarea>
                                         </div>
-                                        <div class="col-12 col-md-6 col-lg-4 form-group">
-                                            <required-field [control]="basicData.get('stratum')" label="stratum">Estrato
-                                                :</required-field>
-                                            <input formControlName="stratum" id="stratum" placeholder="Estrato"
-                                                type="number" class="form-control">
+                                        <div class="col-12 col-md-3 col-lg-3 form-group">
+                                            <required-field [control]="basicData.get('stratum')" label="stratum">Estrato :
+                                            </required-field>
+                                            <input formControlName="stratum" id="stratum" placeholder="Estrato" type="number" class="form-control">
                                         </div>
-                                        <div class="col-12 col-md-6 col-lg-4 form-group">
-                                            <required-field [control]="basicData.get('level_sisben')"
-                                                label="level_sisben">Nivel Sisben :</required-field>
-                                            <input formControlName="level_sisben" id="level_sisben"
-                                                placeholder="Nivel Sisben" type="number" class="form-control">
+                                        <div class="col-12 col-md-3 col-lg-3 form-group">
+                                            <required-field [control]="basicData.get('level_sisben')" label="level_sisben">Nivel Sisben :</required-field>
+                                            <input formControlName="level_sisben" id="level_sisben" placeholder="Nivel Sisben" type="number" class="form-control">
                                         </div>
-                                        <div class="col-12 col-md-6 col-lg-4 form-group">
-                                            <required-field [control]="additionalData.get('type_people')"
-                                                label="type_people">
+                                        <div class="col-12 col-md-3 col-lg-3 form-group">
+                                            <required-field [control]="additionalData.get('type_people')" label="type_people">
                                                 Tipo de voluntario :
                                             </required-field>
-                                            <ng-select [items]="typePeoples" dropdownPosition="bottom"
-                                                formControlName="type_people" id="type_people" bindLabel="name">
+                                            <ng-select [items]="typePeoples" dropdownPosition="bottom" formControlName="type_people" id="type_people" bindLabel="name" (change)="validateDateRole()">
                                             </ng-select>
+                                        </div>
+                                        <div class="col-12 col-md-3 col-lg-3 form-group">
+                                            <required-field [control]="additionalData.get('date_role_change')" label="date_role_change">Fecha de rol:</required-field>
+                                            <input formControlName="date_role_change" id="date_role_change" placeholder="Por favor indique la fecha de cambio de rol" type="date" class="form-control">
                                         </div>
                                         <div class="col-12 col-md-6 col-lg-4 form-group ">
                                             <required-field [control]="basicData.get( 'history') " label="history ">
                                                 Como nos conocio:</required-field>
-                                            <textarea formControlName="history" id="history" class="form-control "
-                                                rows="1 "></textarea>
+                                            <textarea formControlName="history" id="history" class="form-control " rows="1 "></textarea>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="divider"></div>
+                                <div class="col-12 col-md-4 text-center pull-right">
+                                    <button (click)="createContact()" [ladda]="progress" class="mb-2 mr-2 btn-pill btn btn-dashed btn-outline-success" data-style="expand-left">
+                                        <span class="ladda-label">
+                                            <i class="ion ion-md-add mr-2"></i>
+                                        </span>
+                                          <span class="mr-1"> Contacto</span>
+                                    </button>
+                                </div>
+                                <h5 class="card-header">Contactos</h5>
+                                <div formArrayName="contacts_data">
+                                    <div *ngFor="let contact of contactsData.controls; let i = index" [formGroupName]="i">
+                                        <ng-container *ngIf="contactsData.value[i].state">
+
+                                            <div class="card-body p-2">
+                                                <div class="row p-2">
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="contact.get('contact_type_id')" label="contact_type_id"> Tipo de parentesco:
+                                                        </required-field>
+                                                        <ng-select [items]="contactTypes" dropdownPosition="bottom" formControlName="contact_type_id" id="contact_type_id" bindLabel="name"></ng-select>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+
+                                                        <required-field [control]="contact.get('names')" label="names"> Nombres:</required-field>
+                                                        <input formControlName="names" id="names" placeholder="Nombre" type="text" class="form-control">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="contact.get('surnames')" label="surnames">Apellidos:</required-field>
+                                                        <input formControlName="surnames" id="surnames" placeholder="Apellidos de la persona" type="text" class="form-control">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="contact.get('phone')" label="phone">Telefono:</required-field>
+                                                        <input formControlName="phone" id="phone" placeholder="Número de telefono" type="number" class="form-control">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                        <required-field [control]="contact.get('cell')" label="cell">Celular:</required-field>
+                                                        <input formControlName="cell" id="cell" placeholder="Número de celular" type="number" class="form-control">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-7 form-group ">
+                                                        <required-field [control]="contact.get( 'description') " label="description ">
+                                                            Observaciones:</required-field>
+                                                        <textarea formControlName="description" id="description" class="form-control " rows="1 "></textarea>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-1 form-group">
+                                                        <label><span class="ladda-label">
+                                                          
+                                                        </span></label>
+                                                        <button (click)="removeContact($event, i)" [ladda]="progress" class="btn btn-pill btn-outline-2x btn-block btn-lg ladda-button fast fade-in" [ngClass]="{ ' btn-outline-danger ': contact.invalid, ' btn-outline-success ': contact.valid }" data-style="expand-left">
+                                                        <span class="ladda-label">
+                                                            <i class="fa fa-minus mr-2mr-2"></i>
+                                                        </span>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+                                            </div>
+                                        </ng-container>
                                     </div>
                                 </div>
                             </div>
                         </card-validation>
                     </ng-template>
                 </ngb-tab>
+                <ngb-tab *ngIf="basicData.valid && additionalData.valid">
+                    <ng-template ngbTabTitle>
+                        <tab-validation [control]="documentsData" title="Documentos"></tab-validation>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <card-validation [control]="documentsData">
+                            <h5 class="card-header">Documentos</h5>
+                            <div class="card-body p-2">
+                                <div class="col-12 col-md-12 col-lg-12 form-group">
+                                    <label><span class="ladda-label">
+                                            <i class="fa fa-check-circle mr-2"></i>Agregar Documento
+                                        </span></label>
+                                    <button (click)="createDocument()" [ladda]="progress" class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in" data-style="expand-left">
+                                        <span class="ladda-label">
+                                            <i class="ion ion-md-add mr-2"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div formArrayName="documents_data">
+                                    <div *ngFor="let document of documentsData.controls; let i = index" [formGroupName]="i">
+                                        <ng-container *ngIf="documentsData.value[i].state">
+
+                                            <div class="card-body p-2">
+                                                <div class="row p-2">
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="document.get('category_document_id')" label="category_document_id"> Tipo de documento:
+                                                        </required-field>
+                                                        <ng-select [items]="categoryDocuments" dropdownPosition="bottom" formControlName="category_document_id" id="category_document_id" bindLabel="name"></ng-select>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+
+                                                        <required-field [control]="document.get('institution_name')" label="institution_name"> Nombre institución:</required-field>
+                                                        <input formControlName="institution_name" id="institution_name" placeholder="Nombre" type="text" class="form-control">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="document.get('name')" label="name">Nombre documento:</required-field>
+                                                        <input formControlName="name" id="name" placeholder="Nombre del documento" type="text" class="form-control">
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="document.get('expedition_date')" label="expedition_date">Fecha de expedición:</required-field>
+                                                        <input formControlName="expedition_date" id="expedition_date" placeholder="fecha de expedición del documento" type="date" class="form-control">
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 col-lg-6 form-group">
+                                                        <required-field [control]="document.get('route')" label="route">Ruta Drive Piccolino:</required-field>
+                                                        <input formControlName="route" id="route" placeholder="Ruta del drive en donde se encuentra" type="text" class="form-control">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-5 form-group ">
+                                                        <required-field [control]="document.get( 'observations') " label="observations ">
+                                                            Observaciones:</required-field>
+                                                        <textarea formControlName="observations" id="observations" class="form-control " rows="1 "></textarea>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-1 form-group">
+                                                        <label><span class="ladda-label">
+                                                          
+                                                        </span></label>
+                                                        <button (click)="removeDocument($event, i)" [ladda]="progress" class="btn btn-pill btn-outline-2x btn-block btn-lg ladda-button fast fade-in" [ngClass]="{ ' btn-outline-danger ': document.invalid, ' btn-outline-success ': document.valid }" data-style="expand-left">
+                                                        <span class="ladda-label">
+                                                            <i class="fa fa-minus mr-2mr-2"></i>
+                                                        </span>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </card-validation>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab *ngIf="basicData.valid && additionalData.valid && documentsData.valid">
+                    <ng-template ngbTabTitle>
+                        <tab-validation [control]="academicInformationsData" title="Información académica"></tab-validation>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <card-validation [control]="academicInformationsData">
+                            <h5 class="card-header">Información académica</h5>
+                            <div class="card-body p-2">
+                                <div class="col-12 col-md-12 col-lg-12 form-group">
+                                    <label><span class="ladda-label">
+                                            <i class="fa fa-check-circle mr-2"></i>Agregar información académica
+                                        </span></label>
+                                    <button (click)="createAcademicInformation()" [ladda]="progress" class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in" data-style="expand-left">
+                                        <span class="ladda-label">
+                                            <i class="ion ion-md-add mr-2"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div formArrayName="academic_informations_data">
+                                    <div *ngFor="let academicInformation of academicInformationsData.controls; let i = index" [formGroupName]="i">
+                                        <ng-container *ngIf="academicInformationsData.value[i].state">
+
+                                            <div class="card-body p-2">
+                                                <div class="row p-2">
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="academicInformation.get('training_type_id')" label="training_type_id"> Nivel de la Educación:
+                                                        </required-field>
+                                                        <ng-select [items]="trainingTypes" dropdownPosition="bottom" formControlName="training_type_id" id="training_type_id" bindLabel="name"></ng-select>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+
+                                                        <required-field [control]="academicInformation.get('institution_name')" label="institution_name"> Nombre institución:</required-field>
+                                                        <input formControlName="institution_name" id="institution_name" placeholder="Nombre" type="text" class="form-control">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="academicInformation.get('name')" label="name">Titulo obtenido:</required-field>
+                                                        <input formControlName="name" id="name" placeholder="Nombre del titulo obtenido" type="text" class="form-control">
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="academicInformation.get('date')" label="date">Fecha de expedición:</required-field>
+                                                        <input formControlName="date" id="date" placeholder="fecha de expedición del titulo" type="date" class="form-control">
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 col-lg-6 form-group">
+                                                        <required-field [control]="academicInformation.get('route')" label="route">Ruta Drive Piccolino:</required-field>
+                                                        <input formControlName="route" id="route" placeholder="Ruta del drive en donde se encuentra" type="text" class="form-control">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-5 form-group ">
+                                                        <required-field [control]="academicInformation.get( 'observations') " label="observations ">
+                                                            Observaciones:</required-field>
+                                                        <textarea formControlName="observations" id="observations" class="form-control " rows="1 "></textarea>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-1 form-group">
+                                                        <label><span class="ladda-label">
+                                                          
+                                                        </span></label>
+                                                        <button (click)="removeacAdemicInformation($event, i)" [ladda]="progress" class="btn btn-pill btn-outline-2x btn-block btn-lg ladda-button fast fade-in" [ngClass]="{ ' btn-outline-danger ': academicInformation.invalid, ' btn-outline-success ': academicInformation.valid }"
+                                                            data-style="expand-left">
+                                                        <span class="ladda-label">
+                                                            <i class="fa fa-minus mr-2mr-2"></i>
+                                                        </span>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </card-validation>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab *ngIf="basicData.valid && additionalData.valid && documentsData.valid && academicInformationsData.valid">
+                    <ng-template ngbTabTitle>
+                        <tab-validation [control]="historiesData" title="Historial de procesos acompañados"></tab-validation>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <card-validation [control]="historiesData">
+                            <h5 class="card-header">Historial de procesos</h5>
+                            <div class="card-body p-2">
+                                <div class="col-12 col-md-12 col-lg-12 form-group">
+                                    <label><span class="ladda-label">
+                                            <i class="fa fa-check-circle mr-2"></i>Agregar historial
+                                        </span></label>
+                                    <button (click)="createHistory()" [ladda]="progress" class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in" data-style="expand-left">
+                                        <span class="ladda-label">
+                                            <i class="ion ion-md-add mr-2"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                                <div formArrayName="histories_data">
+                                    <div *ngFor="let history of historiesData.controls; let i = index" [formGroupName]="i">
+                                        <ng-container *ngIf="historiesData.value[i].state">
+
+                                            <div class="card-body p-2">
+                                                <div class="row p-2">
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="history.get('process')" label="process"> Nombre del proceso:</required-field>
+                                                        <input formControlName="process" id="process" placeholder="Nombre" type="text" class="form-control">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="history.get('hours')" label="hours">Horas:</required-field>
+                                                        <input formControlName="hours" id="hours" placeholder="Horas de acompañamiento" type="number" class="form-control">
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="history.get('start_date')" label="start_date">A partir del:</required-field>
+                                                        <input formControlName="start_date" id="start_date" placeholder="fecha de inicio del proceso" type="date" class="form-control">
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-3 form-group">
+                                                        <required-field [control]="history.get('end_date')" label="end_date">Hasta el:</required-field>
+                                                        <input formControlName="end_date" id="end_date" placeholder="fecha de final del proceso" type="date" class="form-control">
+                                                    </div>
+
+                                                    <div class="col-12 col-md-11 col-lg-11 form-group ">
+                                                        <required-field [control]="history.get( 'description') " label="description ">
+                                                            Descripción del proceso:</required-field>
+                                                        <textarea formControlName="description" id="description" class="form-control " rows="2 "></textarea>
+                                                    </div>
+                                                    <div class="col-12 col-md-6 col-lg-1 form-group">
+                                                        <label><span class="ladda-label">
+                                                          
+                                                        </span></label>
+                                                        <button (click)="removeHistory($event, i)" [ladda]="progress" class="btn btn-pill btn-outline-2x btn-block btn-lg ladda-button fast fade-in" [ngClass]="{ ' btn-outline-danger ': history.invalid, ' btn-outline-success ': history.valid }" data-style="expand-left">
+                                                        <span class="ladda-label">
+                                                            <i class="fa fa-minus mr-2mr-2"></i>
+                                                        </span>
+                                                    </button>
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </card-validation>
+                    </ng-template>
+                </ngb-tab>
+
             </ngb-tabset>
         </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-12" style="text-align: center;">
+                <button type="button" class="btn btn-info btn-sm" (click)="generatePDF()">Certificado</button>
+            </div>
+        </div>
+        <hr>
     </div>
 </div>

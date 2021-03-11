@@ -63,6 +63,12 @@ const routes: Routes = [
 		loadChildren: () => import('./configurations/configurations.module').then(m => m.ConfigurationsModule),
 		data: { breadcrumbs: 'Configuración' }
 	}
+	,
+	{
+		path: 'assistances',
+		loadChildren: () => import('./assistances/assistances.module').then(m => m.AssistancesModule),
+		data: { breadcrumbs: 'Asistencia' }
+	}
 
 ];
 

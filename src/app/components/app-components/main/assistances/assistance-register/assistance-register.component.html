@@ -1,0 +1,202 @@
+<div [formGroup]="assistanceRegisterForm" class="row needs-validation mb-4">
+    <div class="col-12">
+        <div class="row mb-3">
+            <div class="col-12">
+                <div [ngClass]="{ 'card-shadow-success': assistanceRegisterForm.valid }"
+                    class="card card-body card-shadow-secondary mb-0 p-2">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-12 col-md-9">
+                            <p class="mb-0 px-2 py-3">
+                                <i class="lnr-pushpin mr-2"></i>
+                                Por favor indique el semestre, el grupo, la asignatura y el corte en el cual 
+                                desea registrar las asistencias.
+                                <strong>Luego Marque a cada estudiante.</strong>
+                            </p>
+                        </div>
+                        <div class="col-12 col-md-3 d-flex justify-content-center">
+							<button *ngIf="assistanceRegisterForm.valid" (click)="registerAssistance()" [ladda]="progress"
+								class="btn btn-pill btn-outline-success btn-outline-2x btn-block btn-lg ladda-button fast fade-in"
+								data-style="expand-left">
+								<span class="ladda-label">
+									<i class="fa fa-check-circle mr-2"></i>Registrar Asistencia
+								</span>
+								<span class="ladda-spinner"></span>
+							</button>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-tabbed-header card-shadow-secondary">
+            <ngb-tabset justify="start" class="tabs-animated tabs-animated-line">
+                <ngb-tab>
+                    <ng-template ngbTabTitle>
+                        <i class="fa fa-chevron-down mr-2"></i>
+                       Filtros
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="card card-shadow-secondary">
+                            <div class="card-body p-0">
+                                <div formGroupName="basic_data" class="card card-shadow-secondary">
+                                    <h5 class="card-header">Datos básicos</h5>
+                                    <div class="card-body p-2">
+                                        <div class="row p-2">
+                                             <div class="col-12 col-md-6 col-lg-4 form-group">
+												<required-field [control]="basicData.get('date')" label="date">Fecha:</required-field>
+												<input formControlName="date" id="date"  type="date" class="form-control">
+											</div> 
+                                            <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                <required-field [control]="basicData.get('hour')" label="hour">Hora:
+                                                </required-field>
+                                                <ng-select [items]="hours" dropdownPosition="bottom"
+                                                    formControlName="hour" id="hour" bindLabel="name">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                <required-field [control]="basicData.get('semester')" label="name">
+                                                    Por favor seleccione el semestre:
+                                                </required-field>
+                                                <ng-select [items]="semesters" dropdownPosition="bottom"
+                                                    formControlName="semester" id="semester" bindLabel="name" (change)="getGroupTeacher(basicData.get('semester').value)">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                <required-field [control]="basicData.get('group')" label="name" >
+                                                    Por favor seleccione el grupo:
+                                                </required-field>
+                                                <ng-select [items]="groups" dropdownPosition="bottom"
+                                                    formControlName="group" id="group" bindLabel="name" (change)="getSubjectTeacher(basicData.get('group').value)">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                <required-field [control]="basicData.get('subject')" label="name">
+                                                    Por favor seleccione la asignatura:
+                                                </required-field>
+                                                <ng-select [items]="subjects" dropdownPosition="bottom"
+                                                    formControlName="subject" id="subject" bindLabel="name">
+                                                </ng-select>
+                                            </div>
+                                            <div class="col-12 col-md-6 col-lg-4 form-group">
+                                                <required-field [control]="basicData.get('cut')" label="name">
+                                                    Por favor seleccione el corte:
+                                                </required-field>
+                                                <ng-select [items]="cuts" dropdownPosition="bottom"
+                                                    formControlName="cut" id="cut" bindLabel="name">
+                                                </ng-select>
+                                            </div>
+
+
+
+
+                                            <!-- <div class="col-12 col-md-6 col-lg-12 form-group ">
+												<required-field [control]="basicData.get( 'observations') "
+													label="observations ">
+													Observaciones:</required-field>
+												<textarea formControlName="observations" id="observations"
+													class="form-control " rows="1" placeholder="Observaciones"></textarea>
+											</div> -->
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div *ngIf="students?.length" class="card card-tabbed-header card-shadow-secondary">
+                                        <div class="card card-shadow-secondary ">
+                                            <div class="card-body p-0 ">
+                                                <!-- <div class="row">
+                                                    <div class="col-12 order-3">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Código estudiante</th>
+                                                                        <th>Nombres:</th>
+                                                                        <th>Apellidos:</th>
+                                                                        <th>Código matrícula:</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                        <tr *ngFor="let student of students;" (click)="createStudentNoteComponentModal(student)">
+                                                                            <td>{{student?.people.id}}</td>
+                                                                                <td>{{student?.people.names}}</td>
+                                                                                <td>{{student?.people.surnames}}</td>
+                                                                                <td>{{student.id}}</td>
+                                                                        </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                <!-- /Lista  -->
+                                                <div class="row">
+                                                    <div class="col-12 order-3">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Nombres</th>
+                                                                        <th>Apellidos</th>
+                                                                        <th>Código Matrícula:</th>
+                                                                        <th><button (click)="selectAll()" class=""
+                                                                                [ngClass]=" !marked ? 'mb-2 mr-2 btn-icon btn-icon-only btn-pill btn btn-outline-success' : 'mb-2 mr-2 btn-icon btn-icon-only btn-pill btn btn-outline-danger'"><i
+                                                                                    class="btn-icon-wrapper"
+                                                                                    [ngClass]=" !marked ? 'fa fa-check' : 'fa fa-close'"></i></button>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <ng-container formArrayName="array_students">
+                                                                        <tr *ngFor="let student of students;">
+                                                                            <ng-container [formGroupName]="student.position">
+                                                                                <td>{{student.names}}</td>
+                                                                                <td>{{student.surnames}}</td>
+                                                                                <td>{{student.code}}</td>
+                                                                                <td style="text-align:center">
+                                                                                    <!-- [ngClass] = " rates.value[student.position].update ? 'is-valid' : ' is-invalid'" -->
+                                                                                    <div class="custom-checkbox  custom-control"
+                                                                                        style="text-align:center"><input
+                                                                                            class="custom-control-input"
+                                                                                            style="text-align:center"
+                                                                                            formControlName="update"
+                                                                                            [ngClass]="arrayStudents.value[student.position].update ? 'is-valid' : ' is-invalid'"
+                                                                                            [checked]="arrayStudents.value[student.position].update"
+                                                                                            id="{{student.position}}" type="checkbox"
+                                                                                            [value]="arrayStudents.value[student.position].update">
+                                                                                        <label class="custom-control-label"
+                                                                                            for="{{student.position}}"></label></div>
+                                                                                </td>
+                                                                            </ng-container>
+                                                                        </tr>
+                                                                    </ng-container>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div *ngIf="!students?.length" class="row">
+                                        <div class="col-12">
+                                            <div class="alert alert-warning my-0" role="alert">
+                                                <div class="row d-flex align-items-center">
+                                                    <div class="col-12">
+                                                        <i class="fa fa-info-circle mr-2"></i>No se encontraron estudiantes.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /Espacio del boton actualizar -->
+                                </div>
+
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>

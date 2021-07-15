@@ -4,7 +4,9 @@
 
 export const environment = {
 	  production: false,
-	  UrlApi: 'https://fundacionpiccolino.com/api',
-	  //UrlApi: 'https://legasoft.sytes.net/Piccolino/api',
-	  ServerUrl: 'https://fundacionpiccolino.com/'
+	  UrlApi: 'http://127.0.0.1:8000/api',
+	 // UrlApi: 'https://legasoft.sytes.net/Piccolino/api',
+	  //ServerUrl: 'https://legasoft.sytes.net/Piccolino/'
+	  ServerUrl: 'http://127.0.0.1:8000/'
+
   };

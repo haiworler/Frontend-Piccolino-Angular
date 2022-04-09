@@ -38,8 +38,8 @@ export const customCurrencyMaskConfig = {
 };
 
 @NgModule({
-  declarations: [EnrolledListComponent, EnrolledCreateComponent, EnrolledUpdateComponent,PaymentListComponent,PaymentCreateComponent,SumPaymentsPipe],
-  entryComponents: [EnrolledCreateComponent, EnrolledUpdateComponent,PaymentListComponent,PaymentCreateComponent],
+  declarations: [EnrolledListComponent, EnrolledCreateComponent, EnrolledUpdateComponent,SumPaymentsPipe,PaymentListComponent,PaymentCreateComponent],
+  entryComponents: [EnrolledCreateComponent, EnrolledUpdateComponent,PaymentListComponent],
   imports: [
     CommonModule,
     EnrolledRoutingModule,

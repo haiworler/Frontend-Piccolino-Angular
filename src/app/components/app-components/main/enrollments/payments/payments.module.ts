@@ -37,8 +37,8 @@ export const customCurrencyMaskConfig = {
 };
 
 @NgModule({
-  declarations: [PaymentListComponent, PaymentCreateComponent],
-  entryComponents: [PaymentCreateComponent],
+  declarations: [],
+  entryComponents: [PaymentCreateComponent,PaymentListComponent],
   imports: [
     CommonModule,
     PaymentsRoutingModule,

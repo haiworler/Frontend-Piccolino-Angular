@@ -48,7 +48,6 @@ export class PaymentCreateComponent implements OnInit {
       })
     });
     this.dependences = await this._enrolledService.dependences();
-    console.log('Bien',this.dependences);
     this.headquarters = this.dependences.headquarters;
 
     

@@ -21,7 +21,6 @@ import { SemesterListComponent } from './semester-list/semester-list.component';
 import { SemesterCreateComponent } from './semester-create/semester-create.component';
 import { SemesterUpdateComponent } from './semester-update/semester-update.component';
 
-
 @NgModule({
   declarations: [SemesterListComponent, SemesterCreateComponent, SemesterUpdateComponent],
   entryComponents: [SemesterCreateComponent, SemesterUpdateComponent],

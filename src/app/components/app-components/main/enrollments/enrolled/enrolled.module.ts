@@ -21,6 +21,9 @@ import { EnrolledListComponent } from './enrolled-list/enrolled-list.component';
 import { EnrolledCreateComponent } from './enrolled-create/enrolled-create.component';
 import { EnrolledUpdateComponent } from './enrolled-update/enrolled-update.component';
 import { NgxCurrencyModule } from "ngx-currency";
+import { PaymentListComponent } from '../payments/payment-list/payment-list.component';
+import { PaymentCreateComponent } from '../payments/payment-create/payment-create.component';
+import { SumPaymentsPipe } from '@services/pipes/sum-payments.pipe';
 
 export const customCurrencyMaskConfig = {
     align: "right",
@@ -35,8 +38,8 @@ export const customCurrencyMaskConfig = {
 };
 
 @NgModule({
-  declarations: [EnrolledListComponent, EnrolledCreateComponent, EnrolledUpdateComponent],
-  entryComponents: [EnrolledCreateComponent, EnrolledUpdateComponent],
+  declarations: [EnrolledListComponent, EnrolledCreateComponent, EnrolledUpdateComponent,PaymentListComponent,PaymentCreateComponent,SumPaymentsPipe],
+  entryComponents: [EnrolledCreateComponent, EnrolledUpdateComponent,PaymentListComponent,PaymentCreateComponent],
   imports: [
     CommonModule,
     EnrolledRoutingModule,

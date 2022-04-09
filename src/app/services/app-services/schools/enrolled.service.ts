@@ -9,6 +9,9 @@ export class EnrolledService {
   enrolled: any;
 	enrolleds: any[];
 
+	payment: any;
+	payments: any[];
+
   constructor(private http: HttpClient) { }
 
     getenrolled = (): any => this.enrolled;
@@ -16,6 +19,12 @@ export class EnrolledService {
 
 	getenrolleds = (): any[] => this.enrolleds;
 	setenrolleds = (enrolleds: any) => this.enrolleds = enrolleds;
+
+	getpayment = (): any => this.payment;
+	setpayment = (payment: any) => this.payment = payment;
+
+	getpayments = (): any[] => this.payments;
+	setpayments = (payments: any) => this.payments = payments;
 
 	async search(data: any): Promise<any> {
 		return await this.http.get(`${environment.UrlApi}/enrolleds/datatable`, { params: data }).toPromise();
@@ -44,5 +53,23 @@ export class EnrolledService {
 		const response: any = await this.http.get(`${environment.UrlApi}/enrolleds/dependences`).toPromise();
 		return response;
 	}
+
+	/**
+	 * COnsulta los pagos realizados a una matricula
+	 * @param data 
+	 * @returns 
+	 */
+	async getPaymentEnrolled(data: any): Promise<any> {
+		return await this.http.get(`${environment.UrlApi}/payments`, { params: data }).toPromise();
+	}
+
+	/**
+	 * Registra el aporte al valor de la matricula
+	 */
+	 async createPaymentEnrolled(data: any): Promise<any> {
+		const response: any = await this.http.post(`${environment.UrlApi}/payments`, data).toPromise();
+		return response.data;
+	}
+
 
 }

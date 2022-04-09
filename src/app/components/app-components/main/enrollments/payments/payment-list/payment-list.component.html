@@ -1,10 +1,10 @@
 <app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon">
-    <button (click)="createenrolledModal()" class="btn btn-pill btn-outline-info btn-outline-2x btn-lg">
-        <i class="fa fa-plus-circle mr-2"></i>Registrar nueva matrícula
+    <button (click)="createPaymentModal()" class="btn btn-pill btn-outline-info btn-outline-2x btn-lg">
+        <i class="fa fa-plus-circle mr-2"></i>Registrar nuevo aporte
     </button>
 </app-page-title>
 <form novalidate>
-    <div [formGroup]="enrolledListForm">
+    <div [formGroup]="paymentListForm">
         <div class="card">
             <div class="card-header">Búsqueda</div>
             <div class="card-body p-3">
@@ -47,16 +47,16 @@
         <div class="card mb-5">
             <div class="card-header">Resultados de búsqueda</div>
             <div class="card-body">
-                <div *ngIf="enrolleds?.data?.length && loadControl" class="row">
+                <div *ngIf="payments?.data?.length && loadControl" class="row">
                     <div
                         class="col-12 col-md-7 order-2 order-md-1 d-flex justify-content-center justify-content-md-start">
-                        <ngb-pagination *ngIf="enrolleds?.last_page > 1" (pageChange)="pageChange($event)"
-                            [collectionSize]="enrolleds?.total" [page]="enrolleds?.current_page"
+                        <ngb-pagination *ngIf="payments?.last_page > 1" (pageChange)="pageChange($event)"
+                            [collectionSize]="payments?.total" [page]="payments?.current_page"
                             [pageSize]="limit.value" [maxSize]="7" [rotate]="true" [ellipses]="false">
                         </ngb-pagination>
                     </div>
                     <div class="col-12 col-md-5 order-1 order-md-2">
-                        <select (change)="searchenrolleds()" formControlName="limit" class="custom-select mb-3">
+                        <select (change)="searchpayments()" formControlName="limit" class="custom-select mb-3">
                             <option value="10">10 resultados por página</option>
                             <option value="25">25 resultados por página</option>
                         </select>
@@ -67,32 +67,24 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Nombre Estudiante:</th>
-                                        <th>Documento Estudiante:</th>
-                                        <th>Grado:</th>
-                                        <th>Semestre:</th>
+                                        <th>Registrado por:</th>
                                         <th>Sede:</th>
-                                        <th>Costo:</th>
-                                        <th>Pagos:</th>
-                                        <th>Estado</th>
+                                        <th>valor:</th>
+                                        <th>Fecha:</th>
                                         <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let enrolled of enrolleds?.data">
-                                        <td>{{ enrolled.id }}</td>
-                                        <td>{{ enrolled?.people.names }} {{ enrolled?.people.surnames }}</td>
-                                        <td>{{ enrolled?.people.document_number }}</td>
-                                        <td>{{ enrolled?.grade.name }}</td>
-                                        <td>{{ enrolled?.semester.code }}</td>
-                                        <td>{{ enrolled?.headquarter.name }}</td>
-                                        <td>{{ enrolled.cost | number : '.2-2'}}</td>
-                                        <td>{{ (enrolled.payments | sumPayments:'value') | number : '.2-2' }}</td>
-                                        <td>{{ enrolled.enabled == 1 ? 'Activo' : 'Inactivo' }}</td>
+                                    <tr *ngFor="let payment of payments?.data">
+                                        <td>{{ payment.id }}</td>
+                                        <td>{{ payment?.people.names }} {{ payment?.people.surnames }}</td>
+                                        <td>{{ payment?.headquarter.name }}</td>
+                                        <td>{{ payment?.value | number : '.2-2'}}</td>
+                                        <td>{{ payment?.created_at }}</td>
                                         <td>
-                                            <app-selection-options [condition]="enrolled.enabled"
+                                            <app-selection-options [condition]="payment.enabled"
                                                 [buttonsOp]="buttonsOp" (select)="selectionOptions($event)"
-                                                [object]="enrolled">
+                                                [object]="payment">
                                             </app-selection-options>
                                         </td>
                                     </tr>
@@ -101,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="!enrolleds?.data?.length && loadControl" class="row">
+                <div *ngIf="!payments?.data?.length && loadControl" class="row">
                     <div class="col-12">
                         <div class="alert alert-warning my-0" role="alert">
                             <div class="row d-flex align-items-center">

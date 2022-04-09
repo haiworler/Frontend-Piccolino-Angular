@@ -98,7 +98,6 @@ import { ModalComponent } from '@components/shared/modal/modal.component';
 
 import { DatePipe } from '../../node_modules/@angular/common';
 
-
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	suppressScrollX: true
 };

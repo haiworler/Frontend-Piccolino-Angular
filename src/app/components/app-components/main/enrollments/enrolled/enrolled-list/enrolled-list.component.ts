@@ -1,4 +1,4 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { StorageService } from '@services/app-services/storage.service';
@@ -13,15 +13,17 @@ import { Router } from '@angular/router';
 import { EnrolledService } from '@services/app-services/schools/enrolled.service';
 import { EnrolledCreateComponent } from '../enrolled-create/enrolled-create.component';
 import { EnrolledUpdateComponent } from '../enrolled-update/enrolled-update.component';
+import { PaymentListComponent } from '../../payments/payment-list/payment-list.component';
+
 
 @Component({
-  selector: 'app-enrolled-list',
-  templateUrl: './enrolled-list.component.html',
-  styles: []
+	selector: 'app-enrolled-list',
+	templateUrl: './enrolled-list.component.html',
+	styles: []
 })
-export class EnrolledListComponent implements OnInit,OnDestroy {
+export class EnrolledListComponent implements OnInit, OnDestroy {
 
-  heading = 'Listado de matrículas';
+	heading = 'Listado de matrículas';
 	subheading = 'Listado';
 	icon = 'fa fa-id-card icon-gradient bg-night-sky';
 	primaryColour = '#fff';
@@ -39,18 +41,18 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 	enrolled: any;
 	enrolleds: any;
 
-  constructor(
-    private formBuilder: FormBuilder,
+	constructor(
+		private formBuilder: FormBuilder,
 		private _modalService: ModalService,
 		private _storageService: StorageService,
 		private _notificationService: NotificationsService,
 		private _enrolledService: EnrolledService,
 		private _mainService: MainService,
 		private router: Router
-  ) { }
+	) { }
 
-  ngOnInit() {
-    	/**
+	ngOnInit() {
+		/**
 	 * Indica los permisos que sse van  a utilizar
 	 */
 		this.permissions = this._mainService.Permissions;
@@ -72,6 +74,9 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 			}
 
 		}
+		this.buttonsOp.push(
+			{ name: 'payments', title: 'Pagos', secondTitle: null, icon: 'fa fa-money fa-fw mr-2', method: 'payments', class: 'btn btn-sm btn-pill btn-outline-primary', condition: null, parameter: null, specialCondition: false }
+		);
 
 		/**
 			 * 
@@ -95,7 +100,7 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 		});
 
 		this.ngOnChanges();
-  }
+	}
 
 
 
@@ -158,6 +163,9 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 			case 'activate-deactivate':
 				this.updateenrolledState(parameters.object);
 				break;
+			case 'payments':
+				this.paymentsList(parameters.object);
+				break;
 			default:
 				break;
 		}
@@ -184,6 +192,16 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 		});
 	}
 
+	paymentsList = (enrolled: any) => {
+		this._enrolledService.setenrolled(enrolled);
+		this._modalService.open({
+			component: PaymentListComponent,
+			title: 'Lista de pagos realizados',
+			size: 'modal-xl'
+		});
+	}
+
+
 	updateenrolledState = (enrolled: any) => {
 		enrolled.enabled = (enrolled.enabled) ? 0 : 1;
 		this._enrolledService.update(enrolled.id, enrolled).then((response: any) => {
@@ -197,5 +215,7 @@ export class EnrolledListComponent implements OnInit,OnDestroy {
 	ngOnDestroy() {
 		this.storageSub.unsubscribe();
 	}
+
+	
 
 }

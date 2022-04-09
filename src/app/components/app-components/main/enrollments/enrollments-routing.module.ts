@@ -23,7 +23,12 @@ const routes: Routes = [
 		path: 'semester',
 		loadChildren: () => import('./semester/semester.module').then(m => m.SemesterModule),
 		data: { breadcrumbs: 'Semestre' }
-	}
+	},
+	{
+		  path: 'payments',
+		  loadChildren: () => import('./payments/payments.module').then(m => m.PaymentsModule),
+		  data: { breadcrumbs: 'Pagos' }
+	  }
 	
 ];
 

@@ -32,9 +32,12 @@ import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
  */
 import { DatePipe } from './../../../../../../node_modules/@angular/common';
 import { GroupComponent } from './group/group.component';
+import { IncomeCostsAndExpensesComponent } from './income-costs-and-expenses/income-costs-and-expenses.component';
+import { ReportingOptionsComponent } from './reporting-options/reporting-options.component';
+import { LicensePlateNumberReportComponent } from './license-plate-number-report/license-plate-number-report.component';
 
 @NgModule({
-  declarations: [StudentsComponent, GroupComponent],
+  declarations: [StudentsComponent, GroupComponent, IncomeCostsAndExpensesComponent, ReportingOptionsComponent, LicensePlateNumberReportComponent],
   imports: [
     CommonModule,
     ExportRoutingModule,

@@ -1,0 +1,29 @@
+
+
+<form novalidate>
+    <div >
+  
+        <div class="card mb-5">
+            <div class="card-header">Opciones</div>
+            <div class="card-body">
+                <app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon">
+                    <button (click)="incomeCostsAndExpenses()" class="btn btn-pill btn-outline-info btn-outline-2x btn-lg">
+                        <i class="fa fa-plus-circle mr-2"></i>Reporte de ingresos, costos y gastos
+                    </button>
+                </app-page-title>
+               
+
+            </div>
+            <br>
+            <div class="card-body">
+                <app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon">
+                    <button (click)="licensePlateNumberReportComponent()" class="btn btn-pill btn-outline-info btn-outline-2x btn-lg">
+                        <i class="fa fa-plus-circle mr-2"></i>Reporte número de matrículas por semestre
+                    </button>
+                </app-page-title>
+               
+
+            </div>
+        </div>
+    </div>
+</form>

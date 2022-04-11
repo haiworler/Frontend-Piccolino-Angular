@@ -11,13 +11,14 @@ import { Router } from '@angular/router';
 import swal from 'sweetalert2';
 import { HeadquarterUpdateComponent } from './../headquarter-update/headquarter-update.component';
 import { HeadquarterCreateComponent } from './../headquarter-create/headquarter-create.component';
+import { HeadquarterListExpensesComponent } from './../headquarter-list-expenses/headquarter-list-expenses.component';
 
 @Component({
 	selector: 'app-headquarter-list',
 	templateUrl: './headquarter-list.component.html',
 	styles: []
 })
-export class HeadquarterListComponent implements OnInit, OnChanges,OnDestroy {
+export class HeadquarterListComponent implements OnInit, OnChanges, OnDestroy {
 
 	heading = 'Sedes';
 	subheading = 'Listado';
@@ -53,7 +54,7 @@ export class HeadquarterListComponent implements OnInit, OnChanges,OnDestroy {
 		this.permissions = this._mainService.Permissions;
 		this.currentRoute = this.router.url;
 		for (const permission in this.permissions) {
-			if ( this.permissions[permission].method != 'delete') {
+			if (this.permissions[permission].method != 'delete') {
 				this.buttonsOp.push(
 					{
 						title: this.permissions[permission].title,
@@ -69,6 +70,10 @@ export class HeadquarterListComponent implements OnInit, OnChanges,OnDestroy {
 			}
 
 		}
+
+		this.buttonsOp.push(
+			{ name: 'expenses', title: 'Gastos', secondTitle: null, icon: 'fa fa-money fa-fw mr-2', method: 'expenses', class: 'btn btn-sm btn-pill btn-outline-primary', condition: null, parameter: null, specialCondition: false }
+		);
 
 		this.headquarterListForm = this.formBuilder.group({
 			term: ['', []],
@@ -147,9 +152,13 @@ export class HeadquarterListComponent implements OnInit, OnChanges,OnDestroy {
 			case 'update':
 				this.updateHeadquarter(parameters.object);
 				break;
-				case 'activate-deactivate':
-					this.updateHeadquarterState(parameters.object);
-					break;
+			case 'activate-deactivate':
+				this.updateHeadquarterState(parameters.object);
+				break;
+			case 'expenses':
+				this.listOfExpenses(parameters.object);
+				break;
+
 			default:
 				break;
 		}
@@ -168,21 +177,34 @@ export class HeadquarterListComponent implements OnInit, OnChanges,OnDestroy {
 
 	updateHeadquarter = (headquarter: any) => {
 		this._headquarterService.setheadquarter(headquarter);
-		 this._modalService.open({
-		 	component: HeadquarterUpdateComponent,
-		 	title: 'Actualización de una Sede',
-		 	size: 'modal-xl'
-		 });
+		this._modalService.open({
+			component: HeadquarterUpdateComponent,
+			title: 'Actualización de una Sede',
+			size: 'modal-xl'
+		});
 	}
+
+	/**
+	 * Abrimos el modal con la lista de gastos de la sede
+	 * @param headquarter 
+	 */
+	 listOfExpenses(headquarter: any){
+		this._headquarterService.setheadquarter(headquarter);
+		this._modalService.open({
+			component: HeadquarterListExpensesComponent,
+			title: 'Lista de gastos',
+			size: 'modal-xl'
+		});
+	 }
 
 	updateHeadquarterState = (headquarter: any) => {
 		headquarter.enabled = (headquarter.enabled) ? 0 : 1;
-		 this._headquarterService.update(headquarter.id, headquarter).then((response: any) => {
-		 	this._notificationService.success({
-		 		title: 'Información',
-		 		message: 'La sede se ha actualizado correctamente.'
-		 	});
-		 });
+		this._headquarterService.update(headquarter.id, headquarter).then((response: any) => {
+			this._notificationService.success({
+				title: 'Información',
+				message: 'La sede se ha actualizado correctamente.'
+			});
+		});
 
 	}
 
@@ -192,6 +214,6 @@ export class HeadquarterListComponent implements OnInit, OnChanges,OnDestroy {
 	ngOnDestroy() {
 		this.storageSub.unsubscribe();
 	}
-	
+
 
 }

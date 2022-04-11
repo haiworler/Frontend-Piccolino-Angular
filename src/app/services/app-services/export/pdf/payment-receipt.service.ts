@@ -24,7 +24,6 @@ export class PaymentReceiptService {
 * 
 */
   async generatePDF(payment: any) {
-    console.log('Aqui información del pago: ', payment);
     this.positionY = 0;
     this.positionX = 0;
     this.doc = new jsPDF();

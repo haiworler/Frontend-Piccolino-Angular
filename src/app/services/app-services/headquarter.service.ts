@@ -46,5 +46,30 @@ export class HeadquarterService {
 		  return response.data;
 	  }
 
+	  /**
+	   * Servicos para consultas los gastos de la sede
+	   */
+
+	   async searchExpenses(data: any, page = 0, pageSize = 5): Promise<any> {
+		return await this.http.get(`${environment.UrlApi}/headquarterCost/datatable`, { params: data }).toPromise();
+	}
+
+	/**
+	 * Cnsultamos las dependencias para el registro del gasto
+	 */
+	 async dependenceExpenses(): Promise<any> {
+		const response: any = await this.http.get(`${environment.UrlApi}/headquarterCost/dependences`).toPromise();
+		return response;
+	}
+
+	 /**
+	   * Registra el gasto de la sede
+	   */
+	  async createExpeneses(data: any): Promise<any> {
+		const response: any = await this.http.post(`${environment.UrlApi}/headquarterCost`, data).toPromise();
+		return response.data;
+	}
+
+
 
 }

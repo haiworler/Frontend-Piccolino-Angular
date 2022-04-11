@@ -20,10 +20,25 @@ import { HeadquarterCreateComponent } from './headquarter-create/headquarter-cre
 // Service datapiker
 import { I18n, CustomDatepickerI18n } from '@services/shared/datepicker-i18n.service';
 import { HeadquarterUpdateComponent } from './headquarter-update/headquarter-update.component';
+import { HeadquarterListExpensesComponent } from './headquarter-list-expenses/headquarter-list-expenses.component';
+import { HeadquarterCreateExpensesComponent } from './headquarter-create-expenses/headquarter-create-expenses.component';
+import { NgxCurrencyModule } from "ngx-currency";
+
+export const customCurrencyMaskConfig = {
+    align: "right",
+    allowNegative: false,
+    allowZero: true,
+    decimal: ",",
+    precision: 2,
+    prefix: "$ ",
+    suffix: "",
+    thousands: ".",
+    nullable: false
+};
 
 @NgModule({
-	declarations: [HeadquarterListComponent, HeadquarterCreateComponent, HeadquarterUpdateComponent],
-	entryComponents: [HeadquarterCreateComponent,HeadquarterUpdateComponent],
+	declarations: [HeadquarterListComponent, HeadquarterCreateComponent, HeadquarterUpdateComponent, HeadquarterListExpensesComponent, HeadquarterCreateExpensesComponent],
+	entryComponents: [HeadquarterCreateComponent,HeadquarterUpdateComponent,HeadquarterListExpensesComponent,HeadquarterCreateExpensesComponent],
 	imports: [
 		CommonModule,
 		HeadquarterRoutingModule,
@@ -40,7 +55,9 @@ import { HeadquarterUpdateComponent } from './headquarter-update/headquarter-upd
 		SweetAlert2Module,
 		TextMaskModule,
 		SharedModule,
-		LayoutModule
+		LayoutModule,
+		NgxCurrencyModule.forRoot(customCurrencyMaskConfig),
+
 	],
 	providers: [ModalService,I18n,
 		{provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}]

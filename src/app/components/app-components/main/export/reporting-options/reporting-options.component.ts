@@ -16,6 +16,7 @@ import { ExcelJSService } from '@services/app-services/export/excel-js.service';
  */
 import { IncomeCostsAndExpensesComponent } from './../income-costs-and-expenses/income-costs-and-expenses.component';
 import { LicensePlateNumberReportComponent } from './../license-plate-number-report/license-plate-number-report.component';
+import { NewslettersPerGroupComponent } from './../newsletters-per-group/newsletters-per-group.component';
 
 @Component({
   selector: 'app-reporting-options',
@@ -69,6 +70,14 @@ export class ReportingOptionsComponent implements OnInit {
 		this._modalService.open({
 			component: LicensePlateNumberReportComponent,
 			title: 'MATRÍCULAS POR SEMESTRE',
+			size: 'modal-xl'
+		});
+	}
+
+  newslettersPerGroupReportComponent = () => {
+		this._modalService.open({
+			component: NewslettersPerGroupComponent,
+			title: 'BOLETÍN POR GRUPO',
 			size: 'modal-xl'
 		});
 	}

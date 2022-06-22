@@ -21,8 +21,14 @@
                         <i class="fa fa-plus-circle mr-2"></i>Reporte número de matrículas por semestre
                     </button>
                 </app-page-title>
-               
+            </div>
 
+            <div class="card-body">
+                <app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon">
+                    <button (click)="newslettersPerGroupReportComponent()" class="btn btn-pill btn-outline-info btn-outline-2x btn-lg">
+                        <i class="fa fa-plus-circle mr-2"></i>Reporte boletín por grupo
+                    </button>
+                </app-page-title>
             </div>
         </div>
     </div>

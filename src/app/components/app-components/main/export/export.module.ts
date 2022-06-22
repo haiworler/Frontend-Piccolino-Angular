@@ -35,9 +35,10 @@ import { GroupComponent } from './group/group.component';
 import { IncomeCostsAndExpensesComponent } from './income-costs-and-expenses/income-costs-and-expenses.component';
 import { ReportingOptionsComponent } from './reporting-options/reporting-options.component';
 import { LicensePlateNumberReportComponent } from './license-plate-number-report/license-plate-number-report.component';
+import { NewslettersPerGroupComponent } from './newsletters-per-group/newsletters-per-group.component';
 
 @NgModule({
-  declarations: [StudentsComponent, GroupComponent, IncomeCostsAndExpensesComponent, ReportingOptionsComponent, LicensePlateNumberReportComponent],
+  declarations: [StudentsComponent, GroupComponent, IncomeCostsAndExpensesComponent, ReportingOptionsComponent, LicensePlateNumberReportComponent, NewslettersPerGroupComponent],
   imports: [
     CommonModule,
     ExportRoutingModule,

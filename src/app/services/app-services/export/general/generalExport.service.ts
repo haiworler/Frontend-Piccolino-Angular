@@ -31,7 +31,7 @@ export class GeneralExportService {
 	 * @param data 
 	 * @returns 
 	 */
-	 async getDataIncomeCostsAndExpensesDependences(data: any): Promise<any> {
+	async getDataIncomeCostsAndExpensesDependences(data: any): Promise<any> {
 		return await this.http.get(`${environment.UrlApi}/schoolAccountingReportBySemester`, { params: data }).toPromise();
 	}
 
@@ -40,8 +40,27 @@ export class GeneralExportService {
 	 * @param data 
 	 * @returns 
 	 */
-	 async getDataLicensePlateNumberReport(data: any): Promise<any> {
+	async getDataLicensePlateNumberReport(data: any): Promise<any> {
 		return await this.http.get(`${environment.UrlApi}/toObtainTheNumberOfEnrolmentsPerSemester`, { params: data }).toPromise();
+	}
+
+	/**
+	  * Consulta las dependencias para el reporte doletpin, consulta los semestres
+	  */
+	async getDependenciesForTheNewsletter(): Promise<any> {
+		const response: any = await this.http.get(`${environment.UrlApi}/getSemesterBulletins`).toPromise();
+		return response;
+	}
+
+
+
+	/**
+     * Consulta los boletines de los estudiantes por grupo
+     * @param data 
+     * @returns 
+     */
+	async studentBulletins(data: any): Promise<any> {
+		return await this.http.get(`${environment.UrlApi}/studentBulletins/notes`, { params: data }).toPromise();
 	}
 
 }
